@@ -1,6 +1,7 @@
 <template>
   <!-- <d-header></d-header> -->
   <div class="main">
+    main
     <!-- <d-aside></d-aside> -->
   </div>
   <!-- <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
