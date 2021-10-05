@@ -1,7 +1,9 @@
 body {
   box-sizing: border-box;
   background-color: rgb(0, 50, 78);
-  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, "PingFang TC", '黑體-繁', "Heiti TC", '蘋果儷中黑', "Apple LiGothic Medium", '微軟正黑體', "Microsoft JhengHei", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, 'PingFang TC',
+    '黑體-繁', 'Heiti TC', '蘋果儷中黑', 'Apple LiGothic Medium', '微軟正黑體',
+    'Microsoft JhengHei', sans-serif;
   font-size: 14px;
   #app {
     width: 100%;
@@ -9,7 +11,7 @@ body {
   }
 }
 
-// input
+// // input
 input {
   border: 0;
   padding: 0;
@@ -19,4 +21,18 @@ input {
 button {
   border: 0;
   padding: 0;
+}
+
+ul {
+  padding-left: 0;
+}
+
+input {
+  &::input-placeholder {
+    color: red;
+  }
+}
+
+li {
+  list-style: none;
 }

@@ -1,8 +1,24 @@
-import { createStore } from "vuex";
+import { createStore, useStore as useVuexStore, Store } from 'vuex';
+import type { margeVuexState, IrootState } from './type';
+import { asideModule } from './modules/aside/aside';
 
-export default createStore({
-  state: {},
+export const store = createStore<IrootState>({
+  state: {
+    name: 'miles'
+  },
   mutations: {},
   actions: {},
-  modules: {},
+  modules: {
+    asideModule
+  }
 });
+
+export function useStore(): Store<margeVuexState> {
+  return useVuexStore();
+}
+
+export function setupSortItem() {
+  store.dispatch('asideModule/getAsideItem');
+}
+
+export { IrootState };

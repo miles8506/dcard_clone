@@ -1,58 +1,76 @@
 <template>
   <d-header></d-header>
   <div class="main">
-    main
     <d-aside></d-aside>
+    <div class="artical_list">
+      <router-view></router-view>
+    </div>
+    <d-adv />
   </div>
-  <!-- <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-    <path
-      d="M18.95 3H5.05A2.04 2.04 0 003 5.04v13.91A2.04 2.04 0 005.05 21h13.9A2.05 2.05 0 0021 18.96V5.03A2.05 2.05 0 0018.95 3zM6.68 17.73a1.64 1.64 0 111.64-1.64 1.64 1.64 0 01-1.64 1.64zm0-4.1A1.64 1.64 0 118.32 12a1.64 1.64 0 01-1.64 1.64zm0-4.08A1.64 1.64 0 118.32 7.9a1.64 1.64 0 01-1.64 1.64zm11.86 6.77a1 1 0 01-1 1h-6.59a1 1 0 01-1-1v-.46a1 1 0 011-1h6.6a1 1 0 011 1zm0-4.1a1 1 0 01-1 1h-6.59a1 1 0 01-1-1v-.45a1 1 0 011-1h6.6a1 1 0 011 1zm0-4.08a1 1 0 01-1 1h-6.59a1 1 0 01-1-1v-.46a1 1 0 011-1h6.6a1 1 0 011 1z"
-    ></path>
-  </svg> -->
 </template>
 
 <script setup lang="ts">
+// components
 import dHeader from '@/components/dHeader';
 import dAside from '@/components/dAside';
-import { db } from '@/service/firebaseConfig';
-// function search() {
-//   db.collection('test')
-//     .get()
-//     .then((doc: any) => {
-//       doc.forEach((item: any) => {
-//         console.log(item.data());
-//         // console.log(item.id, item.data()); //item.data可以獲取該集合的所有內容  // item.id就是每個文件在數據庫唯一標示
-//       });
-//     })
-//     .catch((err: any) => {
-//       console.log(err);
-//     });
-// }
+import dAdv from '@/components/dAdv';
+// import {} from 'vue';
 
-// search();
+// 上傳圖片
+// const test = (e: any) => {
+//   const file = e.target.files[0]; // 獲取到上傳圖片file的整個對象
+//   const path = file.name; // 將file的名稱當成路徑
+//   const res = st.ref(`img/${path}`); // 這裡的ref是你要存放的路徑
+//   res.put(file); //最後將存放的路徑夾帶著file對象put到storage中
+// };
 
-// import axios from 'axios';
-// const createApi = axios.create({
-//   baseURL: 'http://127.0.0.1:5000',
-//   timeout: 5000
-// });
-// createApi
-//   .request({
-//     method: 'GET',
-//     url: '/goods'
-//   })
-//   .then((res) => {
-//     console.log(res);
-//   })
-//   .catch((err) => {
-//     console.log(err);
+// // 下載圖片
+// const imgFoo = ref(); // 1.獲取img的ref
+// const clickbtn = () => {
+//   const fileRef = st.ref( // 2.獲取到圖片路徑
+//     `img/17834017_1701223456556270_2154160913691048631_o.jpg`
+//   );
+//   fileRef.getDownloadURL().then((res) => { //3. 獲取到圖片路徑後去storage中找出該路徑的url，並將res賦予到img.src上
+//     imgFoo.value.src = res;
 //   });
+// };
+
+// 刪除圖片
+// const clickbtn = () => {
+//   const filePath = st.ref('img/截圖 2021-03-09 上午9.22.02.png'); // 1.獲取圖片路徑
+//   filePath
+//     .delete() // 獲取圖片路徑後調用刪除function，並回傳promise
+//     .then((res) => {
+//       console.log(res);
+//       console.log('刪除成功');
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       console.log('刪除失敗');
+//     });
+// };
 </script>
 
 <style lang="less" scoped>
 .main {
+  display: flex;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 48px 20px 0px 0px;
+
+  .d_aside {
+    width: 208px;
+    height: 100vh;
+  }
+
+  .artical_list {
+    flex: 1;
+    min-width: 728px;
+    height: 100vh;
+  }
+
+  .d_adv {
+    width: 300px;
+    height: 100vh;
+  }
 }
 </style>

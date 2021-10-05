@@ -12,7 +12,11 @@
       </div>
       <div class="search_wrap">
         <div class="search_box">
-          <input type="text" class="search_ipt" />
+          <input
+            type="text"
+            class="search_ipt"
+            placeholder="搜尋 Relove私密小心機"
+          />
           <button class="search_btn"></button>
         </div>
       </div>
