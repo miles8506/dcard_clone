@@ -2,9 +2,7 @@
   <d-header></d-header>
   <div class="main">
     <d-aside></d-aside>
-    <div class="artical_list">
-      <router-view></router-view>
-    </div>
+    <artical-area />
     <d-adv />
   </div>
 </template>
@@ -14,6 +12,7 @@
 import dHeader from '@/components/dHeader';
 import dAside from '@/components/dAside';
 import dAdv from '@/components/dAdv';
+import ArticalArea from '@/views/main/artical/articalArea.vue';
 // import {} from 'vue';
 
 // 上傳圖片
@@ -62,10 +61,10 @@ import dAdv from '@/components/dAdv';
     height: 100vh;
   }
 
-  .artical_list {
+  .artical_area {
     flex: 1;
     min-width: 728px;
-    height: 100vh;
+    // height: 100vh;
   }
 
   .d_adv {

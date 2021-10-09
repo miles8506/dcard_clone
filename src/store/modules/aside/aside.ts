@@ -20,12 +20,12 @@ const asideModule: Module<IasideType, IrootState> = {
   },
   actions: {
     async getAsideItem({ commit }) {
-      const dataArr: any = [];
-      const res = await db.collection('aside').get();
-      res.forEach((item) => {
-        dataArr.push(item.data());
-      });
-      commit('setAsideItem', dataArr[0].aside_item);
+      // const dataArr: any = [];
+      // const res = await db.collection('aside').get();
+      // res.forEach((item) => {
+      //   dataArr.push(item.data());
+      // });
+      // commit('setAsideItem', dataArr[0].aside_item);
     }
   },
   getters: {}

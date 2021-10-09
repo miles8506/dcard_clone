@@ -9,9 +9,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/main',
     name: 'main',
     component: () => import('@/views/main/main.vue')
-    // children: [{
-    //   path:
-    // }]
+    // children: [
+    //   {
+    //     path: '/all',
+    //     name: 'all',
+    //     component: () =>
+    //       import('@/views/main/artical/articalAll/articalAll.vue')
+    //   }
+    // ]
   }
 ];
 
