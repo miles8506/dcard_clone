@@ -19,11 +19,12 @@
           <div class="slide_icon">
             <span class="icon"></span>
           </div>
-          <artical-select ref="articalSelectRef"></artical-select>
+          <div class="sort_slide" v-if="isShowSelect">
+            <select-slide v-bind="articalSelectConfig"></select-slide>
+          </div>
         </div>
       </div>
     </div>
-    <hr class="line" />
   </div>
 </template>
 
@@ -32,26 +33,22 @@ import { ref } from 'vue';
 
 // config
 import { articalNav } from '../config/articalNavConfig';
+import { articalSelectConfig } from '../config/articalSelectConfig';
 
 // component
-import ArticalSelect from './articalSelect.vue';
+import SelectSlide from '../../../../base-ui/selectSlide/index';
 
+// current nav border-bottom
 const currentNavIndex = ref<number>(0);
-
 const navigateItem = (index: number) => {
   currentNavIndex.value = index;
 };
 
-const articalSelectRef = ref<InstanceType<typeof ArticalSelect>>();
+// show selectslide
+const isShowSelect = ref(false);
 const clickSelect = () => {
-  if (articalSelectRef.value) {
-    articalSelectRef.value.isShowSelect = !articalSelectRef.value.isShowSelect;
-  }
+  isShowSelect.value = !isShowSelect.value;
 };
-
-// const clickSortItem = (name: string) => {
-//   currentSelectIndex.value = name;
-// };
 </script>
 
 <style lang="less" scoped>

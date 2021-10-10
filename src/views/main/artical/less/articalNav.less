@@ -1,7 +1,7 @@
 .artical_nav {
   position: relative;
   padding: 20px 60px 0;
-  // border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   .nav_row {
     display: flex;
     justify-content: space-between;
@@ -32,6 +32,11 @@
         border-radius: 8px;
         background-color: rgba(0, 16, 32, 0.06);
         cursor: pointer;
+        .sort_slide {
+          position: absolute;
+          top: 43px;
+          left: -100px;
+        }
 
         .current_sort {
           margin-right: 5px;
@@ -55,21 +60,10 @@
       }
     }
   }
-
-  .line {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    margin: 0;
-    border: 0;
-    z-index: 0;
-    background-color: rgba(0, 0, 0, 0.15);
-  }
 }
 
 // current border-bottom
 .current_border {
   border-bottom: 2px solid rgb(51, 151, 207);
+  color: #000 !important;
 }

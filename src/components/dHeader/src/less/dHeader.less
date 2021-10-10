@@ -74,9 +74,17 @@
     display: flex;
     align-items: center;
     .login {
+      position: relative;
       padding: 0 16px;
       color: #fff;
       cursor: pointer;
+      .service_bar {
+        position: absolute;
+        top: 30px;
+        right: -40px;
+        padding: 0 6px;
+        z-index: 999;
+      }
     }
     .more_slide {
       position: relative;
@@ -96,16 +104,63 @@
         transform: translate(-50%, -20%);
       }
     }
-    .download_btn {
-      margin-left: 15px;
-      padding: 7.25px 14px;
-      border-radius: 8px;
-      color: #fff;
-      background-color: #3397cf;
-      cursor: pointer;
-      &:hover {
-        background-color: #5ab0db;
+    .download_wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      .download_btn {
+        // position: relative;
+        margin-left: 15px;
+        padding: 7.25px 14px;
+        border-radius: 8px;
+        color: #fff;
+        background-color: #3397cf;
+        cursor: pointer;
+        &:hover {
+          background-color: #5ab0db;
+        }
+      }
+
+      .qrcode_wrap {
+        position: absolute;
+        top: 45px;
+        left: -33px;
+        padding-top: 10px;
+        .download_qrcode {
+          padding: 12px 16px;
+          box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.08);
+          border-radius: 12px;
+          background-color: #fff;
+          color: #000;
+          animation: showQrcode 0.3s linear;
+          .title {
+            margin-bottom: 5px;
+            color: rgba(0, 0, 0, 0.75);
+            text-align: center;
+          }
+          .qrcode_img {
+            width: 100px;
+            height: 100px;
+          }
+          .zoom_item {
+            margin-top: 3px;
+            text-align: center;
+            color: rgb(51, 151, 207);
+            cursor: pointer;
+          }
+        }
       }
     }
+  }
+}
+
+// animation
+@keyframes showQrcode {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100%;
   }
 }
