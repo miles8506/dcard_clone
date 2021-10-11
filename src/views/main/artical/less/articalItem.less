@@ -1,0 +1,133 @@
+.artical_item {
+  display: flex;
+  flex-direction: column;
+  margin: 0 60px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgb(233, 233, 233);
+  color: rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+  cursor: pointer;
+
+  .header_item {
+    display: flex;
+
+    .user_img {
+      margin-right: 8px;
+    }
+
+    .artical_sort,
+    .artical_ago {
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .artical_main {
+    display: flex;
+    margin-top: 18px;
+    .artical_wrap {
+      flex: 1;
+
+      .body_item {
+        .artical_title {
+          margin-bottom: 10px;
+          font-size: 18px;
+          color: #000;
+          letter-spacing: 0.5px;
+        }
+        .artical_content {
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      }
+
+      .footer_item {
+        display: flex;
+        align-items: center;
+        margin-top: 15px;
+        .aritcal_tag {
+          display: flex;
+          margin-right: 16px;
+          align-items: center;
+          opacity: 0.75;
+          .tag_img {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            .wrap {
+              position: relative;
+              img {
+                position: absolute;
+                top: 0;
+                // transform: translateY(-50%);
+                width: 16px;
+                height: 16px;
+                vertical-align: middle;
+                border: 2px solid rgb(255, 255, 255);
+              }
+              .one_img {
+                left: 0;
+                z-index: 3;
+              }
+              .two_img {
+                left: -3px;
+                z-index: 2;
+              }
+              .three_img {
+                left: -6px;
+                z-index: 1;
+              }
+            }
+          }
+
+          .total {
+            padding-left: 5px;
+            color: rgba(0, 0, 0, 0.35);
+          }
+        }
+
+        .comment {
+          display: flex;
+          padding-right: 16px;
+          .comment_img {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            fill: rgb(51, 151, 207);
+          }
+
+          .total {
+            line-height: 24px;
+            color: rgba(0, 0, 0, 0.35);
+          }
+        }
+
+        .collect {
+          display: flex;
+          .collect_img {
+            width: 24px;
+            height: 24px;
+            margin-right: 6px;
+            fill: rgb(225, 225, 225);
+          }
+
+          .text {
+            line-height: 24px;
+            color: rgba(0, 0, 0, 0.35);
+          }
+        }
+      }
+    }
+
+    .artical_img {
+      display: flex;
+      align-items: center;
+      img {
+        width: 84px;
+        height: 84px;
+        border-radius: 12px;
+      }
+    }
+  }
+}

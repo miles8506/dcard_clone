@@ -1,5 +1,5 @@
 <template>
-  <!-- <div class="mask"></div> -->
+  <div class="mask" v-show="false"></div>
   <d-header></d-header>
   <div class="main">
     <d-aside></d-aside>
@@ -75,13 +75,13 @@ import ArticalArea from '@/views/main/artical/articalArea.vue';
 }
 
 // mask
-// .mask {
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100vh;
-//   z-index: 99999;
-//   background-color: rgba(0, 0, 0, 0.5);
-// }
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 99999;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 </style>

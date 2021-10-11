@@ -4,7 +4,7 @@ import type { IasideType } from './type';
 import type { IsortItem } from '@/components/dAside/type/type';
 
 // server
-import { db } from '@/service';
+// import { db } from '@/service';
 
 const asideModule: Module<IasideType, IrootState> = {
   namespaced: true,
