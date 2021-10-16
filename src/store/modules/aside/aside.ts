@@ -16,7 +16,6 @@ const asideModule: Module<IasideType, IrootState> = {
   mutations: {
     setAsideItem(state, payload: IsortItem[]) {
       state.asideItem = payload;
-      console.log(payload);
     }
   },
   actions: {

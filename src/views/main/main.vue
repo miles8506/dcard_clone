@@ -1,5 +1,9 @@
 <template>
-  <div class="mask" v-show="false"></div>
+  <div class="mask" v-show="$store.state.isShowMask">
+    <transition name="qrcode_window">
+      <qrcode-window v-show="$store.state.isShowLargeQrcode" />
+    </transition>
+  </div>
   <d-header></d-header>
   <div class="main">
     <d-aside></d-aside>
@@ -13,6 +17,7 @@
 import dHeader from '@/components/dHeader';
 import dAside from '@/components/dAside';
 import dAdv from '@/components/dAdv';
+import QrcodeWindow from '@/components/qrocdeWindow';
 import ArticalArea from '@/views/main/artical/articalArea.vue';
 // import {} from 'vue';
 
@@ -77,11 +82,16 @@ import ArticalArea from '@/views/main/artical/articalArea.vue';
 // mask
 .mask {
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100vh;
-  z-index: 99999;
+  z-index: 999;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.qrcode_window-enter-active {
+  animation: fadeIn 0.3s ease;
+}
+.qrcode_window.leave-active {
+  animation: fadeIn 0.3s ease;
 }
 </style>

@@ -12,6 +12,7 @@
     "commit": "cz"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "firebase": "^8.6.1",
     "normalize.css": "^8.0.1",
     "prettier": "^2.4.1",

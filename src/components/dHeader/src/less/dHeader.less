@@ -1,153 +1,163 @@
 .d_header {
-  display: flex;
-  justify-content: space-between;
-  height: 48px;
-  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: rgb(0, 106, 166);
 
-  // left_wrap
-  .left_wrap {
-    flex: 1;
+  .header_wrap {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 16px;
-    .logo {
-      width: 74px;
-      padding: 10px 0;
-      .logo_img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-    .search_wrap {
+    justify-content: space-between;
+    height: 48px;
+    padding: 0 20px;
+    max-width: 1280px;
+    margin: 0 auto;
+
+    // left_wrap
+    .left_wrap {
       flex: 1;
-      padding: 0 32px;
-      max-width: 666px;
-      min-width: 200px;
-      .search_box {
-        display: flex;
-        width: calc(100% - 56px);
-        height: 30px;
-        border-radius: 4px;
-        overflow: hidden;
-        border: 1px solid rgb(0, 88, 138);
-        background-color: rgb(0, 88, 138);
-
-        .search_ipt {
-          flex: 1;
-          height: 100%;
-          padding: 0 8px;
-          background-color: transparent;
-          color: #fff;
-          &::placeholder {
-            color: rgb(227, 227, 227);
-            font-weight: 200;
-          }
-        }
-        .search_btn {
-          position: relative;
-          width: 40px;
-          height: 30px;
-          background-color: rgb(0, 106, 166);
-          vertical-align: middle;
-          cursor: pointer;
-          &::after {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background: url('../../../../assets/img/search_icon.png');
-            background-size: contain;
-          }
-        }
-      }
-    }
-  }
-
-  // right_wrap
-  .right_wrap {
-    display: flex;
-    align-items: center;
-    .login {
-      position: relative;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
       padding: 0 16px;
-      color: #fff;
-      cursor: pointer;
-      .service_bar {
-        position: absolute;
-        top: 30px;
-        right: -40px;
-        padding: 0 6px;
-        z-index: 999;
+      .logo {
+        width: 74px;
+        padding: 10px 0;
+        .logo_img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .search_wrap {
+        flex: 1;
+        padding: 0 32px;
+        max-width: 666px;
+        min-width: 200px;
+        .search_box {
+          display: flex;
+          width: calc(100% - 56px);
+          height: 30px;
+          border-radius: 4px;
+          overflow: hidden;
+          border: 1px solid rgb(0, 88, 138);
+          background-color: rgb(0, 88, 138);
+
+          .search_ipt {
+            flex: 1;
+            height: 100%;
+            padding: 0 8px;
+            background-color: transparent;
+            color: #fff;
+            &::placeholder {
+              color: rgb(227, 227, 227);
+              font-weight: 200;
+            }
+          }
+          .search_btn {
+            position: relative;
+            width: 40px;
+            height: 30px;
+            background-color: rgb(0, 106, 166);
+            vertical-align: middle;
+            cursor: pointer;
+            &::after {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              content: '';
+              display: inline-block;
+              width: 20px;
+              height: 20px;
+              background: url('../../../../assets/img/search_icon.png');
+              background-size: contain;
+            }
+          }
+        }
       }
     }
-    .more_slide {
-      position: relative;
-      width: 28px;
-      height: 100%;
-      cursor: pointer;
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        border-top: 7px solid #fff;
-        border-right: 7px solid transparent;
-        border-bottom: 7px solid transparent;
-        border-left: 7px solid transparent;
-        border-radius: 2px 2px 2px 2px;
-        transform: translate(-50%, -20%);
-      }
-    }
-    .download_wrap {
-      position: relative;
+
+    // right_wrap
+    .right_wrap {
       display: flex;
       align-items: center;
-      height: 100%;
-      .download_btn {
-        // position: relative;
-        margin-left: 15px;
-        padding: 7.25px 14px;
-        border-radius: 8px;
+      .login {
+        position: relative;
+        padding: 0 16px;
         color: #fff;
-        background-color: #3397cf;
+        font-weight: 200;
         cursor: pointer;
-        &:hover {
-          background-color: #5ab0db;
+        .service_bar {
+          position: absolute;
+          top: 30px;
+          right: -40px;
+          padding: 0 6px;
+          z-index: 999;
         }
       }
+      .more_slide {
+        position: relative;
+        width: 28px;
+        height: 100%;
+        cursor: pointer;
+        &::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          border-top: 7px solid #fff;
+          border-right: 7px solid transparent;
+          border-bottom: 7px solid transparent;
+          border-left: 7px solid transparent;
+          border-radius: 2px 2px 2px 2px;
+          transform: translate(-50%, -20%);
+        }
+      }
+      .download_wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        .download_btn {
+          // position: relative;
+          margin-left: 15px;
+          padding: 7.25px 14px;
+          border-radius: 8px;
+          color: #fff;
+          background-color: #3397cf;
+          cursor: pointer;
+          &:hover {
+            background-color: #5ab0db;
+          }
+        }
 
-      .qrcode_wrap {
-        position: absolute;
-        top: 45px;
-        left: -33px;
-        padding-top: 10px;
-        .download_qrcode {
-          padding: 12px 16px;
-          box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.08);
-          border-radius: 12px;
-          background-color: #fff;
-          color: #000;
-          animation: showQrcode 0.3s linear;
-          .title {
-            margin-bottom: 5px;
-            color: rgba(0, 0, 0, 0.75);
-            text-align: center;
-          }
-          .qrcode_img {
-            width: 100px;
-            height: 100px;
-          }
-          .zoom_item {
-            margin-top: 3px;
-            text-align: center;
-            color: rgb(51, 151, 207);
-            cursor: pointer;
+        .qrcode_wrap {
+          position: absolute;
+          top: 45px;
+          left: -33px;
+          padding-top: 10px;
+          .download_qrcode {
+            padding: 12px 16px;
+            box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            background-color: #fff;
+            color: #000;
+            animation: showQrcode 0.3s linear;
+            .title {
+              margin-bottom: 5px;
+              color: rgba(0, 0, 0, 0.75);
+              text-align: center;
+            }
+            .qrcode_img {
+              width: 100px;
+              height: 100px;
+            }
+            .zoom_item {
+              margin-top: 3px;
+              text-align: center;
+              color: rgb(51, 151, 207);
+              cursor: pointer;
+            }
           }
         }
       }

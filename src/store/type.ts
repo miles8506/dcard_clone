@@ -1,7 +1,8 @@
 import type { IasideType } from '@/store/modules/aside/type';
 
 interface IrootState {
-  name: string;
+  isShowMask: boolean;
+  isShowLargeQrcode: boolean;
 }
 
 interface IotherState {

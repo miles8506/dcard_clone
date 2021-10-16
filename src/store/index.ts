@@ -4,9 +4,17 @@ import { asideModule } from './modules/aside/aside';
 
 export const store = createStore<IrootState>({
   state: {
-    name: 'miles'
+    isShowMask: false,
+    isShowLargeQrcode: false
   },
-  mutations: {},
+  mutations: {
+    setShowMask(state) {
+      state.isShowMask = !state.isShowMask;
+    },
+    setShowLargeQrcode(state) {
+      state.isShowLargeQrcode = !state.isShowLargeQrcode;
+    }
+  },
   actions: {},
   modules: {
     asideModule

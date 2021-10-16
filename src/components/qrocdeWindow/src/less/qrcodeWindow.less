@@ -1,0 +1,55 @@
+.qrcode_window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 522px;
+  padding-bottom: 36px;
+  transform: translate(-50%, -50%);
+  border-radius: 12px;
+  box-shadow: rgb(0 0 0 / 5%) 0px 4px 4px 0px, rgb(0 0 0 / 15%) 0px 0px 4px 0px;
+  background-color: #fff;
+  z-index: 9999;
+
+  .title_text {
+    margin: 0;
+    padding: 40px 60px 12px;
+    font-size: 24px;
+    color: #000;
+    text-align: center;
+    font-weight: 400;
+    .close_window {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      width: 30px;
+      height: 30px;
+      color: #999;
+      font-size: 26px;
+      background-color: #fff;
+      line-height: 20px;
+      font-weight: 200;
+      cursor: pointer;
+    }
+  }
+
+  .wrap {
+    padding: 0 60px;
+    .qrcode_img {
+      margin: 20px 0 40px;
+      text-align: center;
+      img {
+        width: 230px;
+        height: 230px;
+      }
+    }
+
+    .download_store {
+      display: flex;
+      height: 57px;
+      img {
+        height: 100%;
+        padding: 0 5px;
+      }
+    }
+  }
+}

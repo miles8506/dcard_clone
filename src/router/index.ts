@@ -17,6 +17,11 @@ const routes: Array<RouteRecordRaw> = [
     //       import('@/views/main/artical/articalAll/articalAll.vue')
     //   }
     // ]
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login/login.vue')
   }
 ];
 
