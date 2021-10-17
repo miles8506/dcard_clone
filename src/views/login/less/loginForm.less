@@ -1,6 +1,149 @@
 .login_form {
-  flex: 50%;
+  // flex: 50%;
+  width: 522px;
+
   .form_wrap {
-    padding: 60px 60px 12px;
+    background-color: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    .main_login {
+      display: flex;
+      flex-direction: column;
+      padding: 60px 60px 60px;
+
+      .else_login_btn {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 11px 16px;
+        border-radius: 10px;
+        font-size: 16px;
+        cursor: pointer;
+
+        .else_login_bgc {
+          position: absolute;
+          top: 50%;
+          left: 20px;
+          width: 18px;
+          height: 18px;
+          transform: translateY(-50%);
+          fill: rgb(225, 225, 225);
+        }
+      }
+
+      .fb_btn {
+        background-color: rgb(66, 102, 178);
+        color: #fff;
+        // fill: '#e1e1e1';
+        svg {
+          fill: currentcolor;
+        }
+      }
+
+      .gg_btn {
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        color: #000;
+      }
+
+      .line {
+        display: flex;
+        padding: 16px 0;
+        hr {
+          flex: 1;
+          border: 0;
+          height: 1px;
+          background-color: rgba(0, 0, 0, 0.35);
+        }
+
+        .or_box {
+          padding: 0 16px;
+          color: rgba(0, 0, 0, 0.35);
+        }
+      }
+
+      //form
+      form {
+        .email_wrap {
+          margin-bottom: 20px;
+          .email_hd {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 0 6px;
+
+            .phone_text {
+              color: rgb(0, 106, 166);
+              cursor: pointer;
+            }
+          }
+
+          .email {
+            display: flex;
+            width: 100%;
+            #email_ipt {
+              flex: 1;
+              padding: 10px 14px;
+              border: 1px solid rgba(0, 0, 0, 0.15);
+              border-radius: 10px;
+              font-size: 16px;
+            }
+          }
+        }
+
+        .psw_wrap {
+          margin-bottom: 20px;
+          .psw_hd {
+            padding: 0 0 6px;
+          }
+
+          .psw {
+            display: flex;
+            width: 100%;
+            #psw_ipt {
+              flex: 1;
+              padding: 10px 14px;
+              border: 1px solid rgba(0, 0, 0, 0.15);
+              border-radius: 10px;
+              font-size: 16px;
+            }
+          }
+        }
+
+        .submit_btn {
+          width: 100%;
+          margin-top: 4px;
+          padding: 11px 16px;
+          font-size: 16px;
+          background-color: #3397cf;
+          border-radius: 10px;
+          color: #fff;
+        }
+      }
+
+      .alert_text {
+        padding: 18px 0 12px;
+        font-size: 14px;
+        text-align: center;
+        color: rgba(0, 0, 0, 0.35);
+        .alert_link {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .store_box {
+      display: flex;
+      justify-content: center;
+      height: 48px;
+      padding: 16px 0 24px;
+      background-color: rgb(242, 243, 244);
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
 }
