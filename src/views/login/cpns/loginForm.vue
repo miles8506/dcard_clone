@@ -59,6 +59,9 @@
             </div>
             <div class="email">
               <input type="text" id="email_ipt" placeholder="輸入信箱" />
+              <div class="alarm_text" v-show="isShowMailAlarm">
+                此欄位為必填。
+              </div>
             </div>
           </div>
           <div class="psw_wrap">
@@ -66,7 +69,35 @@
               <label for="psw_ipt">密碼</label>
             </div>
             <div class="psw">
-              <input type="text" id="psw_ipt" placeholder="輸入密碼" />
+              <div class="psw_box">
+                <input
+                  type="password"
+                  id="psw_ipt"
+                  placeholder="輸入密碼"
+                  ref="pswIptRef"
+                />
+                <span
+                  class="svg_wrap"
+                  :class="{ current_fill: currentFill }"
+                  @click="showPwdIpt"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    focusable="false"
+                    role="img"
+                    aria-hidden="true"
+                  >
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                    <path
+                      d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+                    ></path>
+                  </svg>
+                </span>
+              </div>
+              <div class="alarm_text" v-show="isShowPswAlarm">
+                此欄位為必填。
+              </div>
             </div>
           </div>
           <button class="submit_btn">註冊 / 登入</button>
@@ -88,7 +119,24 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+const isShowMailAlarm = ref(false);
+const isShowPswAlarm = ref(false);
+
+// show password
+const pswIptRef = ref();
+const currentFill = ref(false);
+const showPwdIpt = () => {
+  if (pswIptRef.value.type === 'password') {
+    pswIptRef.value.type = 'text';
+    currentFill.value = !currentFill.value;
+  } else {
+    pswIptRef.value.type = 'password';
+    currentFill.value = !currentFill.value;
+  }
+};
+</script>
 
 <style lang="less" scoped>
 @import '../less/loginForm.less';

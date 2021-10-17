@@ -2,11 +2,11 @@
   <div class="select_content">
     <ul>
       <template v-for="(item, index) in selectContent" :key="item.name">
-        <li class="select_item" @click="clickSortItem(index)">
+        <li class="select_item" @click="clickSortItem(index, item.name)">
           <div
             v-show="showSvg"
             class="svg_icon_wrap"
-            :class="{ current_icon_color: currentSelectIndex === index }"
+            :class="{ current_icon_color: currentSelectIndex == index }"
           >
             <svg
               :viewBox="item.viewBox"
@@ -21,7 +21,7 @@
             <span
               :class="{
                 current_color:
-                  currentSelectIndex === index && pointColor === true
+                  currentSelectIndex == index && pointColor === true
               }"
             >
               {{ item.name }}
@@ -33,7 +33,7 @@
               focusable="flase"
               role="img"
               aria-hidden="true"
-              v-show="currentSelectIndex === index"
+              v-show="currentSelectIndex == index"
             >
               <path
                 d="M9 16.17L5.53 12.7a1 1 0 00-1.4 0h-.01a1 1 0 000 1.41L8.3 18.3a1 1 0 001.4 0L20.3 7.7a1 1 0 000-1.41 1 1 0 00-1.41 0z"
@@ -47,25 +47,35 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, withDefaults } from 'vue';
+import { ref, defineProps, withDefaults, defineEmits } from 'vue';
 
 // type
 import { IcontentKey } from '@/base-ui/selectSlide';
 
-const currentSelectIndex = ref<any>(0);
-
-const clickSortItem = (name: string) => {
-  currentSelectIndex.value = name;
-};
-
-withDefaults(
+// props
+const props = withDefaults(
   defineProps<{
     selectContent: IcontentKey;
     showSvg: boolean;
     pointColor: boolean;
+    emitStatus?: boolean;
   }>(),
-  {}
+  {
+    emitStatus: false
+  }
 );
+
+// emit
+const emits = defineEmits(['emitArticalType']);
+
+// show currentIndex (to articalNav_cpn)
+const currentSelectIndex = ref<number>(0);
+const clickSortItem = (index: number, name: string) => {
+  if (props.emitStatus) {
+    currentSelectIndex.value = index;
+    emits('emitArticalType', name);
+  }
+};
 </script>
 
 <style lang="less" scoped>

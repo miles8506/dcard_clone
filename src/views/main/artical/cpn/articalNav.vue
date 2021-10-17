@@ -15,12 +15,15 @@
       <div class="artical_select">
         <div class="context">文章排序依</div>
         <div class="wrap_sort" @click="clickSelect">
-          <span class="current_sort">熱門</span>
+          <span class="current_sort">{{ articalType }}</span>
           <div class="slide_icon">
             <span class="icon"></span>
           </div>
-          <div class="sort_slide" v-if="isShowSelect">
-            <select-slide v-bind="articalSelectConfig"></select-slide>
+          <div class="sort_slide" v-show="isShowSelect">
+            <select-slide
+              v-bind="articalSelectConfig"
+              @emitArticalType="emitArticalType"
+            ></select-slide>
           </div>
         </div>
       </div>
@@ -48,6 +51,12 @@ const navigateItem = (index: number) => {
 const isShowSelect = ref(false);
 const clickSelect = () => {
   isShowSelect.value = !isShowSelect.value;
+};
+
+// emit from selectSlide_cpn(typename)
+let articalType = ref<string>('熱門');
+const emitArticalType = (name: string) => {
+  if (articalType.value !== name) articalType.value = name;
 };
 </script>
 

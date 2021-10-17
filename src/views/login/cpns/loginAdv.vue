@@ -14,13 +14,19 @@
         不想錯過任何有趣的話題嗎？ <br />趕快加入我們吧！
       </p>
       <div class="comment_area">
-        <span>先看討論區</span>
+        <span @click="goMainPage">先看討論區</span>
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const goMainPage = () => {
+  router.push('/');
+};
+</script>
 
 <style lang="less" scoped>
 @import '../less/loginAdv.less';

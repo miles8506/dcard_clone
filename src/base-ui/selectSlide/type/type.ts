@@ -8,6 +8,7 @@ interface selectSlideType {
   selectContent: IcontentKey[];
   showSvg: boolean;
   pointColor?: boolean;
+  emitStatus?: boolean;
 }
 
 export { selectSlideType, IcontentKey };

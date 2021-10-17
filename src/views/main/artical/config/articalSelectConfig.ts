@@ -16,7 +16,8 @@ const articalSelectConfig: selectSlideType = {
     }
   ],
   showSvg: true,
-  pointColor: true
+  pointColor: true,
+  emitStatus: true
 };
 
 export { articalSelectConfig };
