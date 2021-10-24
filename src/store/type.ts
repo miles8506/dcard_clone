@@ -3,6 +3,7 @@ import type { IasideType } from '@/store/modules/aside/type';
 interface IrootState {
   isShowMask: boolean;
   isShowLargeQrcode: boolean;
+  isShowLoginHeader: boolean;
 }
 
 interface IotherState {

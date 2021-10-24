@@ -1,13 +1,13 @@
 <template>
   <template v-for="item in articalListConfig" :key="item.timer">
-    <div class="artical_item">
+    <div class="artical_item" @click="showArtical(item)">
       <div class="header_item">
         <span class="user_img">
           <template v-if="item.gender === 'man'">
-            <user-man />
+            <user-man v-bind="userLayout" />
           </template>
           <template v-else>
-            <user-woman />
+            <user-woman v-bind="userLayout" />
           </template>
         </span>
         <span class="artical_sort">{{ item.sort }}</span> ．
@@ -81,6 +81,7 @@
 
 <script setup lang="ts">
 import { defineProps, withDefaults } from 'vue';
+import { useStore } from '@/store';
 
 // component
 import { userMan, userWoman } from '@/components/userImg/index';
@@ -88,12 +89,26 @@ import { userMan, userWoman } from '@/components/userImg/index';
 // type
 import type { IarticalItemType } from '../type/articalItemType';
 
+// props
 withDefaults(
   defineProps<{
     articalListConfig: IarticalItemType[];
   }>(),
   {}
 );
+
+// config
+import { userLayout } from '../config/userIconConfig';
+
+const store = useStore();
+
+// show comment artical
+const showArtical = (item: any) => {
+  const body = document.body;
+  body.style.overflowY = 'hidden';
+  store.commit('setShowMask');
+  store.commit('commentArticalModule/setIsshowState');
+};
 </script>
 
 <style lang="less" scoped>

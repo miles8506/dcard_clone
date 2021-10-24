@@ -1,6 +1,6 @@
 <template>
   <div class="user_man">
-    <svg viewBox="0 0 40 40" focusable="false" width="16" height="16">
+    <svg viewBox="0 0 40 40" focusable="false" :width="width" :height="height">
       <path fill="#81D4FA" d="M40 20a20 20 0 11-40 0 20 20 0 0140 0"></path>
       <path
         fill="#2490BF"
@@ -10,6 +10,15 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { defineProps, withDefaults } from 'vue';
+withDefaults(
+  defineProps<{
+    width: number;
+    height: number;
+  }>(),
+  {}
+);
+</script>
 
 <style lang="less" scoped></style>

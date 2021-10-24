@@ -42,12 +42,24 @@
           </div>
         </li>
       </template>
+      <li
+        class="select_item"
+        v-if="!$store.state.isShowLoginHeader && showLogin"
+        @click="logout"
+      >
+        <div class="context">
+          <span> 登出 </span>
+        </div>
+      </li>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, defineProps, withDefaults, defineEmits } from 'vue';
+
+// firebase
+import { firebase } from '@/service';
 
 // type
 import { IcontentKey } from '@/base-ui/selectSlide';
@@ -57,6 +69,7 @@ const props = withDefaults(
   defineProps<{
     selectContent: IcontentKey;
     showSvg: boolean;
+    showLogin: boolean;
     pointColor: boolean;
     emitStatus?: boolean;
   }>(),
@@ -75,6 +88,12 @@ const clickSortItem = (index: number, name: string) => {
     currentSelectIndex.value = index;
     emits('emitArticalType', name);
   }
+};
+
+// logout
+const logout = async () => {
+  await firebase.auth().signOut();
+  window.location.reload();
 };
 </script>
 

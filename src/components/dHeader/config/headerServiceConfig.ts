@@ -28,6 +28,7 @@ const headerServiceConfig: selectSlideType = {
     }
   ],
   showSvg: false,
+  showLogin: true,
   pointColor: false
 };
 

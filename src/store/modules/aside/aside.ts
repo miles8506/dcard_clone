@@ -4,7 +4,7 @@ import type { IasideType } from './type';
 import type { IsortItem } from '@/components/dAside/type/type';
 
 // server
-import { db } from '@/service';
+import { firebase } from '@/service';
 
 const asideModule: Module<IasideType, IrootState> = {
   namespaced: true,
@@ -21,7 +21,7 @@ const asideModule: Module<IasideType, IrootState> = {
   actions: {
     async getAsideItem({ commit }) {
       const dataArr: any = [];
-      const res = await db.collection('aside').get();
+      const res = await firebase.firestore().collection('aside').get();
       res.forEach((item) => {
         dataArr.push(item.data());
       });

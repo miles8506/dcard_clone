@@ -25,7 +25,11 @@
       <!-- right -->
       <div class="right_wrap">
         <div class="login">
-          <div class="login_text" v-if="isShowHeader" @click="goLoginPage">
+          <div
+            class="login_text"
+            v-if="$store.state.isShowLoginHeader"
+            @click="goLoginPage"
+          >
             註冊 / 登入
           </div>
           <div class="service_bar" v-show="isShowBar">
@@ -40,13 +44,16 @@
           @mouseleave="mouseOut"
         >
           <div class="download_btn">下載App</div>
-          <div class="qrcode_wrap" v-show="isShowQrcode">
-            <div class="download_qrcode">
-              <div class="title">手機掃描下載</div>
-              <img src="@/assets/img/qrcode.png" alt="" class="qrcode_img" />
-              <div class="zoom_item" @click="showLargeQrcode">放大</div>
+
+          <transition name="qrcode">
+            <div class="qrcode_wrap" v-show="isShowQrcode">
+              <div class="download_qrcode">
+                <div class="title">手機掃描下載</div>
+                <img src="@/assets/img/qrcode.png" alt="" class="qrcode_img" />
+                <div class="zoom_item" @click="showLargeQrcode">放大</div>
+              </div>
             </div>
-          </div>
+          </transition>
         </div>
       </div>
     </div>

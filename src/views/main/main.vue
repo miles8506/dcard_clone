@@ -1,9 +1,10 @@
 <template>
-  <div class="mask" v-show="$store.state.isShowMask">
-    <transition name="qrcode_window">
+  <transition name="qrcode_window">
+    <div class="mask" v-show="$store.state.isShowMask">
       <qrcode-window v-show="$store.state.isShowLargeQrcode" />
-    </transition>
-  </div>
+      <comment-artical v-if="$store.state.commentArticalModule.isShowStatus" />
+    </div>
+  </transition>
   <d-header></d-header>
   <div class="main">
     <d-aside></d-aside>
@@ -13,13 +14,33 @@
 </template>
 
 <script setup lang="ts">
+import { useStore } from '@/store';
 // components
 import dHeader from '@/components/dHeader';
 import dAside from '@/components/dAside';
 import dAdv from '@/components/dAdv';
 import QrcodeWindow from '@/components/qrocdeWindow';
 import ArticalArea from '@/views/main/artical/articalArea.vue';
-// import {} from 'vue';
+import CommentArtical from '@/views/main/commentArtical/commentArtical.vue';
+
+const store = useStore();
+
+// firebase
+import { firebase } from '@/service';
+
+// // utils:localstorage
+import { localStorage } from '@/utils';
+
+firebase.auth().onAuthStateChanged((user: any) => {
+  if (user) {
+    const mail: string = user.email;
+    localStorage.setItem('cloned_mail', mail);
+    store.commit('setIsshowLoginHeader', false);
+  } else {
+    localStorage.setItem('cloned_mail', '');
+    store.commit('setIsshowLoginHeader', true);
+  }
+});
 
 // 上傳圖片
 // const test = (e: any) => {
@@ -88,10 +109,18 @@ import ArticalArea from '@/views/main/artical/articalArea.vue';
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.qrcode_window-enter-active {
-  animation: fadeIn 0.3s ease;
+.qrcode_window-enter-active,
+.qrcode_window-leave-active {
+  transition: opacity 0.3s linear;
 }
-.qrcode_window.leave-active {
-  animation: fadeIn 0.3s ease;
+
+.qrcode_window-enter-from,
+.qrcode_window-leave-to {
+  opacity: 0;
+}
+
+.qrcode_window-enter-to,
+.qrcode_window-leave-from {
+  opacity: 1;
 }
 </style>

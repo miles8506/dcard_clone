@@ -20,7 +20,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // utils
-const db = firebase.firestore();
-const st = firebase.storage();
+// const db = firebase.firestore();
+// const st = firebase.storage();
+// const au = firebase.auth();
 
-export { db, st };
+export { firebase };

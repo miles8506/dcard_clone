@@ -58,9 +58,14 @@
               <span class="phone_text">使用手機登入</span>
             </div>
             <div class="email">
-              <input type="text" id="email_ipt" placeholder="輸入信箱" />
+              <input
+                type="text"
+                id="email_ipt"
+                placeholder="輸入信箱"
+                v-model.trim="vmodelAccount"
+              />
               <div class="alarm_text" v-show="isShowMailAlarm">
-                此欄位為必填。
+                {{ accAlarmText }}
               </div>
             </div>
           </div>
@@ -73,8 +78,9 @@
                 <input
                   type="password"
                   id="psw_ipt"
-                  placeholder="輸入密碼"
+                  placeholder="輸入密碼（英文或數字6-12碼）"
                   ref="pswIptRef"
+                  v-model.trim="vmodelPsw"
                 />
                 <span
                   class="svg_wrap"
@@ -96,11 +102,11 @@
                 </span>
               </div>
               <div class="alarm_text" v-show="isShowPswAlarm">
-                此欄位為必填。
+                {{ pswAlarmText }}
               </div>
             </div>
           </div>
-          <button class="submit_btn">註冊 / 登入</button>
+          <button class="submit_btn" @click="registerClick">註冊 / 登入</button>
         </form>
         <div class="alert_text">
           註冊/登入即代表您同意遵守
@@ -121,8 +127,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-const isShowMailAlarm = ref(false);
-const isShowPswAlarm = ref(false);
+import { useRouter } from 'vue-router';
+import { firebase } from '@/service';
+const router = useRouter();
+
+const isShowMailAlarm = ref<boolean>(false);
+const isShowPswAlarm = ref<boolean>(false);
 
 // show password
 const pswIptRef = ref();
@@ -134,6 +144,71 @@ const showPwdIpt = () => {
   } else {
     pswIptRef.value.type = 'password';
     currentFill.value = !currentFill.value;
+  }
+};
+
+// v-model account&psw and registeruser&login process
+const vmodelAccount = ref('');
+const vmodelPsw = ref('');
+
+let accAlarmText = ref<string>('');
+let pswAlarmText = ref<string>('');
+const registerClick = async (e: any) => {
+  e.preventDefault();
+  const regAccount = /^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$/;
+  const regAccountRes = regAccount.test(vmodelAccount.value);
+  const regPsw = /[0-9 a-z A-Z]{6,12}/;
+  const regPswRes = regPsw.test(vmodelPsw.value);
+  if (regAccountRes && regPswRes) {
+    try {
+      accAlarmText.value = '';
+      pswAlarmText.value = '';
+
+      // register
+      const registerRes = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(vmodelAccount.value, vmodelPsw.value);
+      if (registerRes.user) {
+        // login
+        const loginRes = await firebase
+          .auth()
+          .signInWithEmailAndPassword(vmodelAccount.value, vmodelPsw.value);
+        if (loginRes.operationType === 'signIn') {
+          isShowMailAlarm.value = false;
+          isShowPswAlarm.value = false;
+          // 登入成功
+          router.push('/');
+        }
+      }
+    } catch (err: any) {
+      if (err.code === 'auth/email-already-in-use') {
+        // 帳號已被註冊 > 登入
+        const loginRes = await firebase
+          .auth()
+          .signInWithEmailAndPassword(vmodelAccount.value, vmodelPsw.value);
+        if (loginRes.operationType === 'signIn') {
+          isShowMailAlarm.value = false;
+          isShowPswAlarm.value = false;
+          router.push('/');
+        } else {
+          isShowMailAlarm.value = true;
+          isShowPswAlarm.value = true;
+          accAlarmText.value = '信箱錯誤';
+          pswAlarmText.value = '密碼錯誤';
+        }
+      }
+    }
+  } else if (!regAccountRes && !regPswRes) {
+    isShowMailAlarm.value = true;
+    isShowPswAlarm.value = true;
+    accAlarmText.value = '請輸入正確信箱格式';
+    pswAlarmText.value = '密碼錯誤';
+  } else if (!regAccountRes) {
+    isShowMailAlarm.value = true;
+    accAlarmText.value = '請輸入正確信箱格式';
+  } else if (!regPswRes) {
+    isShowPswAlarm.value = true;
+    pswAlarmText.value = '密碼錯誤';
   }
 };
 </script>

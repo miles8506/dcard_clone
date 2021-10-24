@@ -8,7 +8,10 @@
 </template>
 
 <script setup lang="ts">
+// component
 import ArticalItem from '../cpn/articalItem.vue';
+
+// config
 import { articalListConfig } from '../config/listTestConfig';
 </script>
 

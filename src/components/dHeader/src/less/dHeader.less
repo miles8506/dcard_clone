@@ -142,7 +142,6 @@
             border-radius: 12px;
             background-color: #fff;
             color: #000;
-            animation: showQrcode 0.3s linear;
             .title {
               margin-bottom: 5px;
               color: rgba(0, 0, 0, 0.75);
@@ -165,12 +164,18 @@
   }
 }
 
-// animation
-@keyframes showQrcode {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 100%;
-  }
+// animation qrcode
+.qrcode-enter-active,
+.qrcode-leave-active {
+  transition: opacity 0.3s;
+}
+
+.qrcode-enter-from,
+.qrcode-leave-to {
+  opacity: 0;
+}
+
+.qrcode-enter-to,
+.qrcode-leave-from {
+  opacity: 1;
 }

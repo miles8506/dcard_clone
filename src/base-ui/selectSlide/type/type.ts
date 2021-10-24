@@ -7,6 +7,7 @@ interface IcontentKey {
 interface selectSlideType {
   selectContent: IcontentKey[];
   showSvg: boolean;
+  showLogin?: boolean;
   pointColor?: boolean;
   emitStatus?: boolean;
 }

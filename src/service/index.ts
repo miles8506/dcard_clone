@@ -1,2 +1,2 @@
-import { db, st } from './firebaseConfig';
-export { db, st };
+import { firebase } from './firebaseConfig';
+export { firebase };
