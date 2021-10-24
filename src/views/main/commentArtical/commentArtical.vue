@@ -1,26 +1,14 @@
 <template>
   <div class="comment_artical">
-    <div class="artical_hd">
-      <div class="hd_left">
-        <div class="user_icon">
-          <user-man v-bind="userLayout" />
-          <user-woman v-bind="userLayout" />
-        </div>
-        <div class="title">我是title</div>
-      </div>
-      <div class="hd_right">
-        <div class="close">X</div>
-      </div>
-    </div>
+    <artical-header />
+    <artical-body />
   </div>
 </template>
 
 <script setup lang="ts">
 // component
-import { userMan, userWoman } from '@/components/userImg';
-
-// config
-import { userLayout } from './config/userIconType';
+import articalHeader from './cpns/articalHeader.vue';
+import articalBody from './cpns/articalBody.vue';
 
 // testdata
 import { articalContent } from './config/test.config';

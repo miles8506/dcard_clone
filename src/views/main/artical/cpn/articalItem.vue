@@ -3,7 +3,7 @@
     <div class="artical_item" @click="showArtical(item)">
       <div class="header_item">
         <span class="user_img">
-          <template v-if="item.gender === 'man'">
+          <template v-if="item.gender === 0">
             <user-man v-bind="userLayout" />
           </template>
           <template v-else>
@@ -104,6 +104,7 @@ const store = useStore();
 
 // show comment artical
 const showArtical = (item: any) => {
+  store.commit('commentArticalModule/setMainArtical', item);
   const body = document.body;
   body.style.overflowY = 'hidden';
   store.commit('setShowMask');

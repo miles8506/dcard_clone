@@ -1,7 +1,8 @@
 const articalListConfig = [
   {
+    userName: '匿名',
     timer: '321343243243214312',
-    gender: 'man',
+    gender: 0,
     sort: 'Youtube',
     hourAgo: 20,
     title: '我是title',
@@ -11,8 +12,9 @@ const articalListConfig = [
     commentTotal: 180
   },
   {
+    userName: '匿名',
     timer: '321343243243214312',
-    gender: 'man',
+    gender: 0,
     sort: 'Youtube',
     hourAgo: 20,
     title: '我是title',
@@ -22,8 +24,9 @@ const articalListConfig = [
     commentTotal: 180
   },
   {
+    userName: '匿名',
     timer: '321343243243214312',
-    gender: 'man',
+    gender: 0,
     sort: 'Youtube',
     hourAgo: 20,
     title: '我是title',
@@ -33,8 +36,9 @@ const articalListConfig = [
     commentTotal: 180
   },
   {
+    userName: '匿名',
     timer: '321343243243214312',
-    gender: 'women',
+    gender: 1,
     sort: 'Youtube',
     hourAgo: 20,
     title: '我是title',

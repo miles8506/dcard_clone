@@ -5,7 +5,7 @@ const articalContent = {
   articalSort: '心情',
   articalDate: 1111111,
   mindIconTol: 3000,
-  commentTal: 100,
+  commentTol: 100,
   content: 'hahahahahahahahaha'
 };
 
