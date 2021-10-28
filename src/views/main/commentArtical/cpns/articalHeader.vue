@@ -31,6 +31,8 @@ const info = computed(() => ({
 
 // close aritcal window
 const closeCommentArtical = () => {
+  const body: HTMLElement = document.body;
+  body.style.overflow = 'scroll';
   store.commit('setShowMask');
   store.commit('commentArticalModule/setIsshowState');
 };

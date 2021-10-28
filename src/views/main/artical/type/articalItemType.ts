@@ -6,6 +6,7 @@ interface IarticalItemType {
   content: string;
   tagTotal: number;
   commentTotal: number;
+  elseUserComment: any[];
 }
 
 export { IarticalItemType };

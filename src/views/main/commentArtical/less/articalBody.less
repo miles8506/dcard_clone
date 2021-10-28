@@ -21,4 +21,48 @@
     line-height: 28px;
     color: rgba(0, 0, 0, 0.75);
   }
+
+  .aritcal_tag {
+    display: flex;
+    margin-top: 30px;
+    align-items: center;
+    .tag_img {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      .wrap {
+        position: relative;
+        img {
+          position: absolute;
+          top: 0;
+          // transform: translateY(-50%);
+          width: 26px;
+          height: 26px;
+          vertical-align: middle;
+          border: 2px solid rgb(255, 255, 255);
+        }
+        .one_img {
+          left: 0;
+          z-index: 3;
+        }
+        .two_img {
+          left: -1px;
+          z-index: 2;
+        }
+        .three_img {
+          left: -3px;
+          z-index: 1;
+        }
+      }
+    }
+
+    .total {
+      padding-left: 6px;
+      font-size: 18px;
+      color: rgba(0, 0, 0, 0.35);
+    }
+  }
 }

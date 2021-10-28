@@ -1,0 +1,50 @@
+.comment_item {
+  display: flex;
+  padding: 20px 0 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+  .user_icon_wrap {
+    min-width: 40px;
+    padding-right: 8px;
+  }
+  .comment_main {
+    flex: 1;
+    .user_name {
+      padding-bottom: 4px;
+    }
+    .comment_content {
+      color: rgba(0, 0, 0, 0.75);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 28px;
+      white-space: pre-wrap;
+      letter-spacing: 1px;
+    }
+    .comment_info {
+      padding: 4px 0 0 0;
+      color: rgba(0, 0, 0, 0.75);
+    }
+  }
+  .like_total_wrap {
+    display: flex;
+    min-width: 70px;
+    padding: 0 0 0 12px;
+    .like_svg {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      fill: rgba(0, 0, 0, 0.2);
+
+      &:hover {
+        fill: rgb(234, 92, 92);
+        transition: all 0.15s ease;
+      }
+    }
+    .like_total {
+      height: 24px;
+      padding: 0 0 0 8px;
+      color: rgba(0, 0, 0, 0.5);
+      line-height: 24px;
+    }
+  }
+}
