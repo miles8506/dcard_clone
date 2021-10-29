@@ -7,9 +7,16 @@
     </div>
     <!-- habit artical -->
     <div class="habit_artical_area">
-      <h6 class="habit_artical_area">你可能感興趣的文章</h6>
+      <h6 class="habit_artical_title">你可能感興趣的文章</h6>
       <div class="habit_artical_wrap">
         <habit-item :habitArticalList="habitArticalList" />
+      </div>
+    </div>
+    <!-- all comment -->
+    <div class="all_comment_area">
+      <h6 class="all_comment_title">共有 {{ commentLength }} 則留言</h6>
+      <div class="comment_item_wrap">
+        <comment-item :commentItem="commentItem" v-bind="userLayout" />
       </div>
     </div>
   </div>
@@ -26,6 +33,9 @@ import { userLayout } from '../config/userIconType';
 // testconfig
 import { commentItem } from '../config/commentItme';
 import { articalListConfig } from '../../artical/config/listTestConfig';
+
+// 總共幾筆commentItem
+const commentLength = commentItem.length;
 
 // filter hot comment (top3)
 const filterHotComment = commentItem
