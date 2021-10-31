@@ -9,7 +9,9 @@ export const store = createStore<IrootState>({
   state: {
     isShowMask: false,
     isShowLargeQrcode: false,
-    isShowLoginHeader: false
+    isShowLoginHeader: false,
+    isShowScroll: false,
+    scrollTop: 0
   },
   mutations: {
     setShowMask(state) {
@@ -20,12 +22,23 @@ export const store = createStore<IrootState>({
     },
     setIsshowLoginHeader(state, flag) {
       state.isShowLoginHeader = flag;
+    },
+    setShowScroll(state, flag) {
+      state.isShowScroll = flag;
+    },
+    setScrollTop(state, positionTop) {
+      state.scrollTop = positionTop;
     }
   },
   actions: {},
   modules: {
     asideModule,
     commentArticalModule
+  },
+  getters: {
+    getScrollTop(state) {
+      return state.scrollTop;
+    }
   }
 });
 
@@ -34,7 +47,7 @@ export function useStore(): Store<margeVuexState> {
 }
 
 export function setupSortItem() {
-  store.dispatch('asideModule/getAsideItem');
+  // store.dispatch('asideModule/getAsideItem');
 }
 
 export { IrootState };

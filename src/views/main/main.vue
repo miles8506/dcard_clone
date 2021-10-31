@@ -3,6 +3,7 @@
     <div class="mask" v-show="$store.state.isShowMask">
       <qrcode-window v-show="$store.state.isShowLargeQrcode" />
       <comment-artical v-if="$store.state.commentArticalModule.isShowStatus" />
+      <scroll-y-bar ref="scrollYBarRef" />
     </div>
   </transition>
   <d-header></d-header>
@@ -22,15 +23,14 @@ import dAdv from '@/components/dAdv';
 import QrcodeWindow from '@/components/qrocdeWindow';
 import ArticalArea from '@/views/main/artical/articalArea.vue';
 import CommentArtical from '@/views/main/commentArtical/commentArtical.vue';
-
-const store = useStore();
-
+import ScrollYBar from '@/views/main/commentArtical/cpns/scrollYBar.vue';
 // firebase
 import { firebase } from '@/service';
 
 // // utils:localstorage
 import { localStorage } from '@/utils';
 
+const store = useStore();
 firebase.auth().onAuthStateChanged((user: any) => {
   if (user) {
     const mail: string = user.email;

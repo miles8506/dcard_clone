@@ -5,7 +5,9 @@
   transform: translateX(-50%);
   bottom: 0;
   width: 728px;
-  padding-bottom: 10px;
   background-color: #fff;
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+  }
 }

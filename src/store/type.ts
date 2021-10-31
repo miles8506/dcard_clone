@@ -5,6 +5,8 @@ interface IrootState {
   isShowMask: boolean;
   isShowLargeQrcode: boolean;
   isShowLoginHeader: boolean;
+  isShowScroll: boolean;
+  scrollTop: number;
 }
 
 interface IotherState {
