@@ -5,9 +5,21 @@
   transform: translateX(-50%);
   bottom: 0;
   width: 728px;
+  // max-width: 800px;
+  // width: 65%;
   background-color: #fff;
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none; /* Chrome Safari */
+  }
+}
+
+// media 767
+@media screen and (max-width: 767px) {
+  .comment_artical {
+    left: 0;
+    right: 0;
+    transform: initial;
+    width: 100%;
   }
 }

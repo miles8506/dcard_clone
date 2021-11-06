@@ -8,6 +8,7 @@
   </transition>
   <d-header></d-header>
   <div class="main">
+    <!-- <m-search-window v-if="$store.state.isShowMSearchBar" /> -->
     <d-aside></d-aside>
     <artical-area />
     <d-adv />
@@ -24,6 +25,8 @@ import QrcodeWindow from '@/components/qrocdeWindow';
 import ArticalArea from '@/views/main/artical/articalArea.vue';
 import CommentArtical from '@/views/main/commentArtical/commentArtical.vue';
 import ScrollYBar from '@/views/main/commentArtical/cpns/scrollYBar.vue';
+import MSearchWindow from '@/views/main/mSearchWindow/mSearchWindow.vue';
+
 // firebase
 import { firebase } from '@/service';
 
@@ -122,5 +125,21 @@ firebase.auth().onAuthStateChanged((user: any) => {
 .qrcode_window-enter-to,
 .qrcode_window-leave-from {
   opacity: 1;
+}
+
+// media 992
+@media screen and (max-width: 767px) {
+  .main {
+    max-width: initial;
+    width: 100%;
+    .artical_area {
+      min-width: initial;
+      width: 100%;
+    }
+  }
+  .d_aside,
+  .d_adv {
+    display: none;
+  }
 }
 </style>

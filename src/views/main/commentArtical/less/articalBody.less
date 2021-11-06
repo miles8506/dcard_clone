@@ -35,6 +35,10 @@
       cursor: pointer;
       .wrap {
         position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
         img {
           position: absolute;
           top: 0;
@@ -63,6 +67,34 @@
       padding-left: 6px;
       font-size: 18px;
       color: rgba(0, 0, 0, 0.35);
+    }
+  }
+}
+
+// media 767
+@media screen and (max-width: 767px) {
+  .artical_body {
+    padding: 0 16px;
+
+    .title {
+      font-size: 24px;
+    }
+
+    .aritcal_tag {
+      .tag_img {
+        width: 23px;
+        height: 23px;
+        .wrap {
+          img {
+            width: 21px !important;
+            height: 21px !important;
+          }
+        }
+      }
+
+      .total {
+        font-size: 16px;
+      }
     }
   }
 }

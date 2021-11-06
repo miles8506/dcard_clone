@@ -85,22 +85,28 @@
           }
 
           .total {
-            padding-left: 5px;
+            padding-left: 6px;
             color: rgba(0, 0, 0, 0.35);
           }
         }
 
         .comment {
           display: flex;
+          align-items: center;
           padding-right: 16px;
           .comment_img {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             vertical-align: middle;
             fill: rgb(51, 151, 207);
+            svg {
+              width: 20px;
+              height: 20px;
+            }
           }
 
           .total {
+            padding-left: 6px;
             line-height: 24px;
             color: rgba(0, 0, 0, 0.35);
           }
@@ -108,14 +114,20 @@
 
         .collect {
           display: flex;
+          align-items: center;
           .collect_img {
-            width: 24px;
-            height: 24px;
-            margin-right: 6px;
+            width: 20px;
+            height: 20px;
+            // margin-right: 6px;
             fill: rgb(225, 225, 225);
+            svg {
+              width: 20px;
+              height: 20px;
+            }
           }
 
           .text {
+            padding-left: 6px;
             line-height: 24px;
             color: rgba(0, 0, 0, 0.35);
           }
@@ -132,5 +144,12 @@
         border-radius: 12px;
       }
     }
+  }
+}
+
+// media 992
+@media screen and (max-width: 767px) {
+  .artical_item {
+    margin: 0 16px;
   }
 }

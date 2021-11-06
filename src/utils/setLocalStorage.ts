@@ -1,12 +1,16 @@
 class setLocalStorage {
-  setItem = function (localName: string, value: string) {
-    return window.localStorage.setItem(localName, value);
+  setItem = function (localName: string, value: any) {
+    window.localStorage.setItem(localName, JSON.stringify(value));
   };
   getItem = function (localName: string) {
-    return window.localStorage.getItem(localName);
+    const res: any = window.localStorage.getItem(localName);
+    return JSON.parse(res);
   };
   removeItem = function (localName: string) {
-    return window.localStorage.removeItem(localName);
+    window.localStorage.removeItem(localName);
+  };
+  clearItem = function () {
+    window.localStorage.clear();
   };
 }
 

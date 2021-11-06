@@ -3,7 +3,9 @@
     <!-- hot comment -->
     <div class="hot_comment_area">
       <h6 class="hot_comment_title">熱門留言</h6>
-      <comment-item :commentItem="filterHotComment" v-bind="userLayout" />
+      <div class="hot_comment_wrap">
+        <comment-item :commentItem="filterHotComment" v-bind="userLayout" />
+      </div>
     </div>
     <!-- habit artical -->
     <div class="habit_artical_area">

@@ -67,3 +67,30 @@
   border-bottom: 2px solid rgb(51, 151, 207);
   color: #000 !important;
 }
+
+// media 992
+@media screen and (max-width: 767px) {
+  .artical_nav {
+    padding: 0;
+    .nav_row {
+      height: 44px;
+      .nav_item_wrap {
+        width: 100%;
+        .nav_item {
+          flex: 1;
+          padding: 0;
+          text-align: center;
+          line-height: 44px;
+        }
+      }
+      .artical_select {
+        display: none;
+      }
+    }
+  }
+
+  // current border-bottom
+  .current_border {
+    border-bottom: 1px solid rgb(51, 151, 207);
+  }
+}

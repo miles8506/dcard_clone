@@ -3,7 +3,24 @@
     <div class="header_wrap">
       <!-- left -->
       <div class="left_wrap">
-        <div class="logo">
+        <!-- mobile nav start-->
+        <div class="mobile_nav">
+          <svg
+            viewBox="0 0 24 24"
+            focusable="false"
+            width="24"
+            height="24"
+            role="img"
+            aria-hidden="true"
+          >
+            <path
+              fill="#fff"
+              d="M21 7.5H3a1 1 0 01-1-1v-1a1 1 0 011-1h18a1 1 0 011 1v1a1 1 0 01-1 1zm1 5v-1a1 1 0 00-1-1H3a1 1 0 00-1 1v1a1 1 0 001 1h18a1 1 0 001-1zm0 6v-1a1 1 0 00-1-1H3a1 1 0 00-1 1v1a1 1 0 001 1h18a1 1 0 001-1z"
+            ></path>
+          </svg>
+        </div>
+        <!-- mobile nav end-->
+        <div class="logo" @click="goHome">
           <a href="#">
             <img
               src="https://www.dcard.tw/_next/static/media/logo-2ef7b50901acaa284f36a0484329ec05.svg"
@@ -24,6 +41,33 @@
       </div>
       <!-- right -->
       <div class="right_wrap">
+        <!-- mobile info start -->
+        <div class="search_m" @click="showMSearchWindow">
+          <svg
+            viewBox="0 0 24 24"
+            focusable="false"
+            role="img"
+            aria-hidden="true"
+          >
+            <path
+              d="M20.707 19.293l-4.25-4.25A7.454 7.454 0 0018 10.5 7.5 7.5 0 0010.5 3 7.5 7.5 0 003 10.5a7.5 7.5 0 007.5 7.5 7.454 7.454 0 004.543-1.543l4.25 4.25A1 1 0 0020 21a1 1 0 00.707-.293 1 1 0 000-1.414zM10.5 16A5.506 5.506 0 015 10.5 5.506 5.506 0 0110.5 5a5.506 5.506 0 015.5 5.5 5.506 5.506 0 01-5.5 5.5z"
+            ></path>
+          </svg>
+        </div>
+        <div class="user_m">
+          <svg
+            viewBox="0 0 24 24"
+            focusable="false"
+            role="img"
+            aria-hidden="true"
+            fill="rgb(255, 255, 255)"
+          >
+            <path
+              d="M17.83 21.5H6.17a1.66 1.66 0 01-1.67-1.65v-1.24a5.81 5.81 0 015.83-5.78h3.34a5.81 5.81 0 015.83 5.78v1.24a1.66 1.66 0 01-1.67 1.65zM16.58 7A4.58 4.58 0 1112 2.5 4.57 4.57 0 0116.58 7z"
+            ></path>
+          </svg>
+        </div>
+        <!-- mobile info end -->
         <div class="login">
           <div
             class="login_text"
@@ -108,6 +152,16 @@ const showLargeQrcode = () => {
 
 const goLoginPage = () => {
   router.push('/login');
+};
+
+// isshow searchwindow(mobile)
+const showMSearchWindow = () => {
+  router.push('/search');
+};
+
+// return home page
+const goHome = () => {
+  router.push('/');
 };
 </script>
 

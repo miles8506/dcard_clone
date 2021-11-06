@@ -13,19 +13,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/main',
     name: 'main',
     component: () => import('@/views/main/main.vue')
-    // children: [
-    //   {
-    //     path: '/all',
-    //     name: 'all',
-    //     component: () =>
-    //       import('@/views/main/artical/articalAll/articalAll.vue')
-    //   }
-    // ]
   },
   {
     path: '/login',
     name: 'login',
     component: () => import('@/views/login/login.vue')
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import('@/views/main/mSearchWindow/mSearchWindow.vue')
   }
 ];
 

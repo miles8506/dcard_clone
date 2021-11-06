@@ -49,3 +49,34 @@
     }
   }
 }
+
+// media 767
+@media screen and (max-width: 767px) {
+  .habit_item {
+    flex: 100%;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    &::after {
+      content: initial;
+    }
+
+    &:nth-child(2n) {
+      padding-left: 0;
+    }
+
+    .left_info {
+      .habit_title {
+        padding-top: 5px;
+      }
+      .habit_info {
+        padding-bottom: 5px;
+      }
+    }
+
+    .right_img {
+      width: 62px;
+      height: 62px;
+    }
+  }
+}

@@ -4,6 +4,7 @@ import type { margeVuexState, IrootState } from './type';
 // module
 import { asideModule } from './modules/aside/aside';
 import { commentArticalModule } from './modules/commenttArtical/commentArtical';
+import { mSearchWindowModule } from './modules/mSearchWindow/mSearchWindow';
 
 export const store = createStore<IrootState>({
   state: {
@@ -31,14 +32,15 @@ export const store = createStore<IrootState>({
     }
   },
   actions: {},
-  modules: {
-    asideModule,
-    commentArticalModule
-  },
   getters: {
     getScrollTop(state) {
       return state.scrollTop;
     }
+  },
+  modules: {
+    asideModule,
+    commentArticalModule,
+    mSearchWindowModule
   }
 });
 
@@ -48,6 +50,7 @@ export function useStore(): Store<margeVuexState> {
 
 export function setupSortItem() {
   // store.dispatch('asideModule/getAsideItem');
+  store.commit('mSearchWindowModule/resetSearchSort');
 }
 
 export { IrootState };

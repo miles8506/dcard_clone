@@ -1,7 +1,7 @@
 .scroll_y_bar {
   position: fixed;
   top: 0;
-  bottom: 86px;
+  bottom: 90px;
   right: calc(50% - 364px);
   width: 8px;
   // height: 100%;
@@ -38,4 +38,27 @@
 .scroll_show-enter-to,
 .scroll_show-leave-from {
   opacity: 1;
+}
+
+// media 767
+@media screen and (max-width: 767px) {
+  .scroll_y_bar {
+    right: 3px;
+    bottom: 50px;
+    .scroll_wrap {
+      // display: none;
+      // position: absolute;
+      // top: 0;
+      // right: 0;
+      right: 0;
+      left: 9px;
+      width: 4px;
+      height: 45px;
+      // transition: all 0.3s ease;
+
+      .scroll_line {
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
 }

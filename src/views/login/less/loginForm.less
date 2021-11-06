@@ -31,12 +31,16 @@
           transform: translateY(-50%);
           fill: rgb(225, 225, 225);
         }
+
+        .text {
+          height: 22px;
+          line-height: 22px;
+        }
       }
 
       .fb_btn {
         background-color: rgb(66, 102, 178);
         color: #fff;
-        // fill: '#e1e1e1';
         svg {
           fill: currentcolor;
         }
@@ -191,4 +195,15 @@
 //current
 .current_fill {
   fill: #3397cf !important;
+}
+
+// media 767
+@media screen and (max-width: 767px) {
+  .login_form {
+    .form_wrap {
+      .store_box {
+        display: none;
+      }
+    }
+  }
 }

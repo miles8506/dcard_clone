@@ -87,7 +87,7 @@ import { useStore } from '@/store';
 import { userMan, userWoman } from '@/components/userImg/index';
 
 // type
-import type { IarticalItemType } from '../type/articalItemType';
+import type { IarticalItemType } from '../type/type';
 
 // props
 withDefaults(
@@ -98,7 +98,7 @@ withDefaults(
 );
 
 // config
-import { userLayout } from '../config/userIconConfig';
+import { userLayout } from '../../../views/main/artical/config/userIconConfig';
 
 const store = useStore();
 
@@ -113,5 +113,5 @@ const showArtical = (item: any) => {
 </script>
 
 <style lang="less" scoped>
-@import '../less/articalItem.less';
+@import './less/articalItem.less';
 </style>

@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 // component
-import ArticalItem from '../cpn/articalItem.vue';
+import ArticalItem from '@/components/articalItem';
 
 // config
 import { articalListConfig } from '../config/listTestConfig';

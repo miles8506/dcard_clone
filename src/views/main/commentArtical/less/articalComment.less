@@ -53,3 +53,49 @@
     }
   }
 }
+
+// media 767
+@media screen and (max-width: 767px) {
+  .artical_comment {
+    .hot_comment_area,
+    .habit_artical_area,
+    .all_comment_area {
+      padding: 0;
+      background-color: #fff;
+      .hot_comment_title,
+      .habit_artical_title,
+      .all_comment_title {
+        margin: 0;
+        padding: 26px 16px 6px;
+        border: 0;
+        color: rgba(0, 0, 0, 0.35);
+        background-color: rgb(242, 243, 244);
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+
+    .hot_comment_area,
+    .all_comment_area {
+      .hot_comment_wrap,
+      .comment_item_wrap {
+        padding: 0 16px;
+      }
+    }
+
+    // .all_comment_area {
+    //   .comment_item_wrap {
+    //     padding: 0 16px;
+    //   }
+    // }
+    .habit_artical_area {
+      .habit_artical_wrap {
+        padding: 0 16px;
+
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+}
