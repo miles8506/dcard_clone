@@ -10,7 +10,7 @@ const mSearchWindowModule: Module<IMsearchWindow, IrootState> = {
   state() {
     return {
       searchSortArr: [],
-      isShowSearchSort: false
+      isShowSearchSort: true
     };
   },
   mutations: {

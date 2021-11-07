@@ -40,12 +40,12 @@
         </svg>
       </span>
     </div>
-    <div class="cancel_all">取消</div>
+    <div class="cancel_all" @click="initAll">取消</div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue';
+import { ref, defineEmits, defineProps, withDefaults } from 'vue';
 import { useStore } from '@/store';
 
 // utils
@@ -53,9 +53,16 @@ import { localStorage } from '@/utils';
 
 // testconfig
 import { articalListConfig } from '@/views/main/artical/config/listTestConfig';
+import { boardItemConfig } from '../synthesize/config/boardItemConfig';
 
 const store = useStore();
 const emits = defineEmits(['emitSynthesizeData']);
+const props = withDefaults(
+  defineProps<{
+    navBarIndex: number;
+  }>(),
+  {}
+);
 
 // show cancel icon
 const isShowCancelIcon = ref<boolean>(false);
@@ -83,8 +90,24 @@ const resourceSearch = () => {
   res.push(searchModel.value);
   localStorage.setItem('synthesizeRecode', res);
   store.commit('mSearchWindowModule/setSearchSortArr', res);
+  switch (props.navBarIndex) {
+    case 0:
+      emits('emitSynthesizeData', articalListConfig, boardItemConfig);
+      store.commit('mSearchWindowModule/setShowSerchSort');
+      break;
+  }
+};
+
+// init all
+const initAll = () => {
+  if (store.state.mSearchWindowModule.isShowSearchSort) return;
+  searchModel.value = '';
   store.commit('mSearchWindowModule/setShowSerchSort');
-  emits('emitSynthesizeData', articalListConfig);
+  switch (props.navBarIndex) {
+    case 0:
+      emits('emitSynthesizeData', [], []);
+      break;
+  }
 };
 </script>
 

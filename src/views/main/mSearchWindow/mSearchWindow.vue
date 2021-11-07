@@ -1,13 +1,21 @@
 <template>
   <d-header />
   <div class="m_search_window">
-    <search-bar @emitSynthesizeData="emitSynthesizeData" />
-    <nav-bar @navbarIndex="navbarIndex" />
-    <component
-      :is="currentShowCpn"
-      :recodeRes="recodeRes"
-      :dataList="dataList"
-    ></component>
+    <div class="m_search_window_wrap">
+      <div class="hd_wrap">
+        <search-bar
+          @emitSynthesizeData="emitSynthesizeData"
+          :navBarIndex="navBarIndex"
+        />
+        <nav-bar @navbarIndex="navbarIndex" />
+      </div>
+      <component
+        :is="currentShowCpn"
+        :recodeRes="recodeRes"
+        :dataList="dataList"
+        :boardList="boardList"
+      ></component>
+    </div>
   </div>
 </template>
 
@@ -31,6 +39,7 @@ import { InavBarType } from './type/type';
 const store = useStore();
 
 // change current component
+const navBarIndex = ref<number>(0);
 const navBarCpnName: any = [];
 itemNameArr.forEach((item: InavBarType) => {
   navBarCpnName.push(item.cpnName);
@@ -38,6 +47,9 @@ itemNameArr.forEach((item: InavBarType) => {
 const currentShowCpn = shallowRef<defineComponent>(navBarCpnName[0]);
 const navbarIndex = (index: number) => {
   currentShowCpn.value = navBarCpnName[index];
+  navBarIndex.value = index;
+  // init datalist
+  if (navBarIndex.value === 0) emitSynthesizeData([], []);
 };
 
 // search recode
@@ -45,8 +57,10 @@ const recodeRes = computed(() => store.state.mSearchWindowModule.searchSortArr);
 
 // receive data emit & props data
 let dataList = ref([]);
-const emitSynthesizeData = (res: any) => {
-  dataList.value = res;
+let boardList = ref([]);
+const emitSynthesizeData = (dataListRes: any, boardListRes: any) => {
+  dataList.value = dataListRes;
+  boardList.value = boardListRes;
 };
 </script>
 

@@ -2,10 +2,8 @@
   <div class="artical">artical</div>
 </template>
 
-<script setup lang="ts">
-console.log('artical');
-</script>
+<script setup lang="ts"></script>
 
 <style lang="less" scoped>
-@import '../less/artical.less';
+@import './less/artical.less';
 </style>

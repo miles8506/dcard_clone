@@ -1,8 +1,8 @@
 import type { InavBarType } from '../type/type';
 
 // component
-import Synthesize from '../cpns/synthesize.vue';
-import Artical from '../cpns/artical.vue';
+import Synthesize from '../synthesize/synthesize.vue';
+import Artical from '../artical/artical.vue';
 import Board from '../cpns/board.vue';
 
 const itemNameArr: InavBarType[] = [
