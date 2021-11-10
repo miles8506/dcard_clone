@@ -16,3 +16,28 @@
     z-index: 99;
   }
 }
+
+// mask
+.mask {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+// transition
+.qrcode_window-enter-active,
+.qrcode_window-leave-active {
+  transition: opacity 0.3s linear;
+}
+
+.qrcode_window-enter-from,
+.qrcode_window-leave-to {
+  opacity: 0;
+}
+
+.qrcode_window-enter-to,
+.qrcode_window-leave-from {
+  opacity: 1;
+}

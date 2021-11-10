@@ -30,11 +30,11 @@ import CommentItem from './commentItem.vue';
 import HabitItem from './habitItem.vue';
 
 // config
-import { userLayout } from '../config/userIconType';
+import { userLayout } from '../../config/userIconType';
 
 // testconfig
-import { commentItem } from '../config/commentItme';
-import { articalListConfig } from '../../artical/config/listTestConfig';
+import { commentItem } from '../../config/commentItme';
+import { articalListConfig } from '@/views/main/artical/config/listTestConfig';
 
 // 總共幾筆commentItem
 const commentLength = commentItem.length;

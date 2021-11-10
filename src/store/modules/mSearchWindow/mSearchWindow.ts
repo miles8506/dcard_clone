@@ -10,7 +10,8 @@ const mSearchWindowModule: Module<IMsearchWindow, IrootState> = {
   state() {
     return {
       searchSortArr: [],
-      isShowSearchSort: true
+      isShowSearchSort: true,
+      searchIconModel: ''
     };
   },
   mutations: {
@@ -22,6 +23,14 @@ const mSearchWindowModule: Module<IMsearchWindow, IrootState> = {
     },
     setShowSerchSort(state) {
       state.isShowSearchSort = !state.isShowSearchSort;
+    },
+    setSearchIconModel(state, content) {
+      state.searchIconModel = content;
+    }
+  },
+  getters: {
+    getSearchIconModel(state) {
+      return state.searchIconModel;
     }
   }
 };

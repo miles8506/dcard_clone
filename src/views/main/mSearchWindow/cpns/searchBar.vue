@@ -45,15 +45,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits, defineProps, withDefaults } from 'vue';
+import {
+  ref,
+  defineEmits,
+  defineProps,
+  withDefaults,
+  watch,
+  computed
+} from 'vue';
 import { useStore } from '@/store';
 
 // utils
 import { localStorage } from '@/utils';
 
-// testconfig
-import { articalListConfig } from '@/views/main/artical/config/listTestConfig';
-import { boardItemConfig } from '../synthesize/config/boardItemConfig';
+// // testconfig
+// import { articalListConfig } from '@/views/main/artical/config/listTestConfig';
+// import { boardItemConfig } from '../synthesize/config/boardItemConfig';
+
+// hook
+import { searchDataResult, initSearchData } from '@/hook/searchDataResult';
 
 const store = useStore();
 const emits = defineEmits(['emitSynthesizeData']);
@@ -90,12 +100,13 @@ const resourceSearch = () => {
   res.push(searchModel.value);
   localStorage.setItem('synthesizeRecode', res);
   store.commit('mSearchWindowModule/setSearchSortArr', res);
-  switch (props.navBarIndex) {
-    case 0:
-      emits('emitSynthesizeData', articalListConfig, boardItemConfig);
-      store.commit('mSearchWindowModule/setShowSerchSort');
-      break;
-  }
+  // switch (props.navBarIndex) {
+  //   case 0:
+  //     emits('emitSynthesizeData', articalListConfig, boardItemConfig);
+  //     store.commit('mSearchWindowModule/setShowSerchSort');
+  //     break;
+  // }
+  searchDataResult(props.navBarIndex, emits, store);
 };
 
 // init all
@@ -103,12 +114,33 @@ const initAll = () => {
   if (store.state.mSearchWindowModule.isShowSearchSort) return;
   searchModel.value = '';
   store.commit('mSearchWindowModule/setShowSerchSort');
-  switch (props.navBarIndex) {
-    case 0:
-      emits('emitSynthesizeData', [], []);
-      break;
-  }
+  // switch (props.navBarIndex) {
+  //   case 0:
+  //     emits('emitSynthesizeData', [], []);
+  //     break;
+  // }
+  initSearchData(props.navBarIndex, emits);
 };
+
+// click typeicon listen to vuex
+const getSearchIcon = computed(
+  () => store.state.mSearchWindowModule.searchIconModel
+);
+
+watch(getSearchIcon, (newData) => {
+  if (newData !== '') {
+    searchModel.value = newData;
+    // switch (props.navBarIndex) {
+    //   case 0:
+    //     emits('emitSynthesizeData', articalListConfig, boardItemConfig);
+    //     store.commit('mSearchWindowModule/setShowSerchSort');
+    //     break;
+    // }
+    searchDataResult(props.navBarIndex, emits, store);
+    if (!isShowCancelIcon.value)
+      isShowCancelIcon.value = !isShowCancelIcon.value;
+  }
+});
 </script>
 
 <style lang="less" scoped>

@@ -1,5 +1,11 @@
 <template>
   <d-header />
+  <transition name="qrcode_window">
+    <div class="mask" v-show="$store.state.isShowMask">
+      <comment-artical v-if="$store.state.commentArticalModule.isShowStatus" />
+      <scroll-y-bar ref="scrollYBarRef" />
+    </div>
+  </transition>
   <div class="m_search_window">
     <div class="m_search_window_wrap">
       <div class="hd_wrap">
@@ -26,6 +32,8 @@ import { useStore } from '@/store';
 import dHeader from '@/components/dHeader';
 import SearchBar from './cpns/searchBar.vue';
 import NavBar from './cpns/navBar.vue';
+import CommentArtical from '@/components/commentArtical';
+import ScrollYBar from '@/components/commentArtical/src/cpns/scrollYBar.vue';
 
 // config
 import { itemNameArr } from './config/navBarConfig';

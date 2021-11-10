@@ -8,7 +8,6 @@
   </transition>
   <d-header></d-header>
   <div class="main">
-    <!-- <m-search-window v-if="$store.state.isShowMSearchBar" /> -->
     <d-aside></d-aside>
     <artical-area />
     <d-adv />
@@ -23,9 +22,8 @@ import dAside from '@/components/dAside';
 import dAdv from '@/components/dAdv';
 import QrcodeWindow from '@/components/qrocdeWindow';
 import ArticalArea from '@/views/main/artical/articalArea.vue';
-import CommentArtical from '@/views/main/commentArtical/commentArtical.vue';
-import ScrollYBar from '@/views/main/commentArtical/cpns/scrollYBar.vue';
-import MSearchWindow from '@/views/main/mSearchWindow/mSearchWindow.vue';
+import CommentArtical from '@/components/commentArtical';
+import ScrollYBar from '@/components/commentArtical/src/cpns/scrollYBar.vue';
 
 // firebase
 import { firebase } from '@/service';

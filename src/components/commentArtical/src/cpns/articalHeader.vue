@@ -20,7 +20,7 @@ import { useStore } from '@/store';
 import { userMan, userWoman } from '@/components/userImg';
 
 // config
-import { userLayout } from '../config/userIconType';
+import { userLayout } from '../../config/userIconType';
 
 const store = useStore();
 
