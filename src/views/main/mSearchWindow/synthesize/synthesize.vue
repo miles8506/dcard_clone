@@ -1,11 +1,13 @@
 <template>
   <div class="synthesize">
+    <!-- recode_icon start -->
     <div
       class="search_recode"
       v-if="
         recodeRes !== null &&
         recodeRes.length > 0 &&
-        $store.state.mSearchWindowModule.isShowSearchSort
+        $store.state.mSearchWindowModule.isShowSearchSort &&
+        dataList.length === 0
       "
     >
       <div class="recode_hd">
@@ -18,6 +20,8 @@
         </template>
       </div>
     </div>
+    <!-- recode_icon end -->
+
     <div class="board_body" v-if="boardList.length > 0">
       <h5 class="board_title">看板</h5>
       <div class="board_body_wrap">

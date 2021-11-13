@@ -26,18 +26,34 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-// transition
-.qrcode_window-enter-active,
-.qrcode_window-leave-active {
+// transition_ m search window
+.m_search_window-enter-active,
+.m_search_window-leave-active {
   transition: opacity 0.3s linear;
 }
 
-.qrcode_window-enter-from,
-.qrcode_window-leave-to {
+.m_search_window-enter-from,
+.m_search_window-leave-to {
   opacity: 0;
 }
 
-.qrcode_window-enter-to,
-.qrcode_window-leave-from {
+.m_search_window-enter-to,
+.m_search_window-leave-from {
+  opacity: 1;
+}
+
+// transition_ m select window
+.m_select_window-enter-active,
+.m_select_window-leave-active {
+  transition: opacity 0.1s linear;
+}
+
+.m_select_window-enter-from,
+.m_select_window-leave-to {
+  opacity: 0;
+}
+
+.m_select_window-enter-to,
+.m_select_window-leave-from {
   opacity: 1;
 }

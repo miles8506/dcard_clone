@@ -13,17 +13,21 @@ export function searchDataResult(
 ) {
   switch (index) {
     case 0:
-      emits('emitSynthesizeData', articalListConfig, boardItemConfig);
+      emits('emitCpnsData', articalListConfig, boardItemConfig);
       store.commit('mSearchWindowModule/setShowSerchSort');
       break;
+    case 1:
+      emits('emitCpnsData', articalListConfig);
   }
 }
 
 // init search list
-export function initSearchData(index: number, emits: any) {
-  switch (index) {
-    case 0:
-      emits('emitSynthesizeData', [], []);
-      break;
-  }
-}
+// export function initSearchData(index: number, emits: any) {
+// switch (index) {
+//   case 0:
+// emits('emitCpnsData', [], []);
+// break;
+// case 1:
+// emits('emitCpnsData', []);
+// }
+// }

@@ -1,0 +1,46 @@
+.m_select_box {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  .wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 6px 20px 24px;
+    border-radius: 12px 12px 0px 0px;
+    background-color: #fff;
+
+    .item {
+      padding: 11px 0;
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.75);
+    }
+  }
+}
+
+// current
+.current_item {
+  color: rgb(51, 151, 207) !important;
+}
+
+// transition_ wrap
+.wrap-enter-active,
+.wrap-leave-active {
+  transition: all 0.2s linear;
+}
+
+.wrap-enter-from,
+.wrap-leave-to {
+  transform: translateY(50px);
+}
+
+.wrap-enter-to,
+.wrap-leave-from {
+  transform: translateY(0);
+}

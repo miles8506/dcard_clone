@@ -63,10 +63,10 @@ import { localStorage } from '@/utils';
 // import { boardItemConfig } from '../synthesize/config/boardItemConfig';
 
 // hook
-import { searchDataResult, initSearchData } from '@/hook/searchDataResult';
+import { searchDataResult } from '@/hook/searchDataResult';
 
 const store = useStore();
-const emits = defineEmits(['emitSynthesizeData']);
+const emits = defineEmits(['emitCpnsData']);
 const props = withDefaults(
   defineProps<{
     navBarIndex: number;
@@ -100,26 +100,14 @@ const resourceSearch = () => {
   res.push(searchModel.value);
   localStorage.setItem('synthesizeRecode', res);
   store.commit('mSearchWindowModule/setSearchSortArr', res);
-  // switch (props.navBarIndex) {
-  //   case 0:
-  //     emits('emitSynthesizeData', articalListConfig, boardItemConfig);
-  //     store.commit('mSearchWindowModule/setShowSerchSort');
-  //     break;
-  // }
   searchDataResult(props.navBarIndex, emits, store);
 };
 
 // init all
 const initAll = () => {
-  if (store.state.mSearchWindowModule.isShowSearchSort) return;
   searchModel.value = '';
   store.commit('mSearchWindowModule/setShowSerchSort');
-  // switch (props.navBarIndex) {
-  //   case 0:
-  //     emits('emitSynthesizeData', [], []);
-  //     break;
-  // }
-  initSearchData(props.navBarIndex, emits);
+  emits('emitCpnsData', [], []);
 };
 
 // click typeicon listen to vuex
@@ -130,12 +118,6 @@ const getSearchIcon = computed(
 watch(getSearchIcon, (newData) => {
   if (newData !== '') {
     searchModel.value = newData;
-    // switch (props.navBarIndex) {
-    //   case 0:
-    //     emits('emitSynthesizeData', articalListConfig, boardItemConfig);
-    //     store.commit('mSearchWindowModule/setShowSerchSort');
-    //     break;
-    // }
     searchDataResult(props.navBarIndex, emits, store);
     if (!isShowCancelIcon.value)
       isShowCancelIcon.value = !isShowCancelIcon.value;

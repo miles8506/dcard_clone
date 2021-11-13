@@ -12,6 +12,9 @@ interface ImainArtical {
 interface IcommentAtical {
   isShowStatus: boolean;
   mainArtical: ImainArtical;
+  isShowSelectWindow: boolean;
+  issueCurrentName: string;
+  itmerCurrentName: string;
 }
 
 export { IcommentAtical };

@@ -1,4 +1,101 @@
 .artical {
   flex: 1;
   background-color: rgb(242, 243, 244);
+
+  .filter_search_body {
+    padding: 6px 0;
+    background-color: #fff;
+    .filter_bar {
+      display: flex;
+      max-height: 44px;
+
+      .all_artical_wrap {
+        display: flex;
+        align-items: center;
+        padding: 0 12px 0 24px;
+        border-right: 1px solid rgb(233, 233, 233);
+
+        .checkbox_fake {
+          position: relative;
+          width: 14px;
+          height: 14px;
+          border-radius: 2px;
+          overflow: hidden;
+          border: 2px solid rgba(0, 0, 0, 0.35);
+          background-color: #fff;
+
+          .checked_box {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transform: translate(-50%, -50%);
+            transform: rotate(-50deg);
+            border-right: 3px solid #fff;
+            border-left: 6px solid #fff;
+            border-bottom: 6px solid #fff;
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: -1px;
+              right: -5px;
+              transform: rotate(0deg);
+              border-right: 4px solid #3397cf;
+              border-left: 6px solid #3397cf;
+              border-bottom: 6px solid #3397cf;
+            }
+          }
+        }
+
+        .includes_text {
+          padding-left: 8px;
+          font-weight: 500;
+          font-size: 16px;
+          color: rgba(0, 0, 0, 0.5);
+        }
+      }
+
+      .first_issue,
+      .time_search {
+        position: relative;
+        padding: 11px 30px 11px 8px;
+        border-right: 1px solid rgb(233, 233, 233);
+        font-weight: 500;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.5);
+        line-height: 22px;
+        .triangle_icon_wrap {
+          position: absolute;
+          top: 50%;
+          right: 12px;
+          transform: translateY(-50%);
+          width: 12px;
+          height: 12px;
+
+          .icon {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: rotate(-45deg);
+            border-top: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 4px solid rgba(0, 0, 0, 0.5);
+            border-left: 4px solid rgba(0, 0, 0, 0.5);
+            border-radius: 2px;
+          }
+        }
+      }
+
+      .time_search {
+        border-right: 0;
+      }
+    }
+  }
+
+  .empty_body {
+  }
+}
+.current_checked {
+  border: 2px solid #3397cf !important;
+  background-color: #3397cf !important;
 }
