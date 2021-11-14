@@ -53,7 +53,10 @@ withDefaults(
     dataList: any[];
     boardList: any[];
   }>(),
-  {}
+  {
+    recodeRes: () => [],
+    boardList: () => []
+  }
 );
 
 // store

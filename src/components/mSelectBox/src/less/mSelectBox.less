@@ -17,9 +17,20 @@
     background-color: #fff;
 
     .item {
-      padding: 11px 0;
+      position: relative;
+      padding: 11px 0 11px 9px;
       font-size: 16px;
+      font-weight: 400;
       color: rgba(0, 0, 0, 0.75);
+
+      svg {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+      }
     }
   }
 }

@@ -16,16 +16,22 @@
 
 <script setup lang="ts">
 import { ref, defineEmits } from 'vue';
+import { useStore } from '@/store';
 // config
 import { itemNameArr } from '../config/navBarConfig';
 
-// emits
-const emits = defineEmits(['navbarIndex']);
+// hook
+import { searchDataResult } from '@/hook/searchDataResult';
+
+const emits = defineEmits(['navbarIndex', 'emitCpnsData']);
+const store = useStore();
 
 const currentIndex = ref<number>(0);
 const clickItem = (index: number) => {
   currentIndex.value = index;
   emits('navbarIndex', index);
+  if (index === 0 && store.state.mSearchWindowModule.judgeListLen)
+    searchDataResult(index, emits, store);
 };
 </script>
 

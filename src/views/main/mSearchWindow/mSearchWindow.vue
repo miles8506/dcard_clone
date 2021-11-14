@@ -10,7 +10,7 @@
     <div class="m_search_window_wrap">
       <div class="hd_wrap">
         <search-bar @emitCpnsData="emitCpnsData" :navBarIndex="navBarIndex" />
-        <nav-bar @navbarIndex="navbarIndex" />
+        <nav-bar @navbarIndex="navbarIndex" @emitCpnsData="emitCpnsData" />
       </div>
       <component
         :is="currentShowCpn"
@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { shallowRef, defineComponent, computed, ref } from 'vue';
+import { shallowRef, defineComponent, computed, ref, watch } from 'vue';
 import { useStore } from '@/store';
 // component
 import dHeader from '@/components/dHeader';
@@ -73,12 +73,22 @@ const navbarIndex = (index: number) => {
 const recodeRes = computed(() => store.state.mSearchWindowModule.searchSortArr);
 
 // receive data emit & props data
-let dataList = ref([]);
-let boardList = ref([]);
+const dataList = ref([]);
+const boardList = ref([]);
 const emitCpnsData = (dataListRes: any, boardListRes?: any) => {
   dataList.value = dataListRes;
   boardList.value = boardListRes;
 };
+watch(
+  () => dataList.value,
+  () => {
+    if (dataList.value.length === 0) {
+      store.commit('mSearchWindowModule/setJudgeListLen', false);
+    } else {
+      store.commit('mSearchWindowModule/setJudgeListLen', true);
+    }
+  }
+);
 
 // emit select item
 const selectItems = ref<any>({});

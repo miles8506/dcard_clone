@@ -106,7 +106,8 @@ const resourceSearch = () => {
 // init all
 const initAll = () => {
   searchModel.value = '';
-  store.commit('mSearchWindowModule/setShowSerchSort');
+  if (store.state.mSearchWindowModule.judgeListLen)
+    store.commit('mSearchWindowModule/setShowSerchSort');
   emits('emitCpnsData', [], []);
 };
 

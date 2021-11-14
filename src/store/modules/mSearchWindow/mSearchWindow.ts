@@ -11,7 +11,8 @@ const mSearchWindowModule: Module<IMsearchWindow, IrootState> = {
     return {
       searchSortArr: [],
       isShowSearchSort: true,
-      searchIconModel: ''
+      searchIconModel: '',
+      judgeListLen: false
     };
   },
   mutations: {
@@ -26,6 +27,9 @@ const mSearchWindowModule: Module<IMsearchWindow, IrootState> = {
     },
     setSearchIconModel(state, content) {
       state.searchIconModel = content;
+    },
+    setJudgeListLen(state, flag: boolean) {
+      state.judgeListLen = flag;
     }
   },
   getters: {

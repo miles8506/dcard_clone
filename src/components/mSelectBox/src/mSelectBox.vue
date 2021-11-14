@@ -14,6 +14,18 @@
             @click="chooseItem(index, item)"
           >
             {{ item }}
+            <svg
+              v-show="currentIndexItem(index)"
+              viewBox="0 0 24 24"
+              focusable="false"
+              role="img"
+              aria-hidden="true"
+              style="fill: rgb(51, 151, 207)"
+            >
+              <path
+                d="M9 16.17L5.53 12.7a1 1 0 00-1.4 0h-.01a1 1 0 000 1.41L8.3 18.3a1 1 0 001.4 0L20.3 7.7a1 1 0 000-1.41 1 1 0 00-1.41 0z"
+              ></path>
+            </svg>
           </div>
         </template>
       </div>

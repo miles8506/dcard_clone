@@ -31,7 +31,7 @@
       </div>
     </template>
     <template v-else>
-      <div class="empty_body">空</div>
+      <div class="empty_body">請入搜尋關鍵字</div>
     </template>
   </div>
 </template>
