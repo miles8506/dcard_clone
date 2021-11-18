@@ -1,22 +1,37 @@
 .board {
   flex: 1;
-  padding: 0 16px;
+  // padding: 0 0 0 16px;
   background-color: #fff;
+  font-weight: 500;
 
   .track_btn {
     position: absolute;
     top: 50%;
-    right: 0;
+    right: 60px;
     transform: translateY(-50%);
     padding: 6px 14px;
     background-color: #3397cf;
     border-radius: 8px;
     line-height: 20px;
+    cursor: pointer;
+    transition: all 0.1s linear;
+
+    &:hover {
+      background-color: #5ab0db;
+    }
 
     .text {
       min-height: 14px;
       font-size: 14px;
       color: #fff;
     }
+  }
+
+  .empty_body {
+    background-color: #fff;
+    line-height: 120px;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.35);
   }
 }

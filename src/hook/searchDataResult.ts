@@ -1,6 +1,7 @@
 // testconfig
 import { articalListConfig } from '@/views/main/artical/config/listTestConfig';
-import { boardItemConfig } from '@/views/main/mSearchWindow/synthesize/config/boardItemConfig';
+import { boardList } from '@/views/main/mSearchWindow/synthesize/config/boardItemConfig';
+// import { boardList } from '@/views/main/mSearchWindow/board/config/testListConfig';
 
 import { Store } from 'vuex';
 import { margeVuexState } from '@/store/type';
@@ -13,11 +14,14 @@ export function searchDataResult(
 ) {
   switch (index) {
     case 0:
-      emits('emitCpnsData', articalListConfig, boardItemConfig);
+      emits('emitCpnsData', articalListConfig, boardList);
       store.commit('mSearchWindowModule/setShowSerchSort');
       break;
     case 1:
-      emits('emitCpnsData', articalListConfig);
+      emits('emitCpnsData', articalListConfig, boardList);
+      break;
+    case 2:
+      emits('emitCpnsData', articalListConfig, boardList);
   }
 }
 

@@ -1,41 +1,63 @@
 <template>
   <d-header />
+  <m-aside v-show="$store.state.isShowMAside" />
   <transition name="m_search_window">
     <div class="mask" v-show="$store.state.isShowMask">
       <comment-artical v-if="$store.state.commentArticalModule.isShowStatus" />
       <scroll-y-bar ref="scrollYBarRef" />
     </div>
   </transition>
-  <div class="m_search_window">
-    <div class="m_search_window_wrap">
-      <div class="hd_wrap">
-        <search-bar @emitCpnsData="emitCpnsData" :navBarIndex="navBarIndex" />
-        <nav-bar @navbarIndex="navbarIndex" @emitCpnsData="emitCpnsData" />
+  <div class="m_search_main">
+    <d-aside />
+    <div class="m_search_window">
+      <div class="m_search_window_wrap">
+        <div class="hd_wrap">
+          <search-bar
+            @emitCpnsData="emitCpnsData"
+            :navBarIndex="navBarIndex"
+            ref="searchBarRef"
+          />
+          <nav-bar
+            @navbarIndex="navbarIndex"
+            @emitCpnsData="emitCpnsData"
+            ref="navBarRef"
+          />
+        </div>
+        <component
+          :is="currentShowCpn"
+          :recodeRes="recodeRes"
+          :dataList="dataList"
+          :boardList="boardList"
+          @emitNewIssue="emitNewIssue"
+          @emitTimer="emitTimer"
+        ></component>
       </div>
-      <component
-        :is="currentShowCpn"
-        :recodeRes="recodeRes"
-        :dataList="dataList"
-        :boardList="boardList"
-        @emitNewIssue="emitNewIssue"
-        @emitTimer="emitTimer"
-      ></component>
     </div>
+    <d-adv />
+    <transition name="m_select_window">
+      <m-select-box
+        :selectItems="selectItems"
+        :issueCurrentIndex="issueCurrentIndex"
+        :timerCurrentIndex="timerCurrentIndex"
+        @emitCurrentIndex="emitCurrentIndex"
+        v-show="$store.state.commentArticalModule.isShowSelectWindow"
+      />
+    </transition>
   </div>
-  <transition name="m_select_window">
-    <m-select-box
-      :selectItems="selectItems"
-      :issueCurrentIndex="issueCurrentIndex"
-      :timerCurrentIndex="timerCurrentIndex"
-      @emitCurrentIndex="emitCurrentIndex"
-      v-show="$store.state.commentArticalModule.isShowSelectWindow"
-    />
-  </transition>
 </template>
 
 <script setup lang="ts">
-import { shallowRef, defineComponent, computed, ref, watch } from 'vue';
+import {
+  shallowRef,
+  defineComponent,
+  computed,
+  ref,
+  watch,
+  nextTick
+} from 'vue';
 import { useStore } from '@/store';
+// import { useRoute } from 'vue-router';
+
 // component
 import dHeader from '@/components/dHeader';
 import SearchBar from './cpns/searchBar.vue';
@@ -43,6 +65,9 @@ import NavBar from './cpns/navBar.vue';
 import CommentArtical from '@/components/commentArtical';
 import ScrollYBar from '@/components/commentArtical/src/cpns/scrollYBar.vue';
 import mSelectBox from '@/components/mSelectBox';
+import MAside from '@/views/main/mAside/mAside.vue';
+import dAside from '@/components/dAside';
+import dAdv from '@/components/dAdv';
 
 // config
 import { itemNameArr } from './config/navBarConfig';
@@ -50,10 +75,17 @@ import { itemNameArr } from './config/navBarConfig';
 // type
 import { InavBarType } from './type/type';
 
-// utils
-// import { localStorage } from '@/utils/index';
-
 const store = useStore();
+// window.innerWidth > 767
+//   ? store.commit('mSearchWindowModule/setScreenWidthStatus', false)
+//   : store.commit('mSearchWindowModule/setScreenWidthStatus', true);
+
+// // 監聽mSearchWindow.vue於pc mobile相對應顯示狀態
+// window.addEventListener('resize', () => {
+//   window.innerWidth > 767
+//     ? store.commit('mSearchWindowModule/setScreenWidthStatus', false)
+//     : store.commit('mSearchWindowModule/setScreenWidthStatus', true);
+// });
 
 // change current component
 const navBarIndex = ref<number>(0);
@@ -65,8 +97,6 @@ const currentShowCpn = shallowRef<defineComponent>(navBarCpnName[0]);
 const navbarIndex = (index: number) => {
   currentShowCpn.value = navBarCpnName[index];
   navBarIndex.value = index;
-  // init datalist
-  // if (navBarIndex.value === 0) emitCpnsData([], []);
 };
 
 // search recode
@@ -75,10 +105,17 @@ const recodeRes = computed(() => store.state.mSearchWindowModule.searchSortArr);
 // receive data emit & props data
 const dataList = ref([]);
 const boardList = ref([]);
+const navBarRef = ref();
 const emitCpnsData = (dataListRes: any, boardListRes?: any) => {
+  nextTick(() => {
+    navBarRef.value.currentIndex = 0;
+    navbarIndex(navBarRef.value.currentIndex);
+  });
   dataList.value = dataListRes;
   boardList.value = boardListRes;
 };
+
+// 監聽data 如有data則不顯示sort icon
 watch(
   () => dataList.value,
   () => {

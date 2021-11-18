@@ -1,10 +1,10 @@
 <template>
-  <div class="d_header">
-    <div class="header_wrap">
+  <header class="d_header">
+    <div class="header_wrap" v-if="!isShowMobileHeader">
       <!-- left -->
       <div class="left_wrap">
         <!-- mobile nav start-->
-        <div class="mobile_nav">
+        <div class="mobile_nav" @click="isShowMAside">
           <svg
             viewBox="0 0 24 24"
             focusable="false"
@@ -33,9 +33,25 @@
             <input
               type="text"
               class="search_ipt"
+              v-model.trim="searchIptModel"
+              @input="isShowCancelBtn"
+              @keydown.enter="searchDataClick"
               placeholder="搜尋 Relove私密小心機"
             />
-            <button class="search_btn"></button>
+            <button class="cancel_text" @click="cancelIptContent">
+              <svg
+                viewBox="0 0 18 18"
+                focusable="false"
+                role="img"
+                aria-hidden="true"
+                v-show="cancelBtnStatus"
+              >
+                <path
+                  d="M16.8 9a7.5 7.5 0 01-7.5 7.5A7.5 7.5 0 011.8 9a7.5 7.5 0 017.5-7.5A7.5 7.5 0 0116.8 9zm-6.44 0l2.47-2.47a.75.75 0 000-1.06.75.75 0 00-1.06 0L9.3 7.94 6.83 5.47a.75.75 0 00-1.06 0 .75.75 0 000 1.06L8.24 9l-2.47 2.47a.75.75 0 000 1.06.75.75 0 00.53.22.75.75 0 00.53-.22l2.47-2.47 2.47 2.47a.75.75 0 00.53.22.75.75 0 00.53-.22.75.75 0 000-1.06z"
+                ></path>
+              </svg>
+            </button>
+            <button class="search_btn" @click="searchDataClick"></button>
           </div>
         </div>
       </div>
@@ -101,13 +117,19 @@
         </div>
       </div>
     </div>
-  </div>
+    <div class="mobile_header" v-else>
+      <h1 class="track_title">追蹤列表</h1>
+      <!-- <span class="close_icon">&times;</span> -->
+      <slot></slot>
+    </div>
+  </header>
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, withDefaults } from 'vue';
+import { ref, defineProps, withDefaults, defineEmits } from 'vue';
 import { useStore } from '@/store';
 import { useRouter } from 'vue-router';
+
 // base-ui
 import SelectSlide from '@/base-ui/selectSlide/index';
 
@@ -117,13 +139,21 @@ import { headerServiceConfig } from '../config/headerServiceConfig';
 const store = useStore();
 const router = useRouter();
 
+// v-model
+const searchIptModel = ref('');
+
+if (store.state.mSearchWindowModule.searchValue !== '')
+  searchIptModel.value = store.state.mSearchWindowModule.searchValue;
+
 // porps
 withDefaults(
   defineProps<{
     isShowHeader?: boolean;
+    isShowMobileHeader?: boolean;
   }>(),
   {
-    isShowHeader: true
+    isShowHeader: true,
+    isShowMobileHeader: false
   }
 );
 
@@ -161,7 +191,33 @@ const showMSearchWindow = () => {
 
 // return home page
 const goHome = () => {
-  router.push('/');
+  router.push('/main');
+};
+
+// isshow maside
+const isShowMAside = () => {
+  store.commit('setShowMAside');
+  const body = document.body;
+  body.style.overflowY = 'hidden';
+};
+
+// cancel input content
+const cancelBtnStatus = ref<boolean>(false);
+const cancelIptContent = () => {
+  searchIptModel.value = '';
+  cancelBtnStatus.value = !cancelBtnStatus.value;
+};
+
+// listen search input and show cancel btn
+const isShowCancelBtn = () => {
+  searchIptModel.value !== ''
+    ? (cancelBtnStatus.value = true)
+    : (cancelBtnStatus.value = false);
+};
+const searchDataClick = () => {
+  if (searchIptModel.value === '') return;
+  store.commit('mSearchWindowModule/setSearchValue', searchIptModel.value);
+  router.push('/search');
 };
 </script>
 

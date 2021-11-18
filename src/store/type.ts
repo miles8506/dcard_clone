@@ -7,6 +7,7 @@ interface IrootState {
   isShowLargeQrcode: boolean;
   isShowLoginHeader: boolean;
   isShowScroll: boolean;
+  isShowMAside: boolean;
   scrollTop: number;
 }
 

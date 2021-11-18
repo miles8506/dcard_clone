@@ -24,6 +24,10 @@ const routes: Array<RouteRecordRaw> = [
     name: 'search',
     component: () => import('@/views/main/mSearchWindow/mSearchWindow.vue')
   }
+  // {
+  //   path: '/search/:searchText',
+  //   component: () => import('@/views/main/mSearchWindow/mSearchWindow.vue')
+  // }
 ];
 
 const router = createRouter({

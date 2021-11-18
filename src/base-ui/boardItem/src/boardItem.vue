@@ -1,7 +1,12 @@
 <template>
-  <li class="bd_item" v-for="item in boardList" :key="item.itemName">
-    <img :src="item.imgSrc" /> {{ item.itemName }}
-    <slot name="track_icon"></slot>
+  <li
+    class="bd_item"
+    v-for="item in boardList"
+    :key="item.itemName"
+    :style="{ padding: padding }"
+  >
+    <img :src="item.imgSrc" /> {{ item.boardName }}
+    <slot name="track_icon" :itemName="item.boardName"></slot>
   </li>
 </template>
 
@@ -10,6 +15,7 @@ import { defineProps, withDefaults } from 'vue';
 withDefaults(
   defineProps<{
     boardList: any[];
+    padding?: string;
   }>(),
   {}
 );

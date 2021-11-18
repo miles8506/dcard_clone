@@ -12,7 +12,9 @@ const mSearchWindowModule: Module<IMsearchWindow, IrootState> = {
       searchSortArr: [],
       isShowSearchSort: true,
       searchIconModel: '',
-      judgeListLen: false
+      judgeListLen: false,
+      isShowSearchArea: false,
+      searchValue: ''
     };
   },
   mutations: {
@@ -30,7 +32,19 @@ const mSearchWindowModule: Module<IMsearchWindow, IrootState> = {
     },
     setJudgeListLen(state, flag: boolean) {
       state.judgeListLen = flag;
+    },
+    setShowSearchArea(state) {
+      state.isShowSearchArea = !state.isShowSearchArea;
+    },
+    setSearchValue(state, payload) {
+      state.searchValue = payload;
     }
+    // setPcSearchValue(state, payload) {
+    //   state.pcSearchValue = payload;
+    // }
+    // setScreenWidthStatus(state, flag) {
+    //   state.screenWidthStatus = flag;
+    // }
   },
   getters: {
     getSearchIconModel(state) {

@@ -7,6 +7,9 @@
   }
 
   .im_list {
+    color: #fff;
+    font-weight: 200;
+
     .im_item {
       display: flex;
       align-items: center;
@@ -14,8 +17,7 @@
       margin-bottom: 5px;
       padding: 0 10px 0 20px;
       font-size: 16px;
-      font-weight: 200;
-      color: #fff;
+      // font-weight: 200;
       cursor: pointer;
       &:hover {
         background-color: rgba(0, 0, 0, 0.2);
@@ -24,6 +26,48 @@
 
     .more_item {
       padding-left: 60px;
+    }
+  }
+}
+
+// media 767
+@media screen and (max-width: 767px) {
+  .immediately_area {
+    .title {
+      height: 48px;
+      padding: 0 16px;
+      line-height: 48px;
+      background-color: rgb(242, 243, 244);
+      color: rgb(166, 166, 166);
+      font-weight: 500;
+    }
+
+    .im_list {
+      padding: 0 16px;
+      .more_item {
+        position: relative;
+        height: 44px;
+        padding-left: 40px;
+        line-height: 44px;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.75);
+
+        .right_icon {
+          position: absolute;
+          top: 50%;
+          right: 16px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transform: translateY(-50%);
+          width: 24px;
+          height: 24px;
+          svg {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
     }
   }
 }

@@ -3,6 +3,8 @@ interface IMsearchWindow {
   isShowSearchSort: boolean;
   searchIconModel: string;
   judgeListLen: boolean;
+  isShowSearchArea: boolean;
+  searchValue: string;
 }
 
 export { IMsearchWindow };

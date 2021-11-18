@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue';
+import { ref, defineEmits, defineExpose } from 'vue';
 import { useStore } from '@/store';
 // config
 import { itemNameArr } from '../config/navBarConfig';
@@ -33,6 +33,10 @@ const clickItem = (index: number) => {
   if (index === 0 && store.state.mSearchWindowModule.judgeListLen)
     searchDataResult(index, emits, store);
 };
+
+defineExpose({
+  currentIndex
+});
 </script>
 
 <style lang="less" scoped>

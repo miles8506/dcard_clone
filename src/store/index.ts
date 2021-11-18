@@ -12,6 +12,7 @@ export const store = createStore<IrootState>({
     isShowLargeQrcode: false,
     isShowLoginHeader: false,
     isShowScroll: false,
+    isShowMAside: false,
     scrollTop: 0
   },
   mutations: {
@@ -26,6 +27,10 @@ export const store = createStore<IrootState>({
     },
     setShowScroll(state, flag) {
       state.isShowScroll = flag;
+    },
+    setShowMAside(state) {
+      // if (flag) state.isShowMAside = flag;
+      state.isShowMAside = !state.isShowMAside;
     },
     setScrollTop(state, positionTop) {
       state.scrollTop = positionTop;

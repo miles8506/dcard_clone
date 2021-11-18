@@ -7,14 +7,28 @@
     </div>
   </transition>
   <d-header></d-header>
+  <m-aside v-show="$store.state.isShowMAside" />
+  <!-- <m-aside /> -->
   <div class="main">
     <d-aside></d-aside>
     <artical-area />
+    <!-- <div class="search_area">
+      <nav-bar @navbarIndex="navbarIndex" @emitCpnsData="emitCpnsData" />
+      <component
+        :is="currentShowCpn"
+        :recodeRes="recodeRes"
+        :dataList="dataList"
+        :boardList="boardList"
+        @emitNewIssue="emitNewIssue"
+        @emitTimer="emitTimer"
+      ></component>
+    </div> -->
     <d-adv />
   </div>
 </template>
 
 <script setup lang="ts">
+// import { ref, watch, shallowRef, defineComponent, computed } from 'vue';
 import { useStore } from '@/store';
 // components
 import dHeader from '@/components/dHeader';
@@ -24,12 +38,20 @@ import QrcodeWindow from '@/components/qrocdeWindow';
 import ArticalArea from '@/views/main/artical/articalArea.vue';
 import CommentArtical from '@/components/commentArtical';
 import ScrollYBar from '@/components/commentArtical/src/cpns/scrollYBar.vue';
+import MAside from '@/views/main/mAside/mAside.vue';
+// import SearchArea from './SearchArea/searchArea.vue';
+// import NavBar from '@/views/main/mSearchWindow/cpns/navBar.vue';
 
 // firebase
 import { firebase } from '@/service';
 
 // // utils:localstorage
 import { localStorage } from '@/utils';
+
+// config
+// import { itemNameArr } from '@/views/main/mSearchWindow/config/navBarConfig';
+
+// import type { InavBarType } from '@/views/main/mSearchWindow/type/type';
 
 const store = useStore();
 firebase.auth().onAuthStateChanged((user: any) => {
@@ -76,6 +98,58 @@ firebase.auth().onAuthStateChanged((user: any) => {
 //       console.log('刪除失敗');
 //     });
 // };
+
+// change current component
+// const navBarIndex = ref<number>(0);
+// const navBarCpnName: any = [];
+// itemNameArr.forEach((item: InavBarType) => {
+//   navBarCpnName.push(item.cpnName);
+// });
+// const currentShowCpn = shallowRef<defineComponent>(navBarCpnName[0]);
+// const navbarIndex = (index: number) => {
+//   currentShowCpn.value = navBarCpnName[index];
+//   navBarIndex.value = index;
+// };
+
+// // search recode
+// const recodeRes = computed(() => store.state.mSearchWindowModule.searchSortArr);
+
+// // receive data emit & props data
+// const dataList = ref([]);
+// const boardList = ref([]);
+// const emitCpnsData = (dataListRes: any, boardListRes?: any) => {
+//   dataList.value = dataListRes;
+//   boardList.value = boardListRes;
+// };
+// watch(
+//   () => dataList.value,
+//   () => {
+//     if (dataList.value.length === 0) {
+//       store.commit('mSearchWindowModule/setJudgeListLen', false);
+//     } else {
+//       store.commit('mSearchWindowModule/setJudgeListLen', true);
+//     }
+//   }
+// );
+
+// emit select item
+// const selectItems = ref<any>({});
+// const issueCurrentIndex = ref(0);
+// const timerCurrentIndex = ref(0);
+// const emitNewIssue = ({ items, itemsName }) => {
+//   // selectItems.value = [...items];
+//   selectItems.value.selectItems = items;
+//   selectItems.value.itemsName = itemsName;
+// };
+// const emitTimer = ({ items, itemsName }) => {
+//   selectItems.value.selectItems = items;
+//   selectItems.value.itemsName = itemsName;
+// };
+// const emitCurrentIndex = ({ index, selectName }) => {
+//   selectName === 'newIssue'
+//     ? (issueCurrentIndex.value = index)
+//     : (timerCurrentIndex.value = index);
+// };
 </script>
 
 <style lang="less" scoped>
@@ -93,6 +167,11 @@ firebase.auth().onAuthStateChanged((user: any) => {
     flex: 1;
     min-width: 728px;
     // height: 100vh;
+  }
+
+  .search_area {
+    flex: 1;
+    min-width: 728px;
   }
 
   .d_adv {

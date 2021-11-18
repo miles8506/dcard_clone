@@ -13,7 +13,6 @@
               aria-hidden="true"
               width="24"
               height="24"
-              style="fill: #fff"
             >
               <path :d="item.path"></path>
             </svg>
@@ -22,7 +21,7 @@
         </li>
       </template>
       <li class="sort_item">
-        <span class="game_box"> </span>
+        <span class="game_box"></span>
         <span class="item_text">遊戲專區</span>
       </li>
     </ul>
