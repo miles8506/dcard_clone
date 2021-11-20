@@ -20,9 +20,6 @@ import { defineProps, withDefaults, ref } from 'vue';
 // component
 import BoardItem from '@/base-ui/boardItem';
 
-// config
-// import { layoutConfig } from './config/layoutConfig';
-
 withDefaults(
   defineProps<{
     boardList: any[];
@@ -30,6 +27,7 @@ withDefaults(
   {}
 );
 
+// 監聽 board item > 767 padding
 const conrolLayout = ref<string>('');
 window.innerWidth > 767
   ? (conrolLayout.value = '0 60px')
