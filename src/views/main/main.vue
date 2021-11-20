@@ -6,7 +6,7 @@
       <scroll-y-bar ref="scrollYBarRef" />
     </div>
   </transition>
-  <d-header></d-header>
+  <d-header key="main_header"></d-header>
   <m-aside v-show="$store.state.isShowMAside" />
   <!-- <m-aside /> -->
   <div class="main">

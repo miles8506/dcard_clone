@@ -1,5 +1,5 @@
 <template>
-  <d-header />
+  <d-header key="search_header" :controlHeaderLayout="controlHeaderLayout" />
   <m-aside v-show="$store.state.isShowMAside" />
   <transition name="m_search_window">
     <div class="mask" v-show="$store.state.isShowMask">
@@ -53,7 +53,8 @@ import {
   computed,
   ref,
   watch,
-  nextTick
+  nextTick,
+  onMounted
 } from 'vue';
 import { useStore } from '@/store';
 // import { useRoute } from 'vue-router';
@@ -76,16 +77,27 @@ import { itemNameArr } from './config/navBarConfig';
 import { InavBarType } from './type/type';
 
 const store = useStore();
-// window.innerWidth > 767
-//   ? store.commit('mSearchWindowModule/setScreenWidthStatus', false)
-//   : store.commit('mSearchWindowModule/setScreenWidthStatus', true);
 
-// // 監聽mSearchWindow.vue於pc mobile相對應顯示狀態
-// window.addEventListener('resize', () => {
-//   window.innerWidth > 767
-//     ? store.commit('mSearchWindowModule/setScreenWidthStatus', false)
-//     : store.commit('mSearchWindowModule/setScreenWidthStatus', true);
-// });
+// 監聽header 於screnn < 767時為 initial
+let controlHeaderLayout = ref<string>('sticky');
+window.innerWidth > 767
+  ? (controlHeaderLayout.value = 'sticky')
+  : (controlHeaderLayout.value = 'initial');
+window.addEventListener('resize', () => {
+  window.innerWidth > 767
+    ? (controlHeaderLayout.value = 'sticky')
+    : (controlHeaderLayout.value = 'initial');
+});
+
+// 監聽hd_wrap 48 fixed for top
+onMounted(() => {
+  const hdWrap: any = document.querySelector('.hd_wrap');
+  window.addEventListener('scroll', function () {
+    this.pageYOffset > 48
+      ? (hdWrap.style.position = 'fixed')
+      : (hdWrap.style.position = 'initial');
+  });
+});
 
 // change current component
 const navBarIndex = ref<number>(0);

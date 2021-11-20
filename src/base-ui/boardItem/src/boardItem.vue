@@ -3,7 +3,7 @@
     class="bd_item"
     v-for="item in boardList"
     :key="item.itemName"
-    :style="{ padding: padding }"
+    :style="{ padding: conrolLayout }"
   >
     <img :src="item.imgSrc" /> {{ item.boardName }}
     <slot name="track_icon" :itemName="item.boardName"></slot>
@@ -15,7 +15,7 @@ import { defineProps, withDefaults } from 'vue';
 withDefaults(
   defineProps<{
     boardList: any[];
-    padding?: string;
+    conrolLayout?: string;
   }>(),
   {}
 );

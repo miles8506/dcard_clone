@@ -31,7 +31,7 @@ import ImmediatelyArea from '@/components/dAside/src/cpn/immediatelyArea.vue';
 import BoardItem from '@/base-ui/boardItem';
 
 // testconfig
-import { boardList } from '@/views/main/mSearchWindow/board/config/testListConfig';
+import { boardList } from '@/views/main/mSearchWindow/synthesize/config/boardItemConfig';
 
 const store = useStore();
 

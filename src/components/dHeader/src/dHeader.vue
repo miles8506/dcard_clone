@@ -1,5 +1,5 @@
 <template>
-  <header class="d_header">
+  <header class="d_header" :style="{ position: controlHeaderLayout }">
     <div class="header_wrap" v-if="!isShowMobileHeader">
       <!-- left -->
       <div class="left_wrap">
@@ -85,11 +85,7 @@
         </div>
         <!-- mobile info end -->
         <div class="login">
-          <div
-            class="login_text"
-            v-if="$store.state.isShowLoginHeader"
-            @click="goLoginPage"
-          >
+          <div class="login_text" v-if="isShowHeader" @click="goLoginPage">
             註冊 / 登入
           </div>
           <div class="service_bar" v-show="isShowBar">
@@ -126,7 +122,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, withDefaults, defineEmits } from 'vue';
+import { ref, defineProps, withDefaults } from 'vue';
 import { useStore } from '@/store';
 import { useRouter } from 'vue-router';
 
@@ -150,12 +146,23 @@ withDefaults(
   defineProps<{
     isShowHeader?: boolean;
     isShowMobileHeader?: boolean;
+    controlHeaderLayout?: string;
   }>(),
   {
     isShowHeader: true,
     isShowMobileHeader: false
   }
 );
+
+// let controlHeaderLayout = ref<string>('sticky');
+// window.innerWidth > 767
+//   ? (controlHeaderLayout.value = 'sticky')
+//   : (controlHeaderLayout.value = 'initial');
+// window.addEventListener('resize', () => {
+//   window.innerWidth > 767
+//     ? (controlHeaderLayout.value = 'sticky')
+//     : (controlHeaderLayout.value = 'initial');
+// });
 
 // show serviebar
 const isShowBar = ref(false);
