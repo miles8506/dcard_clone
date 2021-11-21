@@ -1,0 +1,125 @@
+.comment_text {
+  position: sticky;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 99999;
+
+  .hd_text {
+    display: flex;
+    padding: 16px 60px;
+    .info {
+      margin-left: 10px;
+      .school_info {
+        padding-bottom: 2px;
+        color: rgba(0, 0, 0, 0.75);
+        font-size: 14px;
+      }
+      .date_info {
+        color: rgba(0, 0, 0, 0.35);
+        font-size: 12px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .main_text_wrap {
+    padding: 10px 60px;
+    height: 110px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    .main_text {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      line-height: 22px;
+      font-size: 18px;
+      outline: none;
+      resize: none;
+      overflow-y: hidden;
+      &::-webkit-input-placeholder {
+        color: rgba(0, 0, 0, 0.35);
+      }
+    }
+
+    .img_wrap {
+      width: 100%;
+      height: auto;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .foot_text {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 60px;
+    .upload_img_wrap {
+      cursor: pointer;
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .img_wrap {
+      position: absolute;
+      top: -20px;
+      left: 110px;
+      width: 100px;
+      height: 80px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .upload_file {
+      display: none;
+    }
+    .control_comment_wrap {
+      & > button {
+        font-size: 16px;
+        cursor: pointer;
+      }
+      .cancel_btn {
+        padding: 11px 8px;
+        color: rgba(0, 0, 0, 0.5);
+        background-color: #fff;
+      }
+
+      .submit_btn {
+        padding: 11px 16px;
+        margin-left: 16px;
+        color: #fff;
+        background-color: #3397cf;
+        border-radius: 10px;
+        transition: all 0.1s ease;
+
+        &:hover {
+          background-color: #5ab0db;
+        }
+      }
+    }
+  }
+}
+
+// edit scroll side
+.main_text&::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.main_text&::-webkit-scrollbar-thumb {
+  // border-radius: 3px;
+  // -moz-border-radius: 3px;
+  // -webkit-border-radius: 3px;
+  background-color: #fff;
+}
+.main_text&::-webkit-scrollbar-track {
+  background-color: transparent;
+}

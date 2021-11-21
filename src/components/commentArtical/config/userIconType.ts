@@ -4,4 +4,9 @@ const userLayout: IuserLayoutType = {
   height: 32
 };
 
-export { userLayout };
+const userLayoutComment: IuserLayoutType = {
+  width: 28,
+  height: 28
+};
+
+export { userLayout, userLayoutComment };

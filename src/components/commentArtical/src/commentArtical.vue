@@ -3,6 +3,8 @@
     <artical-header />
     <artical-body />
     <artical-comment />
+    <comment-text v-if="isShowComment" />
+    <comment-area @emitCommentShow="emitCommentShow" v-else />
   </div>
 </template>
 
@@ -13,8 +15,15 @@ import { useStore } from '@/store';
 import ArticalHeader from './cpns/articalHeader.vue';
 import ArticalBody from './cpns/articalBody.vue';
 import ArticalComment from './cpns/articalComment.vue';
+import CommentArea from './cpns/commentArea.vue';
+import CommentText from './cpns/commentText.vue';
 
 const store = useStore();
+
+const isShowComment = ref<boolean>(true);
+const emitCommentShow = () => {
+  isShowComment.value = !isShowComment.value;
+};
 
 // debounce variance
 let timer: any = null;

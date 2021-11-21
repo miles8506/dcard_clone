@@ -21,4 +21,9 @@ withDefaults(
 );
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.user_man {
+  display: flex;
+  align-items: center;
+}
+</style>
