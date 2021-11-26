@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <d-header :isShowHeader="false" />
+    <d-header :isShowHeader="false" key="loginHeader" />
     <div class="login_main">
       <login-adv />
       <login-form />

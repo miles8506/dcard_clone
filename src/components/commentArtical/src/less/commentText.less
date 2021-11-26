@@ -5,6 +5,7 @@
   left: 0;
   background-color: #fff;
   z-index: 99999;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
 
   .hd_text {
     display: flex;
@@ -59,51 +60,17 @@
     justify-content: space-between;
     align-items: center;
     padding: 12px 60px;
-    .upload_img_wrap {
-      cursor: pointer;
-      svg {
-        width: 24px;
-        height: 24px;
-      }
-    }
 
-    .img_wrap {
-      position: absolute;
-      top: -20px;
-      left: 110px;
-      width: 100px;
-      height: 80px;
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
+    .submit_btn {
+      padding: 11px 16px;
+      margin-left: 16px;
+      color: #fff;
+      background-color: #3397cf;
+      border-radius: 10px;
+      transition: all 0.1s ease;
 
-    .upload_file {
-      display: none;
-    }
-    .control_comment_wrap {
-      & > button {
-        font-size: 16px;
-        cursor: pointer;
-      }
-      .cancel_btn {
-        padding: 11px 8px;
-        color: rgba(0, 0, 0, 0.5);
-        background-color: #fff;
-      }
-
-      .submit_btn {
-        padding: 11px 16px;
-        margin-left: 16px;
-        color: #fff;
-        background-color: #3397cf;
-        border-radius: 10px;
-        transition: all 0.1s ease;
-
-        &:hover {
-          background-color: #5ab0db;
-        }
+      &:hover {
+        background-color: #5ab0db;
       }
     }
   }

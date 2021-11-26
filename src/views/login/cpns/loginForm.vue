@@ -2,7 +2,7 @@
   <div class="login_form">
     <div class="form_wrap">
       <div class="main_login">
-        <button class="else_login_btn fb_btn">
+        <button class="else_login_btn fb_btn" @click="loginFB">
           <span class="else_login_bgc fb_bgc">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +18,7 @@
           </span>
           <span class="text">Facebook 註冊 / 登入</span>
         </button>
-        <button class="else_login_btn gg_btn">
+        <button class="else_login_btn gg_btn" @click="googleLogin">
           <span class="else_login_bgc gg_bgc">
             <svg
               viewBox="0 0 24 24"
@@ -127,12 +127,22 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useStore } from '@/store';
 import { useRouter } from 'vue-router';
-import { firebase } from '@/service';
-const router = useRouter();
 
-const isShowMailAlarm = ref<boolean>(false);
-const isShowPswAlarm = ref<boolean>(false);
+// servie
+import { firebase } from '@/service';
+// hook
+import { googleLoginFn } from '../hook';
+import { localStorage } from '@/hook/localStorageClass';
+
+const router = useRouter();
+const store = useStore();
+
+// 防呆
+firebase.auth().onAuthStateChanged(function (user) {
+  if (user?.email) return router.push('/main');
+});
 
 // show password
 const pswIptRef = ref();
@@ -151,6 +161,9 @@ const showPwdIpt = () => {
 const vmodelAccount = ref('');
 const vmodelPsw = ref('');
 
+const isShowMailAlarm = ref<boolean>(false);
+const isShowPswAlarm = ref<boolean>(false);
+
 let accAlarmText = ref<string>('');
 let pswAlarmText = ref<string>('');
 const registerClick = async (e: any) => {
@@ -159,57 +172,81 @@ const registerClick = async (e: any) => {
   const regAccountRes = regAccount.test(vmodelAccount.value);
   const regPsw = /[0-9 a-z A-Z]{6,12}/;
   const regPswRes = regPsw.test(vmodelPsw.value);
+
+  // init alarm status
+  isShowMailAlarm.value = false;
+  isShowPswAlarm.value = false;
   if (regAccountRes && regPswRes) {
     try {
-      accAlarmText.value = '';
-      pswAlarmText.value = '';
-
-      // register
-      const registerRes = await firebase
+      // login
+      const loginRes = await firebase
         .auth()
-        .createUserWithEmailAndPassword(vmodelAccount.value, vmodelPsw.value);
-      if (registerRes.user) {
-        // login
-        const loginRes = await firebase
-          .auth()
-          .signInWithEmailAndPassword(vmodelAccount.value, vmodelPsw.value);
-        if (loginRes.operationType === 'signIn') {
-          isShowMailAlarm.value = false;
-          isShowPswAlarm.value = false;
-          // 登入成功
-          router.push('/');
-        }
-      }
+        .signInWithEmailAndPassword(vmodelAccount.value, vmodelPsw.value);
+      console.log(loginRes);
     } catch (err: any) {
-      if (err.code === 'auth/email-already-in-use') {
-        // 帳號已被註冊 > 登入
-        const loginRes = await firebase
-          .auth()
-          .signInWithEmailAndPassword(vmodelAccount.value, vmodelPsw.value);
-        if (loginRes.operationType === 'signIn') {
-          isShowMailAlarm.value = false;
-          isShowPswAlarm.value = false;
-          router.push('/');
-        } else {
-          isShowMailAlarm.value = true;
-          isShowPswAlarm.value = true;
-          accAlarmText.value = '信箱錯誤';
-          pswAlarmText.value = '密碼錯誤';
+      console.log(err);
+      if (err.code === 'auth/user-not-found') {
+        try {
+          // register
+          const registerRes = await firebase
+            .auth()
+            .createUserWithEmailAndPassword(
+              vmodelAccount.value,
+              vmodelPsw.value
+            );
+          registerRes.user &&
+            localStorage.setLocalItem(
+              'clone_dcard_user_name',
+              registerRes.user.email
+            );
+        } catch (err: any) {
+          throw new Error(err);
         }
+      } else if (err.code === 'auth/wrong-password') {
+        pswAlarmText.value = '請重新輸入密碼';
       }
     }
-  } else if (!regAccountRes && !regPswRes) {
-    isShowMailAlarm.value = true;
-    isShowPswAlarm.value = true;
-    accAlarmText.value = '請輸入正確信箱格式';
-    pswAlarmText.value = '密碼錯誤';
-  } else if (!regAccountRes) {
-    isShowMailAlarm.value = true;
-    accAlarmText.value = '請輸入正確信箱格式';
-  } else if (!regPswRes) {
-    isShowPswAlarm.value = true;
-    pswAlarmText.value = '密碼錯誤';
+  } else {
+    if (!regAccountRes && !regPswRes) {
+      accAlarmText.value = '請確認帳號格式是否正確';
+      pswAlarmText.value = '請確認密碼格式是否正確';
+      isShowMailAlarm.value = true;
+      isShowPswAlarm.value = true;
+    } else if (!regAccountRes) {
+      accAlarmText.value = '請確認帳號格式是否正確';
+      isShowMailAlarm.value = true;
+    } else if (!regPswRes) {
+      pswAlarmText.value = '請確認密碼格式是否正確';
+      isShowPswAlarm.value = true;
+    }
   }
+};
+
+// google login
+const googleLogin = () => {
+  googleLoginFn();
+};
+
+const loginFB = () => {
+  const provider = new firebase.auth.FacebookAuthProvider();
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then((result) => {
+      console.log(result);
+
+      var credential = result.credential;
+      var user = result.user;
+      var accessToken = credential.accessToken;
+    })
+    .catch((error) => {
+      console.log(error);
+
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      var email = error.email;
+      var credential = error.credential;
+    });
 };
 </script>
 

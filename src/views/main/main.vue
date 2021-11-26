@@ -6,23 +6,12 @@
       <scroll-y-bar ref="scrollYBarRef" />
     </div>
   </transition>
-  <d-header key="main_header"></d-header>
+  <d-header key="mainHeader"></d-header>
   <m-aside v-show="$store.state.isShowMAside" />
   <!-- <m-aside /> -->
   <div class="main">
     <d-aside></d-aside>
     <artical-area />
-    <!-- <div class="search_area">
-      <nav-bar @navbarIndex="navbarIndex" @emitCpnsData="emitCpnsData" />
-      <component
-        :is="currentShowCpn"
-        :recodeRes="recodeRes"
-        :dataList="dataList"
-        :boardList="boardList"
-        @emitNewIssue="emitNewIssue"
-        @emitTimer="emitTimer"
-      ></component>
-    </div> -->
     <d-adv />
   </div>
 </template>
@@ -39,8 +28,6 @@ import ArticalArea from '@/views/main/artical/articalArea.vue';
 import CommentArtical from '@/components/commentArtical';
 import ScrollYBar from '@/components/commentArtical/src/cpns/scrollYBar.vue';
 import MAside from '@/views/main/mAside/mAside.vue';
-// import SearchArea from './SearchArea/searchArea.vue';
-// import NavBar from '@/views/main/mSearchWindow/cpns/navBar.vue';
 
 // firebase
 import { firebase } from '@/service';

@@ -1,10 +1,10 @@
 <template>
-  <header class="d_header" :style="{ position: controlHeaderLayout }">
+  <header class="d_header" :class="{ position: controlHeaderLayout }">
     <div class="header_wrap" v-if="!isShowMobileHeader">
       <!-- left -->
       <div class="left_wrap">
         <!-- mobile nav start-->
-        <div class="mobile_nav" @click="isShowMAside">
+        <div class="mobile_nav" @click="isShowMAside" v-show="isShowMobileNav">
           <svg
             viewBox="0 0 24 24"
             focusable="false"
@@ -70,7 +70,66 @@
             ></path>
           </svg>
         </div>
-        <div class="user_m">
+        <div class="login_user_bar" v-show="!userStatus">
+          <div class="comment_icon" @click="goPublicPage">
+            <button disabled>
+              <svg
+                viewBox="0 0 24 24"
+                focusable="false"
+                role="img"
+                aria-hidden="true"
+              >
+                <path
+                  d="M21 4.4l-1.4-1.3a2 2 0 00-2.8 0l-1.3 1.3 4 4.1L21 7.2a2 2 0 000-2.8zM3.8 16l-1.4 5.5L8 20.1 18.2 10l-4-4.1L3.8 16z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <div class="notify_icon disable_btn">
+            <button disabled>
+              <svg
+                viewBox="0 0 24 24"
+                focusable="false"
+                role="img"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12 20.5a1.93 1.93 0 01-1.31-.5H8.85A3.48 3.48 0 0012 22a3.48 3.48 0 003.15-2h-1.84a1.93 1.93 0 01-1.31.5zm7.97-4.5a2 2 0 00-.37-1.03l-1.1-1.47v-3a6 6 0 00-4.03-5.66 2.48 2.48 0 00.03-.34A2.5 2.5 0 0012 2a2.5 2.5 0 00-2.5 2.5 2.48 2.48 0 00.03.34A6 6 0 005.5 10.5v3l-1.1 1.47A2 2 0 004.03 16H4v1a2 2 0 002 2h12a2 2 0 002-2v-1zM11 4.5a1 1 0 011-1 1 1 0 011 1v.03a6.24 6.24 0 00-.5-.03h-1c-.17 0-.33.01-.5.03V4.5z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <div class="card_icon disable_btn">
+            <button disabled>
+              <svg
+                viewBox="0 0 24 24"
+                focusable="false"
+                role="img"
+                aria-hidden="true"
+              >
+                <path
+                  d="M19 3h-9a2 2 0 00-1.85 1.26L3.47 5.51a2 2 0 00-1.41 2.45l3.36 12.56A2 2 0 007.36 22a1.99 1.99 0 00.52-.07l3.48-.93H19a2 2 0 002-2V5a2 2 0 00-2-2zM7.85 19.87a.5.5 0 01-.61-.35L4.13 7.92a.5.5 0 01.35-.6L8 6.36V19a2 2 0 00.16.79z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <div class="mail_icon disable_btn">
+            <button disabled>
+              <svg
+                viewBox="0 0 24 24"
+                focusable="false"
+                role="img"
+                aria-hidden="true"
+              >
+                <path
+                  d="M20 4H4a2 2 0 00-2 2v1l10 5 10-5V6a2 2 0 00-2-2z"
+                ></path>
+                <path d="M2 9v9a2 2 0 002 2h16a2 2 0 002-2V9l-10 5z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="user_m" @click="goLoginPage" v-show="!userStatus">
           <svg
             viewBox="0 0 24 24"
             focusable="false"
@@ -83,23 +142,29 @@
             ></path>
           </svg>
         </div>
+
         <!-- mobile info end -->
-        <div class="login">
-          <div class="login_text" v-if="isShowHeader" @click="goLoginPage">
+        <div
+          class="login"
+          :class="{ currentShowPadding: isShowHeader }"
+          v-show="userStatus"
+        >
+          <div class="login_text" @click="goLoginPage" v-show="isShowHeader">
             註冊 / 登入
           </div>
+        </div>
+        <div class="more_slide" @click="clickSelect">
           <div class="service_bar" v-show="isShowBar">
             <select-slide v-bind="headerServiceConfig" />
           </div>
         </div>
-        <div class="more_slide" @click="clickSelect"></div>
         <div
           class="download_wrap"
           v-if="isShowHeader"
           @mouseenter="mouseIn"
           @mouseleave="mouseOut"
         >
-          <div class="download_btn">下載App</div>
+          <div class="download_btn"><span class="btn_text">下載App</span></div>
 
           <transition name="qrcode">
             <div class="qrcode_wrap" v-show="isShowQrcode">
@@ -129,11 +194,19 @@ import { useRouter } from 'vue-router';
 // base-ui
 import SelectSlide from '@/base-ui/selectSlide/index';
 
+import { firebase } from '@/service';
+
 // config
 import { headerServiceConfig } from '../config/headerServiceConfig';
 
+// hook
+import { localStorage } from '@/hook/localStorageClass';
+
 const store = useStore();
 const router = useRouter();
+const userStatus = localStorage.getLocalItem('clone_dcard_user_name')
+  ? false
+  : true;
 
 // v-model
 const searchIptModel = ref('');
@@ -146,23 +219,15 @@ withDefaults(
   defineProps<{
     isShowHeader?: boolean;
     isShowMobileHeader?: boolean;
+    isShowMobileNav?: boolean;
     controlHeaderLayout?: string;
   }>(),
   {
     isShowHeader: true,
-    isShowMobileHeader: false
+    isShowMobileHeader: false,
+    isShowMobileNav: true
   }
 );
-
-// let controlHeaderLayout = ref<string>('sticky');
-// window.innerWidth > 767
-//   ? (controlHeaderLayout.value = 'sticky')
-//   : (controlHeaderLayout.value = 'initial');
-// window.addEventListener('resize', () => {
-//   window.innerWidth > 767
-//     ? (controlHeaderLayout.value = 'sticky')
-//     : (controlHeaderLayout.value = 'initial');
-// });
 
 // show serviebar
 const isShowBar = ref(false);
@@ -188,6 +253,10 @@ const showLargeQrcode = () => {
 };
 
 const goLoginPage = () => {
+  firebase.auth().onAuthStateChanged(function (user: any) {
+    !user?.email ? router.push('/login') : '';
+  });
+
   router.push('/login');
 };
 
@@ -226,6 +295,15 @@ const searchDataClick = () => {
   store.commit('mSearchWindowModule/setSearchValue', searchIptModel.value);
   router.push('/search');
 };
+
+const goPublicPage = () => {
+  router.push('/publicArtical');
+};
+
+// // go login page
+// const goLoginPage = () => {
+//   router.push('login');
+// };
 </script>
 
 <style lang="less" scoped>

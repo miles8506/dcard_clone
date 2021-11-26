@@ -47,7 +47,7 @@
         v-if="!$store.state.isShowLoginHeader && showLogin"
         @click="logout"
       >
-        <div class="context">
+        <div class="context" @click="logoutClick">
           <span> 登出 </span>
         </div>
       </li>
@@ -91,9 +91,16 @@ const clickSortItem = (index: number, name: string) => {
 };
 
 // logout
-const logout = async () => {
-  await firebase.auth().signOut();
-  window.location.reload();
+const logout = () => {
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      location.reload();
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
 };
 </script>
 

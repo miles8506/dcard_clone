@@ -1,0 +1,89 @@
+.role_window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 720px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 1000;
+
+  .role_header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 60px 12px;
+    & > div {
+      font-size: 24px;
+    }
+  }
+  .role_content {
+    padding: 0 60px 12px;
+    .content_wrap {
+      margin: auto 80px;
+      .role_item {
+        display: flex;
+        margin: 15px 0;
+        line-height: 26px;
+        font-size: 16px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .role_footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 60px 24px;
+    .know_btn {
+      padding: 11px 16px;
+      background-color: #3397cf;
+      border-radius: 10px;
+      transition: all 0.1s ease;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #5ab0db;
+      }
+      .btn_text {
+        height: 22px;
+        line-height: 22px;
+        font-size: 16px;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.show_role_window-enter-active,
+.show_role_window-leave-active {
+  transition: opacity 0.1s linear;
+}
+
+.show_role_window-enter-from,
+.show_role_window-leave-to {
+  opacity: 0;
+}
+
+.show_role_window-enter-to,
+.show_role_window-leave-from {
+  opacity: 1;
+}
+
+// media 767
+@media screen and (max-width: 720px) {
+  .role_window {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 0;
+    transform: initial;
+    overflow: auto;
+    .role_content {
+      padding: 0;
+    }
+  }
+}

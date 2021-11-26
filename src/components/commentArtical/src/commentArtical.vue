@@ -3,8 +3,8 @@
     <artical-header />
     <artical-body />
     <artical-comment />
-    <comment-text v-if="isShowComment" />
-    <comment-area @emitCommentShow="emitCommentShow" v-else />
+    <comment-area @emitCommentShow="emitCommentShow" v-if="isShowComment" />
+    <comment-text v-else @emitCommentShow="emitCommentShow" />
   </div>
 </template>
 

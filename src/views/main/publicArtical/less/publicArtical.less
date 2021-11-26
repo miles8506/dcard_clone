@@ -1,0 +1,234 @@
+.public_artical {
+  width: 100%;
+  // padding-bottom: 20px;
+  background-color: #fff;
+
+  .mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .public_main {
+    padding: 20px 80px;
+
+    .public_nav {
+      height: 60px;
+      .nav_item {
+        display: inline-block;
+        // height: 60px;
+        padding: 19px 17px;
+        font-weight: 500;
+        border-bottom: 2px solid rgb(51, 151, 207);
+        color: #000;
+        cursor: pointer;
+      }
+    }
+
+    .public_bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 20px 0;
+      .choose_wrap {
+        display: flex;
+        align-items: center;
+        padding: 6px 4px 6px 8px;
+        border-radius: 8px;
+        color: rgba(0, 0, 0, 0.75);
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        background-color: rgba(0, 16, 32, 0.06);
+        cursor: pointer;
+
+        .choose_icon {
+          width: 18px;
+          height: 18px;
+          svg {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+
+      .role_wrap {
+        display: flex;
+        .role_icon {
+          width: 15px;
+          height: 15px;
+          svg {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        .role_text {
+          color: rgba(0, 0, 0, 0.25);
+          font-weight: 700;
+          white-space: nowrap;
+          padding: 0 8px;
+          cursor: pointer;
+          &:hover {
+            color: rgb(51, 151, 207);
+          }
+        }
+      }
+    }
+
+    .user_wrap {
+      display: flex;
+
+      .user_info {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+
+        .user_name {
+          color: rgba(0, 0, 0, 0.75);
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 20px;
+        }
+
+        .public_date {
+          color: rgba(0, 0, 0, 0.35);
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 17px;
+        }
+      }
+    }
+
+    .public_artical_area {
+      margin-top: 24px;
+      .artical_title {
+        width: 100%;
+        height: 60px;
+        & > textarea {
+          width: 100%;
+          height: 100%;
+          padding: 0;
+          font-size: 30px;
+          color: rgba(0, 0, 0, 0.75);
+          border: 0;
+          outline: none;
+          resize: none;
+          // edit scroll side
+          &::-webkit-scrollbar {
+            width: 2px;
+            height: 8px;
+          }
+          &::-webkit-scrollbar-thumb {
+            // border-radius: 3px;
+            // -moz-border-radius: 3px;
+            // -webkit-border-radius: 3px;
+            // background-color: #fff;
+          }
+          &::-webkit-scrollbar-track {
+            background-color: transparent;
+          }
+
+          &::-webkit-input-placeholder {
+            color: rgba(186, 186, 186, 0.7);
+          }
+
+          &:-moz-placeholder {
+            /* Firefox 18- */
+            color: rgba(186, 186, 186, 0.7);
+          }
+
+          &::-moz-placeholder {
+            /* Firefox 19+ */
+            color: rgba(186, 186, 186, 0.7);
+          }
+
+          &:-ms-input-placeholder {
+            color: rgba(186, 186, 186, 0.7);
+          }
+
+          &::placeholder {
+            color: rgba(186, 186, 186, 0.7);
+          }
+        }
+      }
+      .artical_main {
+        height: 400px;
+        margin: 16px 0;
+        & > textarea {
+          width: 100%;
+          height: 100%;
+          padding: 0;
+          border: 0;
+          font-size: 16px;
+          outline: none;
+          resize: none;
+
+          &::-webkit-input-placeholder {
+            color: rgba(186, 186, 186, 0.7);
+          }
+
+          &:-moz-placeholder {
+            /* Firefox 18- */
+            color: rgba(186, 186, 186, 0.7);
+          }
+
+          &::-moz-placeholder {
+            /* Firefox 19+ */
+            color: rgba(186, 186, 186, 0.7);
+          }
+
+          &:-ms-input-placeholder {
+            color: rgba(186, 186, 186, 0.7);
+          }
+
+          &::placeholder {
+            color: rgba(186, 186, 186, 0.7);
+          }
+        }
+      }
+
+      .artical_img_wrap {
+        width: 100%;
+        height: 500px;
+        margin: 16px 0;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+
+      .control_btns_wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  }
+  .submit_btn {
+    padding: 11px 16px;
+    margin-left: 16px;
+    color: #fff;
+    background-color: #3397cf;
+    border-radius: 10px;
+    transition: all 0.1s ease;
+
+    &:hover {
+      background-color: #5ab0db;
+    }
+  }
+}
+
+// media 767
+@media screen and (max-width: 767px) {
+  .public_artical {
+    .public_main {
+      padding: 20px 30px;
+    }
+  }
+}

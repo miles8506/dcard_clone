@@ -1,8 +1,9 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import { useStore } from '@/store';
 
 // firebase
 import { firebase } from '@/service';
+
+import { localStorage } from '@/hook/localStorageClass';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -23,11 +24,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/search',
     name: 'search',
     component: () => import('@/views/main/mSearchWindow/mSearchWindow.vue')
+  },
+  {
+    path: '/publicArtical',
+    name: 'publicArtical',
+    component: () => import('@/views/main/publicArtical/publicArtical.vue')
   }
-  // {
-  //   path: '/search/:searchText',
-  //   component: () => import('@/views/main/mSearchWindow/mSearchWindow.vue')
-  // }
 ];
 
 const router = createRouter({
@@ -35,19 +37,15 @@ const router = createRouter({
   routes
 });
 
-// router.beforeEach((to) => {
-//   if (to.path === '/login') return;
-//   // firebase.auth().onAuthStateChanged((user) => {
-//   //   const store = useStore();
-//   //   console.log(store);
-
-//   //   if (user) {
-//   //     const store = useStore();
-//   //     store.commit('setIsshowLoginHeader', true);
-//   //   } else {
-//   //     store.commit('setIsshowLoginHeader', false);
-//   //   }
-//   // });
-// });
+router.beforeEach((to) => {
+  if (to.path !== '/login') {
+    // 刷新頁面時驗證使用者登入的狀態
+    firebase.auth().onAuthStateChanged(function (user: any) {
+      user
+        ? localStorage.setLocalItem('clone_dcard_user_name', user.email)
+        : localStorage.removeLocalItem('clone_dcard_user_name');
+    });
+  }
+});
 
 export default router;
