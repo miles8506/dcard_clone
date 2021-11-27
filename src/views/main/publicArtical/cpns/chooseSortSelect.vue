@@ -28,8 +28,10 @@
     </div>
     <div class="sort_item_wrap">
       <ul>
-        <template v-for="item in childBoardList" :key="item">
-          <li class="sort_item">{{ item.boardName }}</li>
+        <template v-for="item in boardList" :key="item">
+          <li class="sort_item" @click="chooseItem(item.boardName)">
+            {{ item.boardName }}
+          </li>
         </template>
       </ul>
     </div>
@@ -37,21 +39,42 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, withDefaults, defineEmits } from 'vue';
+import {
+  ref,
+  defineProps,
+  withDefaults,
+  defineEmits,
+  computed,
+  watch
+} from 'vue';
+import { useStore } from '@/store';
 
-const props = withDefaults(
-  defineProps<{
-    boardList: any[];
-  }>(),
-  {}
+// withDefaults(
+//   defineProps<{
+//     boardList: any[];
+//   }>(),
+//   {}
+// );
+const emits = defineEmits(['clickMaskBg', 'emitCurrentItem']);
+const store = useStore();
+
+// model
+const searchModel = ref<string>('');
+
+// immediatelyItem data
+const computedBoardList = computed(
+  () => store.state.asideModule.immediatelyItem
 );
-const emits = defineEmits(['clickMaskBg']);
+const boardList = ref();
+watch(computedBoardList, (newData) => {
+  boardList.value = newData;
+  store.commit('publicArticalModule/setCurrentItem', newData[0].boardName);
+});
 
 // smart search
-const childBoardList = ref<string[]>(props.boardList);
-const searchModel = ref<string>('');
 const searchKeyWord = () => {
-  const filterKeyWordArr = props.boardList.filter((item) => {
+  if (searchModel.value === '') boardList.value = computedBoardList.value;
+  const filterKeyWordArr = boardList.value.filter((item: any) => {
     if (
       item.boardName.includes(searchModel.value.toUpperCase()) ||
       item.boardName.includes(searchModel.value.toLowerCase())
@@ -59,7 +82,13 @@ const searchKeyWord = () => {
       return item;
     }
   });
-  childBoardList.value = filterKeyWordArr;
+  boardList.value = filterKeyWordArr;
+};
+
+// choose current item
+const chooseItem = (itemName: string) => {
+  emits('emitCurrentItem', itemName);
+  emits('clickMaskBg');
 };
 
 const closeWindow = () => {

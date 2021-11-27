@@ -1,2 +1,3 @@
 import { firebase } from './firebaseConfig';
-export { firebase };
+import { requestApi } from './requestApi';
+export { firebase, requestApi };

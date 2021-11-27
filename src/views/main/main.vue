@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 // import { ref, watch, shallowRef, defineComponent, computed } from 'vue';
-import { useStore } from '@/store';
+// import { useStore } from '@/store';
 // components
 import dHeader from '@/components/dHeader';
 import dAside from '@/components/dAside';
@@ -28,29 +28,6 @@ import ArticalArea from '@/views/main/artical/articalArea.vue';
 import CommentArtical from '@/components/commentArtical';
 import ScrollYBar from '@/components/commentArtical/src/cpns/scrollYBar.vue';
 import MAside from '@/views/main/mAside/mAside.vue';
-
-// firebase
-import { firebase } from '@/service';
-
-// // utils:localstorage
-import { localStorage } from '@/utils';
-
-// config
-// import { itemNameArr } from '@/views/main/mSearchWindow/config/navBarConfig';
-
-// import type { InavBarType } from '@/views/main/mSearchWindow/type/type';
-
-const store = useStore();
-firebase.auth().onAuthStateChanged((user: any) => {
-  if (user) {
-    const mail: string = user.email;
-    localStorage.setItem('cloned_mail', mail);
-    store.commit('setIsshowLoginHeader', false);
-  } else {
-    localStorage.setItem('cloned_mail', '');
-    store.commit('setIsshowLoginHeader', true);
-  }
-});
 
 // 上傳圖片
 // const test = (e: any) => {

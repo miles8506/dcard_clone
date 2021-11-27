@@ -180,7 +180,6 @@
     </div>
     <div class="mobile_header" v-else>
       <h1 class="track_title">追蹤列表</h1>
-      <!-- <span class="close_icon">&times;</span> -->
       <slot></slot>
     </div>
   </header>

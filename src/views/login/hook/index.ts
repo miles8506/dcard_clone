@@ -1,2 +1,2 @@
-import { googleLoginFn } from './loginFn';
-export { googleLoginFn };
+import { otherLoginFn } from './loginFn';
+export { otherLoginFn };

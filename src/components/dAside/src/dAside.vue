@@ -17,6 +17,18 @@ window.addEventListener('resize', () => {
   if (window.innerWidth > 767 && store.state.isShowMAside)
     store.commit('setShowMAside');
 });
+
+// get sortArea data
+store.dispatch('asideModule/getAsideItem', {
+  colName: 'aside',
+  docName: 'i1j58xulOh6DvqmDWCWd'
+});
+
+// get immediatelyItem
+store.dispatch('asideModule/getImmediatelyItem', {
+  colName: 'asideImmediately',
+  docName: '94h8mmiunVohLfnTEo8x'
+});
 </script>
 
 <style lang="less" scoped>

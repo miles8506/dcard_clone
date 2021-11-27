@@ -1,6 +1,9 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
+import 'firebase/firestore';
+import 'firebase/storage';
+import 'firebase/auth';
 import { store } from './store';
 import 'normalize.css';
 import 'animate.css';

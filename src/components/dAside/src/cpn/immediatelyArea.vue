@@ -25,11 +25,13 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+import { useStore } from '@/store';
 // component
 import BoardItem from '@/base-ui/boardItem';
 
-// config
-import { boardList } from '@/views/main/mSearchWindow/synthesize/config/boardItemConfig';
+const store = useStore();
+const boardList = computed(() => store.state.asideModule.immediatelyItem);
 </script>
 
 <style lang="less" scoped>

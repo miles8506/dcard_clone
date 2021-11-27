@@ -7,8 +7,8 @@
       <transition name="show_sort_select">
         <choose-sort-select
           v-show="isShowSortStatus"
-          :boardList="boardList"
           @clickMaskBg="clickMaskBg"
+          @emitCurrentItem="emitCurrentItem"
         />
       </transition>
       <!-- choose sort  -->
@@ -25,7 +25,9 @@
       </div>
       <div class="public_bar">
         <div class="choose_wrap" @click="isShowSortClick">
-          <div class="sort_box">{{ boardList[currentIndex].boardName }}</div>
+          <div class="sort_box">
+            {{ currentItem }}
+          </div>
           <div class="choose_icon">
             <svg
               viewBox="0 0 24 24"
@@ -71,17 +73,18 @@
       </div>
       <div class="public_artical_area">
         <div class="artical_title">
-          <textarea placeholder="標題"></textarea>
+          <textarea placeholder="標題" v-model="titleModel"></textarea>
         </div>
         <div class="artical_main">
-          <textarea placeholder="內容......"></textarea>
+          <textarea placeholder="內容......" v-model="articalModel"></textarea>
         </div>
-        <div class="artical_img_wrap">
-          <img src="" alt="" />
+        <div class="artical_img_wrap" v-show="imgSrc.length > 0">
+          <img :src="imgSrc" alt="" />
         </div>
         <div class="control_btns_wrap">
           <commit-artical-bar
             @emitCommentShow="emitCommentShow"
+            @emitImgPath="emitImgPath"
             :isShowImgSvg="true"
           >
             <template #default>
@@ -95,7 +98,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch, computed } from 'vue';
+import { useStore } from '@/store';
+
 // component
 import dHeader from '@/components/dHeader';
 import CommitArticalBar from '@/components/commentArtical/src/cpns/commitArticalBar.vue';
@@ -104,13 +109,18 @@ import RoleWindow from './cpns/roleWindow.vue';
 import { userMan, userWoman } from '@/components/userImg';
 
 // config
-import { boardList } from '@/views/main/mSearchWindow/synthesize/config/boardItemConfig';
+// import { boardList } from '@/views/main/mSearchWindow/synthesize/config/boardItemConfig';
 import { userLayoutConfig } from './config/userLayoutConfig';
+
+// firebase
+import { firebase } from '@/service';
+const st = firebase.storage();
+
+const store = useStore();
 
 const isShowSortStatus = ref<boolean>(false);
 const isShowMaskStatus = ref<boolean>(false);
 const isShowRoleWindowStatus = ref<boolean>(false);
-const currentIndex = ref<number>(0);
 
 const isShowSortClick = () => {
   isShowMaskStatus.value = !isShowMaskStatus.value;
@@ -141,12 +151,49 @@ const emitRoleWindowStatus = () => {
   body.style.overflowY = 'scroll';
 };
 
+const titleModel = ref('');
+const articalModel = ref('');
+const imgSrc = ref('');
+const imgFile = ref<any>('');
+
+// submit artical object
+const articalContent = ref<any>({
+  title: '',
+  artical: '',
+  imgPath: ''
+});
+
+// receive emit path
+const emitImgPath = ({ file, path }) => {
+  imgFile.value = file;
+  // show image to web
+  imgSrc.value = URL.createObjectURL(file);
+  articalContent.value.imgPath = path;
+};
+
 const emitCommentShow = () => {
   console.log(123);
 };
 
 const submitContent = () => {
-  console.log(123);
+  articalContent.value.title = titleModel.value;
+  articalContent.value.artical = articalModel.value;
+  // const res = st.ref(`artical/${articalContent.value.imgPath}`); // 這裡的ref是你要存放的路徑
+  // const test: any = res.put(imgFile.value); //最後將存放的路徑夾帶著file對象put到storage中
+};
+
+// 第一次進入或refresh時獲取第一個choose item
+const currentItem = ref('');
+const computedCurrentItem = computed(
+  () => store.state.asideModule.immediatelyItem[0]?.boardName
+);
+watch(computedCurrentItem, (itemName: string) => {
+  currentItem.value = itemName;
+});
+
+// emit current item for change currentitem
+const emitCurrentItem = (itemName: string) => {
+  currentItem.value = itemName;
 };
 </script>
 

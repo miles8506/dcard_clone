@@ -5,6 +5,7 @@ import type { margeVuexState, IrootState } from './type';
 import { asideModule } from './modules/aside/aside';
 import { commentArticalModule } from './modules/commenttArtical/commentArtical';
 import { mSearchWindowModule } from './modules/mSearchWindow/mSearchWindow';
+import { publicArticalModule } from './modules/publicArtical/publicArtical';
 
 import { firebase } from '@/service';
 import { localStorage } from '@/hook/localStorageClass';
@@ -13,7 +14,6 @@ export const store = createStore<IrootState>({
   state: {
     isShowMask: false,
     isShowLargeQrcode: false,
-    isShowLoginHeader: false,
     isShowScroll: false,
     isShowMAside: false,
     scrollTop: 0
@@ -24,9 +24,6 @@ export const store = createStore<IrootState>({
     },
     setShowLargeQrcode(state) {
       state.isShowLargeQrcode = !state.isShowLargeQrcode;
-    },
-    setIsshowLoginHeader(state, flag) {
-      state.isShowLoginHeader = flag;
     },
     setShowScroll(state, flag) {
       state.isShowScroll = flag;
@@ -48,7 +45,8 @@ export const store = createStore<IrootState>({
   modules: {
     asideModule,
     commentArticalModule,
-    mSearchWindowModule
+    mSearchWindowModule,
+    publicArticalModule
   }
 });
 
@@ -59,16 +57,19 @@ export function useStore(): Store<margeVuexState> {
 export function setupFns() {
   // 刷新頁面時驗證使用者登入的狀態
   firebase.auth().onAuthStateChanged(function (user: any) {
-    // if (user.email) {
-    //   localStorage.setLocalItem('clone_dcard_user_name', user.email);
-    // } else {
-    //   localStorage.setLocalItem('clone_dcard_user_name', '');
-    // }
     user?.email
       ? localStorage.setLocalItem('clone_dcard_user_name', user.email)
       : localStorage.setLocalItem('clone_dcard_user_name', '');
   });
+
+  // search sort
   store.commit('mSearchWindowModule/resetSearchSort');
+
+  // sort area
+  store.dispatch('asideModule/getImmediatelyItem', {
+    colName: 'asideImmediately',
+    docName: '94h8mmiunVohLfnTEo8x'
+  });
 }
 
 export { IrootState };

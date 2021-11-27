@@ -127,24 +127,22 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useStore } from '@/store';
 import { useRouter } from 'vue-router';
 
 // servie
 import { firebase } from '@/service';
 // hook
-import { googleLoginFn } from '../hook';
+import { otherLoginFn } from '../hook';
 import { localStorage } from '@/hook/localStorageClass';
 
 const router = useRouter();
-const store = useStore();
 
 // 防呆
 firebase.auth().onAuthStateChanged(function (user) {
   if (user?.email) return router.push('/main');
 });
 
-// show password
+// show&hide password
 const pswIptRef = ref();
 const currentFill = ref(false);
 const showPwdIpt = () => {
@@ -166,6 +164,8 @@ const isShowPswAlarm = ref<boolean>(false);
 
 let accAlarmText = ref<string>('');
 let pswAlarmText = ref<string>('');
+
+// normal login
 const registerClick = async (e: any) => {
   e.preventDefault();
   const regAccount = /^([\w\.\-]){1,64}\@([\w\.\-]){1,64}$/;
@@ -224,29 +224,12 @@ const registerClick = async (e: any) => {
 
 // google login
 const googleLogin = () => {
-  googleLoginFn();
+  otherLoginFn('google');
 };
 
+// facebook login
 const loginFB = () => {
-  const provider = new firebase.auth.FacebookAuthProvider();
-  firebase
-    .auth()
-    .signInWithPopup(provider)
-    .then((result) => {
-      console.log(result);
-
-      var credential = result.credential;
-      var user = result.user;
-      var accessToken = credential.accessToken;
-    })
-    .catch((error) => {
-      console.log(error);
-
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      var email = error.email;
-      var credential = error.credential;
-    });
+  otherLoginFn('facebook');
 };
 </script>
 

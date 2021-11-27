@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/storage';
 import 'firebase/auth';
+// import { getDatabase, ref, child, get } from 'firebase/database';
 
 // firebase key id
 import { FIREBASE_API_KEY } from '../../.firebase/firebaseKeyId';
@@ -19,9 +20,9 @@ const firebaseConfig = {
 // // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// utils
-// const db = firebase.database();
-// const st = firebase.storage();
-// const au = firebase.auth();
-
+// const db = firebase.firestore();
+// const ref = db.collection('aside').doc('i1j58xulOh6DvqmDWCWd');
+// ref.get().then((doc) => {
+//   console.log(doc.data());
+// });
 export { firebase };

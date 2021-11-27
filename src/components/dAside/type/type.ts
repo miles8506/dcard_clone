@@ -3,4 +3,11 @@ interface IsortItem {
   sortName: string;
 }
 
-export { IsortItem };
+interface IimmediatelyItem {
+  articalTotal: number;
+  bgcSrc: string;
+  boardName: string;
+  imgSrc: string;
+}
+
+export { IsortItem, IimmediatelyItem };
