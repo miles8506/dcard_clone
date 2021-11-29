@@ -1,20 +1,24 @@
 interface ImainArtical {
-  gender: number;
   userName: string;
   title: string;
-  sort: string;
-  articalDate: string;
-  tagTotal: number;
-  commentTotal: number;
+  gender: number;
   content: string;
+  imgPath: string;
+  timer: number;
+  timerStamp: number;
+  sort: string;
+  commentTotal: number;
+  tagTotal: number;
+  elseUserComment: any[];
 }
 
 interface IcommentAtical {
   isShowStatus: boolean;
-  mainArtical: ImainArtical;
+  // mainArtical: ImainArtical;
   isShowSelectWindow: boolean;
   issueCurrentName: string;
   itmerCurrentName: string;
+  articalTimeStamp: number;
 }
 
 export { IcommentAtical };

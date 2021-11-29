@@ -2,10 +2,10 @@
   <div class="artical_hd">
     <div class="hd_left">
       <div class="user_icon">
-        <user-man v-if="info.gender === 0" v-bind="userLayout" />
+        <user-man v-if="articalInfo.gender === 0" v-bind="userLayout" />
         <user-woman v-else v-bind="userLayout" />
       </div>
-      <div class="user_name">{{ info.userName }}</div>
+      <div class="user_name">{{ articalInfo.userName }}</div>
     </div>
     <div class="hd_right">
       <div class="close" @click="closeCommentArtical">X</div>
@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { defineProps, withDefaults } from 'vue';
 import { useStore } from '@/store';
 // component
 import { userMan, userWoman } from '@/components/userImg';
@@ -24,10 +24,19 @@ import { userLayout } from '../../config/userIconType';
 
 const store = useStore();
 
-const info = computed(() => ({
-  gender: store.state.commentArticalModule.mainArtical.gender,
-  userName: store.state.commentArticalModule.mainArtical.userName
-}));
+withDefaults(
+  defineProps<{
+    articalInfo: any;
+  }>(),
+  {
+    articalInfo: {}
+  }
+);
+
+// const info = computed(() => ({
+//   gender: store.state.commentArticalModule.mainArtical.gender,
+//   userName: store.state.commentArticalModule.mainArtical.userName
+// }));
 
 // close aritcal window
 const closeCommentArtical = () => {

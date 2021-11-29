@@ -1,7 +1,7 @@
 <template>
   <div class="comment_artical" ref="commentArticalRef">
-    <artical-header />
-    <artical-body />
+    <artical-header :articalInfo="filterArtical" />
+    <artical-body :articalInfo="filterArtical" />
     <artical-comment />
     <comment-area @emitCommentShow="emitCommentShow" v-if="isShowComment" />
     <comment-text v-else @emitCommentShow="emitCommentShow" />
@@ -17,6 +17,9 @@ import ArticalBody from './cpns/articalBody.vue';
 import ArticalComment from './cpns/articalComment.vue';
 import CommentArea from './cpns/commentArea.vue';
 import CommentText from './cpns/commentText.vue';
+
+// firebase
+import { requestColApi } from '@/service';
 
 const store = useStore();
 
@@ -52,6 +55,17 @@ onMounted(() => {
     store.commit('setScrollTop', averageScroll);
   });
 });
+
+const currentArticalStamp = store.state.commentArticalModule.articalTimeStamp;
+const filterArtical = ref();
+async function foo() {
+  const res: any = await requestColApi('artical');
+  const resFilter = res.filter(
+    (item) => item.data().timerStamp === currentArticalStamp
+  );
+  filterArtical.value = resFilter[0].data();
+}
+foo();
 </script>
 
 <style lang="less" scoped>

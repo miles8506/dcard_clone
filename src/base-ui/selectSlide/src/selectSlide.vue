@@ -42,11 +42,7 @@
           </div>
         </li>
       </template>
-      <li
-        class="select_item"
-        v-if="!$store.state.isShowLoginHeader && showLogin"
-        @click="logout"
-      >
+      <li class="select_item" v-if="loginStatus && showLogin" @click="logout">
         <div class="context" @click="logoutClick">
           <span> 登出 </span>
         </div>
@@ -63,6 +59,12 @@ import { firebase } from '@/service';
 
 // type
 import { IcontentKey } from '@/base-ui/selectSlide';
+
+// utils
+import { localStorage } from '@/utils';
+
+// api
+import { setQueryApi } from '@/service';
 
 // props
 const props = withDefaults(
@@ -90,17 +92,33 @@ const clickSortItem = (index: number, name: string) => {
   }
 };
 
+// judge user login status
+const loginStatus = ref();
+localStorage.getItem('clone_dcard_user_info') !== null &&
+localStorage.getItem('clone_dcard_user_info') !== ''
+  ? (loginStatus.value = true)
+  : (loginStatus.value = false);
+
 // logout
-const logout = () => {
-  firebase
-    .auth()
-    .signOut()
-    .then(() => {
-      location.reload();
-    })
-    .catch((error) => {
-      throw new Error(error);
-    });
+const logout = async () => {
+  // firebase
+  //   .auth()
+  //   .signOut()
+  //   .then(() => {
+  //     location.reload();
+  //   })
+  //   .catch((error) => {
+  //     throw new Error(error);
+  //   });
+  try {
+    const userAccount = localStorage.getItem('clone_dcard_user_info');
+    await firebase.auth().signOut();
+    await setQueryApi('user', userAccount.account, userAccount);
+    localStorage.setItem('clone_dcard_user_info', '');
+    location.reload();
+  } catch (err: any) {
+    throw new Error(err);
+  }
 };
 </script>
 

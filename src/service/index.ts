@@ -1,3 +1,3 @@
 import { firebase } from './firebaseConfig';
-import { requestApi } from './requestApi';
-export { firebase, requestApi };
+import { requestApi, setQueryApi, requestColApi } from './requestApi';
+export { firebase, requestApi, setQueryApi, requestColApi };

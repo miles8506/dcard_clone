@@ -39,22 +39,12 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ref,
-  defineProps,
-  withDefaults,
-  defineEmits,
-  computed,
-  watch
-} from 'vue';
+import { ref, defineEmits } from 'vue';
 import { useStore } from '@/store';
 
-// withDefaults(
-//   defineProps<{
-//     boardList: any[];
-//   }>(),
-//   {}
-// );
+// api
+import { requestApi } from '@/service';
+
 const emits = defineEmits(['clickMaskBg', 'emitCurrentItem']);
 const store = useStore();
 
@@ -62,27 +52,25 @@ const store = useStore();
 const searchModel = ref<string>('');
 
 // immediatelyItem data
-const computedBoardList = computed(
-  () => store.state.asideModule.immediatelyItem
-);
-const boardList = ref();
-watch(computedBoardList, (newData) => {
-  boardList.value = newData;
-  store.commit('publicArticalModule/setCurrentItem', newData[0].boardName);
-});
-
-// smart search
+const boardList = ref(store.state.asideModule.immediatelyItem);
+// // smart search
+let debounceTimer: any = null;
 const searchKeyWord = () => {
-  if (searchModel.value === '') boardList.value = computedBoardList.value;
-  const filterKeyWordArr = boardList.value.filter((item: any) => {
-    if (
-      item.boardName.includes(searchModel.value.toUpperCase()) ||
-      item.boardName.includes(searchModel.value.toLowerCase())
-    ) {
-      return item;
-    }
-  });
-  boardList.value = filterKeyWordArr;
+  // debounce
+  if (debounceTimer) clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    requestApi('asideImmediately', '94h8mmiunVohLfnTEo8x').then((res: any) => {
+      const filterList = res.asideImmediately.filter((item: any) => {
+        if (
+          item.boardName.includes(searchModel.value.toUpperCase()) ||
+          item.boardName.includes(searchModel.value.toLowerCase())
+        ) {
+          return item;
+        }
+      });
+      boardList.value = filterList;
+    });
+  }, 300);
 };
 
 // choose current item

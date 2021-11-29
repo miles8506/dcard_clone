@@ -131,9 +131,13 @@ import { useRouter } from 'vue-router';
 
 // servie
 import { firebase } from '@/service';
+
 // hook
 import { otherLoginFn } from '../hook';
 import { localStorage } from '@/hook/localStorageClass';
+
+// api
+import { requestColApi, setQueryApi } from '@/service';
 
 const router = useRouter();
 
@@ -182,9 +186,17 @@ const registerClick = async (e: any) => {
       const loginRes = await firebase
         .auth()
         .signInWithEmailAndPassword(vmodelAccount.value, vmodelPsw.value);
-      console.log(loginRes);
+
+      const userList: any = await requestColApi('user');
+      const filterResult = userList.filter(
+        (item: any) => item.data().account === loginRes?.user?.email
+      );
+      const userInfo = filterResult[0].data();
+
+      loginRes.user
+        ? localStorage.setLocalItem('clone_dcard_user_info', userInfo)
+        : localStorage.setLocalItem('clone_dcard_user_info', '');
     } catch (err: any) {
-      console.log(err);
       if (err.code === 'auth/user-not-found') {
         try {
           // register
@@ -194,11 +206,25 @@ const registerClick = async (e: any) => {
               vmodelAccount.value,
               vmodelPsw.value
             );
-          registerRes.user &&
-            localStorage.setLocalItem(
-              'clone_dcard_user_name',
-              registerRes.user.email
-            );
+
+          // 將新註冊的user添加info
+          setQueryApi('user', registerRes?.user?.email, {
+            account: registerRes?.user?.email,
+            artical: [],
+            comment: [],
+            likeArtical: [],
+            likeComment: []
+          });
+
+          const updateUserList: any = await requestColApi('user');
+          const filterResult = updateUserList.filter(
+            (item: any) => item.data().account === registerRes?.user?.email
+          );
+          const userInfo = filterResult[0].data();
+
+          registerRes.user
+            ? localStorage.setLocalItem('clone_dcard_user_info', userInfo)
+            : localStorage.setLocalItem('clone_dcard_user_info', '');
         } catch (err: any) {
           throw new Error(err);
         }

@@ -11,28 +11,33 @@ const commentArticalModule: Module<IcommentAtical, IrootState> = {
       isShowSelectWindow: false,
       issueCurrentName: '最新發佈',
       itmerCurrentName: '不限時間',
-      mainArtical: {
-        gender: 0,
-        userName: '',
-        title: '',
-        sort: '',
-        articalDate: '',
-        tagTotal: 0,
-        commentTotal: 0,
-        content: ''
-      }
+      // mainArtical: {
+      //   userName: '',
+      //   title: '',
+      //   gender: 0,
+      //   content: '',
+      //   imgPath: '',
+      //   timer: 0,
+      //   timerStamp: 0,
+      //   sort: '',
+      //   commentTotal: 0,
+      //   tagTotal: 0,
+      //   elseUserComment: []
+      // }
+      articalTimeStamp: 0
     };
   },
   mutations: {
     setIsshowState(state) {
       state.isShowStatus = !state.isShowStatus;
     },
-    setMainArtical(state, articalItem) {
+    setTimeStamp(state, timeStamp) {
       // test
-      const date = new Date();
-      const res = dayjs(date).format('MM月DD日 HH:mm');
-      state.mainArtical = { ...articalItem };
-      state.mainArtical.articalDate = res;
+      // const date = new Date();
+      // const res = dayjs(date).format('MM月DD日 HH:mm');
+      // state.mainArtical = { ...articalItem };
+      // state.mainArtical.articalDate = res;
+      state.articalTimeStamp = timeStamp;
     },
     setIsShowSelectWindow(state) {
       state.isShowSelectWindow = !state.isShowSelectWindow;

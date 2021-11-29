@@ -37,15 +37,15 @@ const router = createRouter({
   routes
 });
 
-router.beforeEach((to) => {
-  if (to.path !== '/login') {
-    // 刷新頁面時驗證使用者登入的狀態
-    firebase.auth().onAuthStateChanged(function (user: any) {
-      user
-        ? localStorage.setLocalItem('clone_dcard_user_name', user.email)
-        : localStorage.removeLocalItem('clone_dcard_user_name');
-    });
-  }
-});
+// router.beforeEach((to) => {
+//   if (to.path !== '/login') {
+//     // 刷新頁面時驗證使用者登入的狀態
+//     firebase.auth().onAuthStateChanged(function (user: any) {
+//       user
+//         ? localStorage.setLocalItem('clone_dcard_user_info', user.email)
+//         : localStorage.removeLocalItem('clone_dcard_user_info');
+//     });
+//   }
+// });
 
 export default router;

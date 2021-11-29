@@ -7,8 +7,8 @@ import { commentArticalModule } from './modules/commenttArtical/commentArtical';
 import { mSearchWindowModule } from './modules/mSearchWindow/mSearchWindow';
 import { publicArticalModule } from './modules/publicArtical/publicArtical';
 
-import { firebase } from '@/service';
-import { localStorage } from '@/hook/localStorageClass';
+// import { firebase } from '@/service';
+// import { localStorage } from '@/hook/localStorageClass';
 
 export const store = createStore<IrootState>({
   state: {
@@ -56,11 +56,13 @@ export function useStore(): Store<margeVuexState> {
 
 export function setupFns() {
   // 刷新頁面時驗證使用者登入的狀態
-  firebase.auth().onAuthStateChanged(function (user: any) {
-    user?.email
-      ? localStorage.setLocalItem('clone_dcard_user_name', user.email)
-      : localStorage.setLocalItem('clone_dcard_user_name', '');
-  });
+
+  // firebase.auth().onAuthStateChanged(function (user: any) {
+
+  //   // user?.email
+  //   //   ? localStorage.setLocalItem('clone_dcard_user_info', user.email)
+  //   //   : localStorage.setLocalItem('clone_dcard_user_info', '');
+  // });
 
   // search sort
   store.commit('mSearchWindowModule/resetSearchSort');

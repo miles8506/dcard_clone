@@ -203,7 +203,7 @@ import { localStorage } from '@/hook/localStorageClass';
 
 const store = useStore();
 const router = useRouter();
-const userStatus = localStorage.getLocalItem('clone_dcard_user_name')
+const userStatus = localStorage.getLocalItem('clone_dcard_user_info')
   ? false
   : true;
 

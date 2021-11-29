@@ -114,6 +114,21 @@ import MAside from '@/views/main/mAside/mAside.vue';
 //     ? (issueCurrentIndex.value = index)
 //     : (timerCurrentIndex.value = index);
 // };
+
+// 獲取一個collection
+// const ref = db.collection('artical');
+// ref
+//   .get()
+//   .then((doc: any) => {
+//     doc.docs.forEach((item: any) => {
+//       console.log(item.data());
+//     });
+//     // console.log(doc.docs);
+//   })
+//   .catch((err: any) => {
+//     console.log(err);
+//   });
+// const res = await requestColApi('artical');
 </script>
 
 <style lang="less" scoped>

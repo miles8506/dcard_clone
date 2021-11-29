@@ -71,8 +71,8 @@
             </div>
           </div>
         </div>
-        <div class="artical_img">
-          <img src="@/assets/img/list.jpeg" />
+        <div class="artical_img" v-if="item.imgPath !== ''">
+          <img :src="item.imgPath" />
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
+import { defineProps, withDefaults, computed } from 'vue';
 import { useStore } from '@/store';
 
 // component
@@ -88,6 +88,9 @@ import { userMan, userWoman } from '@/components/userImg/index';
 
 // type
 import type { IarticalItemType } from '../type/type';
+
+import { firebase } from '@/service';
+const st = firebase.storage();
 
 // props
 withDefaults(
@@ -104,7 +107,7 @@ const store = useStore();
 
 // show comment artical
 const showArtical = (item: any) => {
-  store.commit('commentArticalModule/setMainArtical', item);
+  store.commit('commentArticalModule/setTimeStamp', item.timerStamp);
   const body = document.body;
   body.style.overflowY = 'hidden';
   store.commit('setShowMask');

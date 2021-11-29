@@ -6,7 +6,7 @@
       <!-- choose sort  -->
       <transition name="show_sort_select">
         <choose-sort-select
-          v-show="isShowSortStatus"
+          v-if="isShowSortStatus"
           @clickMaskBg="clickMaskBg"
           @emitCurrentItem="emitCurrentItem"
         />
@@ -67,16 +67,19 @@
       <div class="user_wrap">
         <user-man v-bind="userLayoutConfig" />
         <div class="user_info">
-          <span class="user_name">匿名</span>
-          <span class="public_date">2021/11/11 12:12:12</span>
+          <span class="user_name">{{ articalContent.userName }}</span>
+          <span class="public_date">{{ nowTimerFn(nowTime) }}</span>
         </div>
       </div>
       <div class="public_artical_area">
         <div class="artical_title">
-          <textarea placeholder="標題" v-model="titleModel"></textarea>
+          <textarea placeholder="標題" v-model.trim="titleModel"></textarea>
         </div>
         <div class="artical_main">
-          <textarea placeholder="內容......" v-model="articalModel"></textarea>
+          <textarea
+            placeholder="內容......"
+            v-model.trim="articalModel"
+          ></textarea>
         </div>
         <div class="artical_img_wrap" v-show="imgSrc.length > 0">
           <img :src="imgSrc" alt="" />
@@ -88,7 +91,14 @@
             :isShowImgSvg="true"
           >
             <template #default>
-              <button class="submit_btn" @click="submitContent">發文</button>
+              <button
+                class="submit_btn"
+                :class="{ current_disabled: submitComputed }"
+                @click="submitContent"
+                :disabled="submitComputed"
+              >
+                發文
+              </button>
             </template>
           </commit-artical-bar>
         </div>
@@ -100,6 +110,7 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue';
 import { useStore } from '@/store';
+import { useRouter } from 'vue-router';
 
 // component
 import dHeader from '@/components/dHeader';
@@ -108,15 +119,27 @@ import ChooseSortSelect from './cpns/chooseSortSelect.vue';
 import RoleWindow from './cpns/roleWindow.vue';
 import { userMan, userWoman } from '@/components/userImg';
 
+// utils
+import { nowTimerFn, localStorage, timeStampFn } from '@/utils';
+
 // config
-// import { boardList } from '@/views/main/mSearchWindow/synthesize/config/boardItemConfig';
 import { userLayoutConfig } from './config/userLayoutConfig';
+
+// api
+import { setQueryApi, requestColApi } from '@/service';
 
 // firebase
 import { firebase } from '@/service';
 const st = firebase.storage();
 
 const store = useStore();
+const router = useRouter();
+
+if (
+  localStorage.getItem('clone_dcard_user_info') === null ||
+  localStorage.getItem('clone_dcard_user_info') === ''
+)
+  router.push('/login');
 
 const isShowSortStatus = ref<boolean>(false);
 const isShowMaskStatus = ref<boolean>(false);
@@ -155,35 +178,79 @@ const titleModel = ref('');
 const articalModel = ref('');
 const imgSrc = ref('');
 const imgFile = ref<any>('');
-
+const imgPath = ref('');
+const currentItem = ref(store.state.asideModule.immediatelyItem[0]?.boardName);
+const nowTime = new Date();
 // submit artical object
 const articalContent = ref<any>({
+  userName: localStorage.getItem('clone_dcard_user_info'),
   title: '',
-  artical: '',
-  imgPath: ''
+  gender: 0,
+  content: '',
+  imgPath: '',
+  timer: nowTimerFn(nowTime),
+  timerStamp: timeStampFn(nowTime),
+  sort: '',
+  // hot: 0,
+  commentTotal: 0,
+  tagTotal: 0,
+  elseUserComment: []
 });
 
 // receive emit path
-const emitImgPath = ({ file, path }) => {
+const emitImgPath = async ({ file, path }) => {
   imgFile.value = file;
   // show image to web
   imgSrc.value = URL.createObjectURL(file);
-  articalContent.value.imgPath = path;
+  imgPath.value = path;
 };
 
 const emitCommentShow = () => {
-  console.log(123);
+  router.push('/main');
 };
 
-const submitContent = () => {
+const submitContent = async () => {
   articalContent.value.title = titleModel.value;
-  articalContent.value.artical = articalModel.value;
-  // const res = st.ref(`artical/${articalContent.value.imgPath}`); // 這裡的ref是你要存放的路徑
-  // const test: any = res.put(imgFile.value); //最後將存放的路徑夾帶著file對象put到storage中
+  articalContent.value.content = articalModel.value;
+  articalContent.value.sort = currentItem.value;
+
+  if (imgSrc.value) {
+    // img process
+    const imgStPath = st.ref(`artical/${imgPath.value}`);
+    const task = imgStPath.put(imgFile.value);
+
+    // listen img put for server
+    task.on(
+      'state_changed',
+      null,
+      (err: any) => {
+        throw new Error(err);
+      },
+      () => {
+        // get img server path after put img for server and save in articalContentObj
+        const fileRef = st.ref(`artical/${imgPath.value}`);
+        fileRef.getDownloadURL().then((res) => {
+          articalContent.value.imgPath = res;
+          setQueryApi('artical', timeStampFn(nowTime), articalContent.value);
+          router.push('/main');
+        });
+      }
+    );
+  } else {
+    setQueryApi('artical', timeStampFn(nowTime), articalContent.value);
+    router.push('/main');
+  }
 };
+
+const submitComputed = computed(() => {
+  if (titleModel.value !== '' && articalModel.value !== '') {
+    return false;
+  } else {
+    return true;
+  }
+});
 
 // 第一次進入或refresh時獲取第一個choose item
-const currentItem = ref('');
 const computedCurrentItem = computed(
   () => store.state.asideModule.immediatelyItem[0]?.boardName
 );
