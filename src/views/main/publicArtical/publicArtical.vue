@@ -67,7 +67,9 @@
       <div class="user_wrap">
         <user-man v-bind="userLayoutConfig" />
         <div class="user_info">
-          <span class="user_name">{{ articalContent.userName }}</span>
+          <span class="user_name">{{
+            localStorage.getItem('clone_dcard_user_info').account
+          }}</span>
           <span class="public_date">{{ nowTimerFn(nowTime) }}</span>
         </div>
       </div>
@@ -183,7 +185,7 @@ const currentItem = ref(store.state.asideModule.immediatelyItem[0]?.boardName);
 const nowTime = new Date();
 // submit artical object
 const articalContent = ref<any>({
-  userName: localStorage.getItem('clone_dcard_user_info'),
+  userName: localStorage.getItem('clone_dcard_user_info').account,
   title: '',
   gender: 0,
   content: '',

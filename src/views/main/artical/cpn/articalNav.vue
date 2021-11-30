@@ -33,6 +33,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useStore } from '@/store';
 
 // config
 import { articalNav } from '../config/articalNavConfig';
@@ -40,6 +41,11 @@ import { articalSelectConfig } from '../config/articalSelectConfig';
 
 // component
 import SelectSlide from '../../../../base-ui/selectSlide/index';
+
+// utils
+import { localStorage } from '@/utils';
+
+const store = useStore();
 
 // current nav border-bottom
 const currentNavIndex = ref<number>(0);
@@ -57,6 +63,8 @@ const clickSelect = () => {
 let articalType = ref<string>('熱門');
 const emitArticalType = (name: string) => {
   if (articalType.value !== name) articalType.value = name;
+  localStorage.setItem('artical_basis', name);
+  store.commit('setArticalSortStatus');
 };
 </script>
 

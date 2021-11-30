@@ -2,8 +2,8 @@
   <div class="artical_hd">
     <div class="hd_left">
       <div class="user_icon">
-        <user-man v-if="articalInfo.gender === 0" v-bind="userLayout" />
-        <user-woman v-else v-bind="userLayout" />
+        <user-man v-bind="userLayout" />
+        <!-- <user-woman v-else v-bind="userLayout" /> -->
       </div>
       <div class="user_name">{{ articalInfo.userName }}</div>
     </div>

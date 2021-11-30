@@ -52,7 +52,7 @@
                   ></path>
                 </svg>
               </div>
-              <div class="total">{{ item.commentTotal }}</div>
+              <div class="total">{{ item.elseUserComment.length }}</div>
             </div>
             <div class="collect">
               <div class="collect_img">

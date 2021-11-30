@@ -1,7 +1,8 @@
 <template>
   <li
-    class="bd_item"
     v-for="item in boardList"
+    class="bd_item"
+    @click="chooseItem(item.boardName)"
     :key="item.itemName"
     :style="{ padding: conrolLayout }"
   >
@@ -11,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
+import { defineProps, withDefaults, defineEmits } from 'vue';
 withDefaults(
   defineProps<{
     boardList: any[];
@@ -19,6 +20,12 @@ withDefaults(
   }>(),
   {}
 );
+
+const emits = defineEmits(['emitBoardName']);
+
+const chooseItem = (boardName: string) => {
+  emits('emitBoardName', boardName);
+};
 </script>
 
 <style lang="less" scoped>

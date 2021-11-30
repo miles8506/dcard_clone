@@ -6,6 +6,7 @@ import { asideModule } from './modules/aside/aside';
 import { commentArticalModule } from './modules/commenttArtical/commentArtical';
 import { mSearchWindowModule } from './modules/mSearchWindow/mSearchWindow';
 import { publicArticalModule } from './modules/publicArtical/publicArtical';
+import { userInfoModule } from './modules/userInfo/userInfo';
 
 // firebase
 import { firebase } from '@/service';
@@ -22,6 +23,8 @@ export const store = createStore<IrootState>({
     isShowLargeQrcode: false,
     isShowScroll: false,
     isShowMAside: false,
+    articalBasisStatus: true,
+    articalType: '',
     scrollTop: 0
   },
   mutations: {
@@ -39,8 +42,13 @@ export const store = createStore<IrootState>({
       state.isShowScroll = flag;
     },
     setShowMAside(state) {
-      // if (flag) state.isShowMAside = flag;
       state.isShowMAside = !state.isShowMAside;
+    },
+    setArticalSortStatus(state) {
+      state.articalBasisStatus = !state.articalBasisStatus;
+    },
+    setArticalType(state, payload) {
+      state.articalType = payload;
     },
     setScrollTop(state, positionTop) {
       state.scrollTop = positionTop;
@@ -50,13 +58,20 @@ export const store = createStore<IrootState>({
   getters: {
     getScrollTop(state) {
       return state.scrollTop;
+    },
+    getArticalBasisStatus(state) {
+      return state.articalBasisStatus;
+    },
+    getArticalType(state) {
+      return state.articalType;
     }
   },
   modules: {
     asideModule,
     commentArticalModule,
     mSearchWindowModule,
-    publicArticalModule
+    publicArticalModule,
+    userInfoModule
   }
 });
 
@@ -79,6 +94,22 @@ export function setupFns() {
           localStorage.setItem('clone_dcard_user_info', filterUser[0].data());
           location.reload();
         });
+      } else {
+        // 將user likeArtical and likeComment save for vuex
+        requestColApi('user').then((res: any) => {
+          const filterUser = res.filter(
+            (item: any) => item.data().account === user.email
+          );
+          localStorage.setItem('clone_dcard_user_info', filterUser[0].data());
+          store.commit(
+            'userInfoModule/setLikeArtical',
+            filterUser[0].data().likeArtical
+          );
+          store.commit(
+            'userInfoModule/setLikeComment',
+            filterUser[0].data().likeComment
+          );
+        });
       }
     }
   });
@@ -91,6 +122,12 @@ export function setupFns() {
     colName: 'asideImmediately',
     docName: '94h8mmiunVohLfnTEo8x'
   });
+
+  // aritcal basis
+  localStorage.setItem('artical_basis', '熱門');
+
+  // artical type
+  localStorage.setItem('artical_type', '全部');
 }
 
 export { IrootState };

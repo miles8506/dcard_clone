@@ -1,7 +1,7 @@
 <template>
   <div class="comment_artical" ref="commentArticalRef">
     <artical-header :articalInfo="filterArtical" />
-    <artical-body :articalInfo="filterArtical" />
+    <artical-body :articalInfo="filterArtical" @emitTagTotal="emitTagTotal" />
     <artical-comment />
     <comment-area @emitCommentShow="emitCommentShow" v-if="isShowComment" />
     <comment-text v-else @emitCommentShow="emitCommentShow" />
@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import { useStore } from '@/store';
 // component
 import ArticalHeader from './cpns/articalHeader.vue';
@@ -69,11 +69,12 @@ async function getArticalFn() {
     'commentArticalModule/setOtherComment',
     filterArtical.value.elseUserComment
   );
-  store.commit(
-    'commentArticalModule/setArticalAuthor',
-    filterArtical.value.userName
-  );
 }
+
+// emit for commentBody
+const emitTagTotal = (flag: boolean) => {
+  flag ? filterArtical.value.tagTotal++ : filterArtical.value.tagTotal--;
+};
 getArticalFn();
 </script>
 

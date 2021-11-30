@@ -35,10 +35,6 @@
       <div class="like_total">{{ item.likeTotal }}</div>
     </div>
   </div>
-  <!-- </template>
-  <template v-else>
-    <div class="comment_item"></div>
-  </template> -->
 </template>
 
 <script setup lang="ts">
@@ -58,7 +54,9 @@ withDefaults(
     width: number;
     height: number;
   }>(),
-  {}
+  {
+    commentItem: {}
+  }
 );
 </script>
 

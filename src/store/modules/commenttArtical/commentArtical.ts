@@ -11,7 +11,6 @@ const commentArticalModule: Module<IcommentAtical, IrootState> = {
       issueCurrentName: '最新發佈',
       itmerCurrentName: '不限時間',
       articalTimeStamp: 0,
-      articalAuthor: '',
       elseUserComment: []
     };
   },
@@ -43,9 +42,11 @@ const commentArticalModule: Module<IcommentAtical, IrootState> = {
     // add comment push to elseUserComment array
     pushOtherComment(state, commentItem) {
       state.elseUserComment.push(commentItem);
-    },
-    setArticalAuthor(state, payload) {
-      state.articalAuthor = payload;
+    }
+  },
+  getters: {
+    getIsShowStatus(state) {
+      return state.isShowStatus;
     }
   }
 };

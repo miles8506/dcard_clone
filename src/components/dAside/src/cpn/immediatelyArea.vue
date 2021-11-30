@@ -2,7 +2,7 @@
   <div class="immediately_area">
     <div class="title">即時熱門看板</div>
     <ul class="im_list">
-      <board-item :boardList="boardList" />
+      <board-item :boardList="boardList" @emitBoardName="emitBoardName" />
       <li class="im_item more_item">
         更多<span class="right_icon" v-show="$store.state.isShowMAside">
           <svg
@@ -30,8 +30,16 @@ import { useStore } from '@/store';
 // component
 import BoardItem from '@/base-ui/boardItem';
 
+// utils
+import { localStorage } from '@/utils';
+
 const store = useStore();
 const boardList = computed(() => store.state.asideModule.immediatelyItem);
+
+const emitBoardName = (boardName: string) => {
+  localStorage.setItem('artical_type', boardName);
+  store.commit('setArticalType', boardName);
+};
 </script>
 
 <style lang="less" scoped>

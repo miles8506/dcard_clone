@@ -17,13 +17,21 @@
         class="main_text"
         :rows="'4'"
         placeholder="留言前請詳閱全站站規和本版版規。"
-        v-model="commentModel"
+        v-model.trim="commentModel"
+        ref="mainTextRef"
       ></textarea>
     </div>
     <div class="foot_text">
       <commit-artical-bar @emitCommentShow="emitCommentShow">
         <template #default>
-          <button class="submit_btn" @click="submitContent">送出</button>
+          <button
+            class="submit_btn"
+            :class="{ disabledStatus: commentModel === '' }"
+            :disabled="commentModel === ''"
+            @click="submitContent"
+          >
+            送出
+          </button>
         </template>
       </commit-artical-bar>
     </div>
@@ -31,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineEmits } from 'vue';
+import { ref, computed, defineEmits, onMounted } from 'vue';
 import { useStore } from '@/store';
 // components
 import { userMan, userWoman } from '@/components/userImg';
@@ -51,17 +59,21 @@ const emitCommentShow = () => {
 };
 const userInfo = localStorage.getItem('clone_dcard_user_info');
 
+const mainTextRef = ref<HTMLTextAreaElement>();
+onMounted(() => {
+  mainTextRef.value?.focus();
+});
+
 // 當前留言樓層數
 const commentFloor = computed(
   () => store.state.commentArticalModule.elseUserComment?.length + 1
-);
-const articalAuthor = computed(
-  () => store.state.commentArticalModule?.articalAuthor
 );
 const commentModel = ref('');
 
 // submit comment
 const submitContent = async () => {
+  emits('emitCommentShow');
+
   const commentObj: any = {};
   commentObj.userName = userInfo.account;
   commentObj.timeStamp = timeStampFn(new Date());
@@ -76,6 +88,7 @@ const submitContent = async () => {
     store.state.commentArticalModule.articalTimeStamp + ''
   );
   articalRes.elseUserComment.push(commentObj);
+  articalRes.commentTotal++;
   await setQueryApi(
     'artical',
     store.state.commentArticalModule.articalTimeStamp + '',
@@ -92,7 +105,7 @@ const submitContent = async () => {
   userInfo.comment.push(commentObj);
   localStorage.setItem('clone_dcard_user_info', userInfo);
 
-  commentModel.value = '';
+  // commentModel.value = '';
 };
 
 // click input file after click svg

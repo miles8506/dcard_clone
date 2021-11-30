@@ -4,7 +4,7 @@
     <div class="hot_comment_area">
       <h6 class="hot_comment_title">熱門留言</h6>
       <div class="hot_comment_wrap">
-        <comment-item :commentItem="filterHotComment" v-bind="userLayout" />
+        <comment-item :commentItem="hotList" v-bind="userLayout" />
       </div>
     </div>
     <!-- habit artical -->
@@ -39,14 +39,31 @@ import { userLayout } from '../../config/userIconType';
 import { articalListConfig } from '@/views/main/artical/config/listTestConfig';
 
 const store = useStore();
+
+// withDefaults(
+//   defineProps<{
+//     articalInfo: any;
+//   }>(),
+//   {
+//     articalInfo: {}
+//   }
+// );
+
+// normal comment
 const commentList = computed(
   () => store.state.commentArticalModule.elseUserComment
 );
 
+// hot comment
+const hotList = computed(() => {
+  let otherList: any[] = [...store.state.commentArticalModule.elseUserComment];
+  const hotRes = otherList.sort((a, b) => b.likeTotal - a.likeTotal);
+  return hotRes.slice(0, 3);
+});
+
 const commentLength = computed(
   () => store.state.commentArticalModule.elseUserComment.length
 );
-
 // 總共幾筆commentItem
 // const commentLength = commentItem.length;
 

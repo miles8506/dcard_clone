@@ -85,7 +85,7 @@
               </svg>
             </button>
           </div>
-          <div class="notify_icon disable_btn">
+          <!-- <div class="notify_icon disable_btn">
             <button disabled>
               <svg
                 viewBox="0 0 24 24"
@@ -127,7 +127,7 @@
                 <path d="M2 9v9a2 2 0 002 2h16a2 2 0 002-2V9l-10 5z"></path>
               </svg>
             </button>
-          </div>
+          </div> -->
         </div>
         <div class="user_m" @click="goLoginPage" v-show="!userStatus">
           <svg
