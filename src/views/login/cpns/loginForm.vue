@@ -127,10 +127,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-// servie
-import { firebase } from '@/service';
 
 // hook
 import { otherLoginFn } from '../hook';
@@ -139,12 +135,8 @@ import { localStorage } from '@/hook/localStorageClass';
 // api
 import { requestColApi, setQueryApi } from '@/service';
 
-const router = useRouter();
-
-// 防呆
-firebase.auth().onAuthStateChanged(function (user) {
-  if (user?.email) return router.push('/main');
-});
+// servie
+import { firebase } from '@/service';
 
 // show&hide password
 const pswIptRef = ref();

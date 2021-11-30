@@ -5,8 +5,11 @@
         <user-man v-bind="userLayout" />
       </div>
       <div class="info">
-        <div class="school_info">德明財經科技大學</div>
-        <div class="date_info">B11 | 2021/11/21 下午9:32:44</div>
+        <div class="school_info">{{ userInfo.account }}</div>
+        <div class="date_info">
+          {{ 'B' + commentFloor }}
+          | {{ nowTimerFn(new Date()) }}
+        </div>
       </div>
     </div>
     <div class="main_text_wrap">
@@ -14,6 +17,7 @@
         class="main_text"
         :rows="'4'"
         placeholder="留言前請詳閱全站站規和本版版規。"
+        v-model="commentModel"
       ></textarea>
     </div>
     <div class="foot_text">
@@ -27,21 +31,70 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits } from 'vue';
+import { ref, computed, defineEmits } from 'vue';
+import { useStore } from '@/store';
 // components
 import { userMan, userWoman } from '@/components/userImg';
 import { userLayout } from '../../config/userIconType';
 import CommitArticalBar from './commitArticalBar.vue';
 
+// utils
+import { nowTimerFn, localStorage, timeStampFn } from '@/utils';
+
+// api
+import { requestApi, setQueryApi } from '@/service';
+
+const store = useStore();
 const emits = defineEmits(['emitCommentShow']);
 const emitCommentShow = () => {
   emits('emitCommentShow');
 };
+const userInfo = localStorage.getItem('clone_dcard_user_info');
+
+// 當前留言樓層數
+const commentFloor = computed(
+  () => store.state.commentArticalModule.elseUserComment?.length + 1
+);
+const articalAuthor = computed(
+  () => store.state.commentArticalModule?.articalAuthor
+);
+const commentModel = ref('');
 
 // submit comment
-const submitContent = () => {
-  console.log('submitContent');
+const submitContent = async () => {
+  const commentObj: any = {};
+  commentObj.userName = userInfo.account;
+  commentObj.timeStamp = timeStampFn(new Date());
+  commentObj.floor = commentFloor.value;
+  commentObj.content = commentModel.value;
+  commentObj.gender = 0;
+  commentObj.likeTotal = 0;
+
+  // api artical
+  const articalRes: any = await requestApi(
+    'artical',
+    store.state.commentArticalModule.articalTimeStamp + ''
+  );
+  articalRes.elseUserComment.push(commentObj);
+  await setQueryApi(
+    'artical',
+    store.state.commentArticalModule.articalTimeStamp + '',
+    articalRes
+  );
+
+  // api user
+  const userRes: any = await requestApi('user', userInfo.account);
+  userRes.comment.push(commentObj);
+  await setQueryApi('user', userInfo.account, userRes);
+
+  // local
+  store.commit('commentArticalModule/pushOtherComment', commentObj);
+  userInfo.comment.push(commentObj);
+  localStorage.setItem('clone_dcard_user_info', userInfo);
+
+  commentModel.value = '';
 };
+
 // click input file after click svg
 // const uploadFileClick = () => {
 //   const upload_file = document.querySelector('.upload_file');

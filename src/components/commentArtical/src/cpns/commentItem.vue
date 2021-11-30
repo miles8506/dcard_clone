@@ -1,4 +1,5 @@
 <template>
+  <!-- <template v-if="commentItem?.length > 0"> -->
   <div class="comment_item" v-for="(item, index) in commentItem" :key="index">
     <div class="user_icon_wrap">
       <template v-if="item.gender === 0">
@@ -12,8 +13,8 @@
       <div class="user_name">{{ item.userName }}</div>
       <div class="comment_content">{{ item.content }}</div>
       <div class="comment_info">
-        <span class="floor">{{ item.floor }} ．</span>
-        <span class="hour_ago"> {{ `${item.timeAgo} 小時前` }}</span>
+        <span class="floor">{{ 'B' + item.floor }} ．</span>
+        <span class="hour_ago"> {{ timeAgoFn(item.timeStamp) }}</span>
       </div>
     </div>
     <div class="like_total_wrap">
@@ -31,9 +32,13 @@
           ></path>
         </svg>
       </div>
-      <div class="like_total">{{ item.likeTol }}</div>
+      <div class="like_total">{{ item.likeTotal }}</div>
     </div>
   </div>
+  <!-- </template>
+  <template v-else>
+    <div class="comment_item"></div>
+  </template> -->
 </template>
 
 <script setup lang="ts">
@@ -42,11 +47,14 @@ import { defineProps, withDefaults } from 'vue';
 // component
 import { userMan, userWoman } from '@/components/userImg';
 
+// utils
+import { timeAgoFn } from '@/utils';
+
 //type
-import type { IcommentItem } from '../type/type';
+// import type { IcommentItem } from '../type/type';
 withDefaults(
   defineProps<{
-    commentItem: IcommentItem;
+    commentItem: any;
     width: number;
     height: number;
   }>(),

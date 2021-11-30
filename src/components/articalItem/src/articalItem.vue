@@ -11,7 +11,7 @@
           </template>
         </span>
         <span class="artical_sort">{{ item.sort }}</span> ．
-        <span class="artical_ago">{{ `${item.hourAgo} 小時前` }}</span>
+        <span class="artical_ago">{{ timeAgo(item.timerStamp) }}</span>
       </div>
       <div class="artical_main">
         <div class="artical_wrap">
@@ -89,6 +89,9 @@ import { userMan, userWoman } from '@/components/userImg/index';
 // type
 import type { IarticalItemType } from '../type/type';
 
+// utils
+import { timeAgoFn } from '@/utils';
+
 import { firebase } from '@/service';
 const st = firebase.storage();
 
@@ -105,6 +108,14 @@ import { userLayout } from '../../../views/main/artical/config/userIconConfig';
 
 const store = useStore();
 
+const timeAgo = computed(() => {
+  return function (timer: number) {
+    return timeAgoFn(timer);
+  };
+});
+
+store.commit('setShowMask', false);
+store.commit('commentArticalModule/setIsshowState', false);
 // show comment artical
 const showArtical = (item: any) => {
   store.commit('commentArticalModule/setTimeStamp', item.timerStamp);

@@ -1,4 +1,9 @@
 import { localStorage } from './setLocalStorage';
-import { nowTimerFn, timeStampFn, computedTimeGapFn } from './dayFormat';
+import {
+  nowTimerFn,
+  timeStampFn,
+  computedTimeGapFn,
+  timeAgoFn
+} from './dayFormat';
 
-export { localStorage, nowTimerFn, timeStampFn, computedTimeGapFn };
+export { localStorage, nowTimerFn, timeStampFn, computedTimeGapFn, timeAgoFn };

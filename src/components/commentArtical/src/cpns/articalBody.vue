@@ -55,7 +55,7 @@ import { defineProps, withDefaults, computed } from 'vue';
 import { useStore } from '@/store';
 
 // utils
-import { computedTimeGapFn } from '@/utils';
+import { timeAgoFn } from '@/utils';
 
 const store = useStore();
 
@@ -70,19 +70,7 @@ withDefaults(
 
 const timeAgo = computed(() => {
   const timer = store.state.commentArticalModule.articalTimeStamp;
-  const dayMs = computedTimeGapFn(timer);
-  let res;
-  if (dayMs < 3600000) {
-    // minute
-    res = `${parseInt(dayMs / 1000 / 60)} 分鐘前`;
-  } else if (dayMs < 86400000) {
-    // hour
-    res = `${parseInt(dayMs / 1000 / 60 / 60)} 小時前`;
-  } else {
-    // day
-    res = `${parseInt(dayMs / 1000 / 60 / 60 / 24)} 天前`;
-  }
-  return res;
+  return timeAgoFn(timer);
 });
 // const info = computed(() => ({
 //   title: store.state.commentArticalModule.mainArtical.title,

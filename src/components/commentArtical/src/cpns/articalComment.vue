@@ -18,13 +18,16 @@
     <div class="all_comment_area">
       <h6 class="all_comment_title">共有 {{ commentLength }} 則留言</h6>
       <div class="comment_item_wrap">
-        <comment-item :commentItem="commentItem" v-bind="userLayout" />
+        <comment-item :commentItem="commentList" v-bind="userLayout" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+import { useStore } from '@/store';
+
 // component
 import CommentItem from './commentItem.vue';
 import HabitItem from './habitItem.vue';
@@ -33,16 +36,24 @@ import HabitItem from './habitItem.vue';
 import { userLayout } from '../../config/userIconType';
 
 // testconfig
-import { commentItem } from '../../config/commentItme';
 import { articalListConfig } from '@/views/main/artical/config/listTestConfig';
 
+const store = useStore();
+const commentList = computed(
+  () => store.state.commentArticalModule.elseUserComment
+);
+
+const commentLength = computed(
+  () => store.state.commentArticalModule.elseUserComment.length
+);
+
 // 總共幾筆commentItem
-const commentLength = commentItem.length;
+// const commentLength = commentItem.length;
 
 // filter hot comment (top3)
-const filterHotComment = commentItem
-  .sort((a: any, b: any) => b.likeTol - a.likeTol)
-  .slice(0, 3);
+// const filterHotComment = commentItem
+//   .sort((a: any, b: any) => b.likeTol - a.likeTol)
+//   .slice(0, 3);
 
 // habit artical
 const habitArticalList = articalListConfig.slice(0, 8);

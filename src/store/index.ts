@@ -7,8 +7,14 @@ import { commentArticalModule } from './modules/commenttArtical/commentArtical';
 import { mSearchWindowModule } from './modules/mSearchWindow/mSearchWindow';
 import { publicArticalModule } from './modules/publicArtical/publicArtical';
 
-// import { firebase } from '@/service';
-// import { localStorage } from '@/hook/localStorageClass';
+// firebase
+import { firebase } from '@/service';
+
+// utils
+import { localStorage } from '@/utils';
+
+// api
+import { requestColApi } from '@/service';
 
 export const store = createStore<IrootState>({
   state: {
@@ -19,8 +25,12 @@ export const store = createStore<IrootState>({
     scrollTop: 0
   },
   mutations: {
-    setShowMask(state) {
-      state.isShowMask = !state.isShowMask;
+    setShowMask(state, flag?: boolean) {
+      if (flag !== undefined) {
+        state.isShowMask = flag;
+      } else {
+        state.isShowMask = !state.isShowMask;
+      }
     },
     setShowLargeQrcode(state) {
       state.isShowLargeQrcode = !state.isShowLargeQrcode;
@@ -57,12 +67,21 @@ export function useStore(): Store<margeVuexState> {
 export function setupFns() {
   // 刷新頁面時驗證使用者登入的狀態
 
-  // firebase.auth().onAuthStateChanged(function (user: any) {
-
-  //   // user?.email
-  //   //   ? localStorage.setLocalItem('clone_dcard_user_info', user.email)
-  //   //   : localStorage.setLocalItem('clone_dcard_user_info', '');
-  // });
+  firebase.auth().onAuthStateChanged(function (user: any) {
+    // 判斷user為login status，但並無將userinfo保存至local時執行
+    if (user?.email) {
+      const userInfo = localStorage.getItem('clone_dcard_user_info');
+      if (userInfo === '' || userInfo === null) {
+        requestColApi('user').then((res: any) => {
+          const filterUser = res.filter(
+            (item: any) => item.data().account === user.email
+          );
+          localStorage.setItem('clone_dcard_user_info', filterUser[0].data());
+          location.reload();
+        });
+      }
+    }
+  });
 
   // search sort
   store.commit('mSearchWindowModule/resetSearchSort');

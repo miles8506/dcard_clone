@@ -22,11 +22,21 @@
 
 <script setup lang="ts">
 import { defineEmits } from 'vue';
+import { useRouter } from 'vue-router';
+// component
 import { userMan, userWoman } from '@/components/userImg';
+
+// config
 import { userLayoutComment } from '../../config/userIconType';
 
+import { localStorage } from '@/utils';
+
 const emits = defineEmits(['emitCommentShow']);
+
+const router = useRouter();
 const changeCommenShow = () => {
+  const userInfo = localStorage.getItem('clone_dcard_user_info');
+  if (userInfo === '' || userInfo === null) return router.push('/login');
   emits('emitCommentShow');
 };
 </script>

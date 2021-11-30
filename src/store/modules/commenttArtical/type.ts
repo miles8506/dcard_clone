@@ -19,6 +19,8 @@ interface IcommentAtical {
   issueCurrentName: string;
   itmerCurrentName: string;
   articalTimeStamp: number;
+  articalAuthor: string;
+  elseUserComment: any[];
 }
 
 export { IcommentAtical };

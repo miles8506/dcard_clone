@@ -1,7 +1,6 @@
 import type { Module } from 'vuex';
 import type { IcommentAtical } from './type';
 import type { IrootState } from '../../type';
-import dayjs from 'dayjs';
 
 const commentArticalModule: Module<IcommentAtical, IrootState> = {
   namespaced: true,
@@ -11,32 +10,20 @@ const commentArticalModule: Module<IcommentAtical, IrootState> = {
       isShowSelectWindow: false,
       issueCurrentName: '最新發佈',
       itmerCurrentName: '不限時間',
-      // mainArtical: {
-      //   userName: '',
-      //   title: '',
-      //   gender: 0,
-      //   content: '',
-      //   imgPath: '',
-      //   timer: 0,
-      //   timerStamp: 0,
-      //   sort: '',
-      //   commentTotal: 0,
-      //   tagTotal: 0,
-      //   elseUserComment: []
-      // }
-      articalTimeStamp: 0
+      articalTimeStamp: 0,
+      articalAuthor: '',
+      elseUserComment: []
     };
   },
   mutations: {
-    setIsshowState(state) {
-      state.isShowStatus = !state.isShowStatus;
+    setIsshowState(state, flag?: boolean) {
+      if (flag !== undefined) {
+        state.isShowStatus = flag;
+      } else {
+        state.isShowStatus = !state.isShowStatus;
+      }
     },
     setTimeStamp(state, timeStamp) {
-      // test
-      // const date = new Date();
-      // const res = dayjs(date).format('MM月DD日 HH:mm');
-      // state.mainArtical = { ...articalItem };
-      // state.mainArtical.articalDate = res;
       state.articalTimeStamp = timeStamp;
     },
     setIsShowSelectWindow(state) {
@@ -48,6 +35,17 @@ const commentArticalModule: Module<IcommentAtical, IrootState> = {
       } else {
         state.itmerCurrentName = item;
       }
+    },
+    // 將comment存放到array中
+    setOtherComment(state, payload) {
+      state.elseUserComment = payload;
+    },
+    // add comment push to elseUserComment array
+    pushOtherComment(state, commentItem) {
+      state.elseUserComment.push(commentItem);
+    },
+    setArticalAuthor(state, payload) {
+      state.articalAuthor = payload;
     }
   }
 };

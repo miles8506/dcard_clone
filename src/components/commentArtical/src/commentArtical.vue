@@ -56,16 +56,25 @@ onMounted(() => {
   });
 });
 
+// get current artical data
 const currentArticalStamp = store.state.commentArticalModule.articalTimeStamp;
 const filterArtical = ref();
-async function foo() {
+async function getArticalFn() {
   const res: any = await requestColApi('artical');
   const resFilter = res.filter(
-    (item) => item.data().timerStamp === currentArticalStamp
+    (item: any) => item.data().timerStamp === currentArticalStamp
   );
   filterArtical.value = resFilter[0].data();
+  store.commit(
+    'commentArticalModule/setOtherComment',
+    filterArtical.value.elseUserComment
+  );
+  store.commit(
+    'commentArticalModule/setArticalAuthor',
+    filterArtical.value.userName
+  );
 }
-foo();
+getArticalFn();
 </script>
 
 <style lang="less" scoped>
