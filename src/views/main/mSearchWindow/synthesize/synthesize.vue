@@ -70,7 +70,7 @@ if (
   store.state.mSearchWindowModule.searchSortArr.length > 0 &&
   !store.state.mSearchWindowModule.isShowSearchSort
 )
-  store.commit('mSearchWindowModule/setShowSerchSort');
+  store.commit('mSearchWindowModule/setShowSerchSort', false);
 
 // clear keyword recode
 const clearSearchRecode = () => {

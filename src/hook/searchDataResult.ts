@@ -20,13 +20,16 @@ export async function searchDataResult(
     case 0:
       res = await setAllQueryApi('artical', 'asideImmediately');
       emits('emitCpnsData', res[0].value, res[1].value);
-      store.commit('mSearchWindowModule/setShowSerchSort');
+      store.commit('mSearchWindowModule/setShowSerchSort', false);
       break;
     case 1:
-      emits('emitCpnsData', articalListConfig, boardList);
+      res = await setAllQueryApi('artical', 'asideImmediately');
+      emits('emitCpnsData', res[0].value, res[1].value);
       break;
     case 2:
-      emits('emitCpnsData', articalListConfig, boardList);
+      res = await setAllQueryApi('artical', 'asideImmediately');
+      emits('emitCpnsData', res[0].value, res[1].value);
+      break;
   }
 }
 

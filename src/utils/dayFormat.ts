@@ -28,3 +28,10 @@ export function timeAgoFn(timer: number) {
   }
   return res;
 }
+
+export function dayRange(dataList: any[], limitStamp: number) {
+  const currentTime: number = dayjs(new Date()).valueOf();
+  const limitTimer = currentTime - limitStamp;
+  const resFilter = dataList.filter((item) => item.timerStamp > limitTimer);
+  return resFilter;
+}

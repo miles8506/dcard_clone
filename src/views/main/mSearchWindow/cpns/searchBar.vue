@@ -135,8 +135,8 @@ const initAll = () => {
   isShowCancelIcon.value
     ? (isShowCancelIcon.value = !isShowCancelIcon.value)
     : '';
-  store.state.mSearchWindowModule.judgeListLen &&
-    store.commit('mSearchWindowModule/setShowSerchSort');
+  // store.state.mSearchWindowModule.judgeListLen &&
+  store.commit('mSearchWindowModule/setShowSerchSort', true);
   emits('emitCpnsData', [], [], true);
 };
 
@@ -148,12 +148,21 @@ const getSearchIcon = computed(
 watch(getSearchIcon, (newData) => {
   if (newData !== '') {
     searchModel.value = newData;
-    store.commit('mSearchWindowModule/setSearchIptModel', newData);
+    // store.commit('mSearchWindowModule/setSearchIptModel', newData);
     // searchDataResult(props.navBarIndex, emits, store);
     resourceSearch();
     if (!isShowCancelIcon.value)
       isShowCancelIcon.value = !isShowCancelIcon.value;
   }
+});
+
+// close comment re-render datalist
+const getShowStatus = computed(
+  () => store.getters['commentArticalModule/getIsShowStatus']
+);
+watch(getShowStatus, (status) => {
+  if (status) return;
+  searchDataResult(props.navBarIndex, emits, store);
 });
 </script>
 

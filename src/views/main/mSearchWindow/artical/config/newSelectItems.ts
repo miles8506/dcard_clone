@@ -2,7 +2,7 @@ import type { ISearchItems } from '../type/type';
 
 const newIssueSelect: ISearchItems = {
   selectName: 'newIssue',
-  selectItems: ['最新發佈', '心情數', '收藏數', '相關度']
+  selectItems: ['最新發佈', '心情數']
 };
 const timerSelct: ISearchItems = {
   selectName: 'timer',

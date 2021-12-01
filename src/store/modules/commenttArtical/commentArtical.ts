@@ -47,6 +47,12 @@ const commentArticalModule: Module<IcommentAtical, IrootState> = {
   getters: {
     getIsShowStatus(state) {
       return state.isShowStatus;
+    },
+    getIssueCurrentName(state) {
+      return state.issueCurrentName;
+    },
+    getTimerCurrentName(state) {
+      return state.itmerCurrentName;
     }
   }
 };

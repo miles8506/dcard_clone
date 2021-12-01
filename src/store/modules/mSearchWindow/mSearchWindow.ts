@@ -26,7 +26,7 @@ const mSearchWindowModule: Module<IMsearchWindow, IrootState> = {
       state.searchSortArr = searchRecode;
     },
     setShowSerchSort(state, flag: boolean) {
-      state.isShowSearchSort = !state.isShowSearchSort;
+      state.isShowSearchSort = flag;
     },
     setSearchIconModel(state, content) {
       state.searchIconModel = content;

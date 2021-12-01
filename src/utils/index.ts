@@ -3,7 +3,15 @@ import {
   nowTimerFn,
   timeStampFn,
   computedTimeGapFn,
-  timeAgoFn
+  timeAgoFn,
+  dayRange
 } from './dayFormat';
 
-export { localStorage, nowTimerFn, timeStampFn, computedTimeGapFn, timeAgoFn };
+export {
+  localStorage,
+  nowTimerFn,
+  timeStampFn,
+  computedTimeGapFn,
+  timeAgoFn,
+  dayRange
+};

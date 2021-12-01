@@ -27,7 +27,7 @@
 
     <template v-if="dataList.length > 0">
       <div class="search_list">
-        <artical-item :articalListConfig="dataList" />
+        <artical-item :articalListConfig="articalDataList" />
       </div>
     </template>
     <template v-else>
@@ -37,23 +37,46 @@
 </template>
 
 <script setup lang="ts">
-import { ref, withDefaults, defineProps, defineEmits } from 'vue';
+import {
+  ref,
+  withDefaults,
+  defineProps,
+  defineEmits,
+  computed,
+  watch
+} from 'vue';
 import { useStore } from '@/store';
 // component
 import ArticalItem from '@/components/articalItem';
+
+// api
+import { requestColApi } from '@/service';
+
+// utils
+import { dayRange } from '@/utils';
 
 // config
 import { newIssueSelect, timerSelct } from './config/newSelectItems';
 
 const store = useStore();
-withDefaults(
+const props = withDefaults(
   defineProps<{
-    dataList: any[];
+    dataList: any;
     recodeRes?: any[];
     boardList?: any[];
   }>(),
   {}
 );
+
+// artical filter datalist
+const articalDataList = ref<any[]>([]);
+if (props.dataList) {
+  for (let i = 0; i < props.dataList.length; i++) {
+    articalDataList.value.push(props.dataList[i]);
+  }
+  articalDataList.value.sort((a, b) => b.timerStamp - a.timerStamp);
+}
+
 const emits = defineEmits(['emitNewIssue', 'emitTimer']);
 
 // control checkbox
@@ -79,6 +102,82 @@ const timerChange = () => {
   });
   store.commit('commentArticalModule/setIsShowSelectWindow');
 };
+
+// callback changed select item & filter datalist
+const getIssueName = computed(
+  () => store.getters['commentArticalModule/getIssueCurrentName']
+);
+watch(getIssueName, async (newName) => {
+  // const articalArr: any[] = [];
+  // const requestList: any = await requestColApi('artical');
+  // requestList.forEach((item) => {
+  //   articalArr.push(item.data());
+  // });
+  // if (newName === '最新發佈') {
+  //   articalArr.sort((a, b) => b.timerStamp - a.timerStamp);
+  //   if (store.state.commentArticalModule.itmerCurrentName === '1天內') {
+  //     const res = dayRange(articalArr, 86400000);
+  //     articalDataList.value = res;
+  //   } else if (store.state.commentArticalModule.itmerCurrentName === '7天內') {
+  //     const res = dayRange(articalArr, 604800000);
+  //     articalDataList.value = res;
+  //   } else if (store.state.commentArticalModule.itmerCurrentName === '20天內') {
+  //     const res = dayRange(articalArr, 1728000000);
+  //     articalDataList.value = res;
+  //   }
+  // } else {
+  //   articalArr.sort((a, b) => b.tagTotal - a.tagTotal);
+  //   if (store.state.commentArticalModule.itmerCurrentName === '1天內') {
+  //     const res = dayRange(articalArr, 86400000);
+  //     articalDataList.value = res;
+  //   } else if (store.state.commentArticalModule.itmerCurrentName === '7天內') {
+  //     const res = dayRange(articalArr, 604800000);
+  //     articalDataList.value = res;
+  //   } else if (store.state.commentArticalModule.itmerCurrentName === '20天內') {
+  //     const res = dayRange(articalArr, 1728000000);
+  //     articalDataList.value = res;
+  //   }
+  // }
+});
+const getTimerName = computed(
+  () => store.getters['commentArticalModule/getTimerCurrentName']
+);
+watch(getTimerName, async (newName) => {
+  // const articalArr: any[] = [];
+  // const requestList: any = await requestColApi('artical');
+  // requestList.forEach((item) => {
+  //   articalArr.push(item.data());
+  // });
+  // if (newName === '最新發佈') {
+  //   articalArr.sort((a, b) => b.timerStamp - a.timerStamp);
+  //   if (store.state.commentArticalModule.itmerCurrentName === '1天內') {
+  //     const res = dayRange(articalArr, 86400000);
+  //     articalDataList.value = res;
+  //   } else if (store.state.commentArticalModule.itmerCurrentName === '7天內') {
+  //     const res = dayRange(articalArr, 604800000);
+  //     articalDataList.value = res;
+  //   } else if (store.state.commentArticalModule.itmerCurrentName === '20天內') {
+  //     const res = dayRange(articalArr, 1728000000);
+  //     articalDataList.value = res;
+  //   } else {
+  //     articalDataList.value = articalArr;
+  //   }
+  // } else {
+  //   articalArr.sort((a, b) => b.tagTotal - a.tagTotal);
+  //   if (store.state.commentArticalModule.itmerCurrentName === '1天內') {
+  //     const res = dayRange(articalArr, 86400000);
+  //     articalDataList.value = res;
+  //   } else if (store.state.commentArticalModule.itmerCurrentName === '7天內') {
+  //     const res = dayRange(articalArr, 604800000);
+  //     articalDataList.value = res;
+  //   } else if (store.state.commentArticalModule.itmerCurrentName === '20天內') {
+  //     const res = dayRange(articalArr, 1728000000);
+  //     articalDataList.value = res;
+  //   } else {
+  //     articalDataList.value = articalArr;
+  //   }
+  // }
+});
 </script>
 
 <style lang="less" scoped>
