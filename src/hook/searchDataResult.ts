@@ -6,15 +6,20 @@ import { boardList } from '@/views/main/mSearchWindow/synthesize/config/boardIte
 import { Store } from 'vuex';
 import { margeVuexState } from '@/store/type';
 
+// utils
+import { setAllQueryApi } from '@/service/requestApi';
+
 // get search list result
-export function searchDataResult(
+export async function searchDataResult(
   index: number,
   emits: any,
   store: Store<margeVuexState>
 ) {
+  let res: any;
   switch (index) {
     case 0:
-      emits('emitCpnsData', articalListConfig, boardList);
+      res = await setAllQueryApi('artical', 'asideImmediately');
+      emits('emitCpnsData', res[0].value, res[1].value);
       store.commit('mSearchWindowModule/setShowSerchSort');
       break;
     case 1:

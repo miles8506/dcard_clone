@@ -118,13 +118,34 @@ const recodeRes = computed(() => store.state.mSearchWindowModule.searchSortArr);
 const dataList = ref([]);
 const boardList = ref([]);
 const navBarRef = ref();
-const emitCpnsData = (dataListRes: any, boardListRes?: any) => {
+const emitCpnsData = (dataListRes: any, boardListRes?: any, init? = false) => {
   nextTick(() => {
     navBarRef.value.currentIndex = 0;
     navbarIndex(navBarRef.value.currentIndex);
   });
-  dataList.value = dataListRes;
-  boardList.value = boardListRes;
+  dataList.value = [];
+  boardList.value = [];
+  // click cancel button init data
+  if (init) return;
+  const searchTarget = store.state.mSearchWindowModule.searchIptModel;
+  // filter artical
+  const filterArticalRes = dataListRes.filter(
+    (item: any) =>
+      item.data().title.includes(searchTarget) ||
+      item.data().content.includes(searchTarget)
+  );
+  filterArticalRes.forEach((item) => {
+    dataList.value.push(item.data());
+  });
+
+  // filter board
+  const filterBoardRes = boardListRes[0]
+    .data()
+    .asideImmediately.filter((item) => item.boardName === searchTarget);
+  // boardList.value = boardListRes[0].data().asideImmediately;
+  filterBoardRes.forEach((item) => {
+    boardList.value.push(item);
+  });
 };
 
 // 監聽data 如有data則不顯示sort icon

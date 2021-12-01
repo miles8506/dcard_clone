@@ -64,7 +64,7 @@ let articalType = ref<string>('熱門');
 const emitArticalType = (name: string) => {
   if (articalType.value !== name) articalType.value = name;
   localStorage.setItem('artical_basis', name);
-  store.commit('setArticalSortStatus');
+  store.commit('setArticalBasisStatus');
 };
 </script>
 

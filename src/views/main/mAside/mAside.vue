@@ -2,11 +2,11 @@
   <div class="m_aside">
     <d-header :isShowMobileHeader="true">
       <template #default>
-        <span class="close_icon" @click="colseWindow">&times;</span>
+        <span class="close_icon" @click="closeWindow">&times;</span>
       </template>
     </d-header>
-    <sort-area />
-    <immediately-area />
+    <sort-area @emitCloseMaside="emitCloseMaside" />
+    <immediately-area @emitCloseMaside="emitCloseMaside" />
     <div class="board_area">
       <h4 class="board_title">Dcard 精選看板</h4>
       <div class="board_item_wrap">
@@ -39,7 +39,13 @@ const clickTrack = (item) => {
   console.log(item);
 };
 
-const colseWindow = () => {
+const closeWindow = () => {
+  store.commit('setShowMAside');
+  const body = document.body;
+  body.style.overflowY = 'scroll';
+};
+
+const emitCloseMaside = () => {
   store.commit('setShowMAside');
   const body = document.body;
   body.style.overflowY = 'scroll';

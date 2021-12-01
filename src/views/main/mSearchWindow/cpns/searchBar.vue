@@ -93,11 +93,28 @@ const clearIptValue = () => {
 
 // search input keyword
 const resourceSearch = () => {
-  if (searchModel.value === '') return;
+  if (
+    searchModel.value === '' ||
+    store.state.mSearchWindowModule.searchIptModel === searchModel.value
+  ) {
+    return;
+  }
   const res = localStorage.getItem('synthesizeRecode');
-  res.push(searchModel.value);
-  localStorage.setItem('synthesizeRecode', res);
-  store.commit('mSearchWindowModule/setSearchSortArr', res);
+  const resIndex = res.findIndex((item) => item === searchModel.value);
+
+  // 重複輸入搜尋關鍵字
+  if (resIndex !== -1) {
+    res.splice(resIndex, 1);
+    res.unshift(searchModel.value);
+    localStorage.setItem('synthesizeRecode', res);
+    store.commit('mSearchWindowModule/setSearchSortArr', res);
+    store.commit('mSearchWindowModule/setSearchIptModel', searchModel.value);
+  } else {
+    res.unshift(searchModel.value);
+    store.commit('mSearchWindowModule/setSearchIptModel', searchModel.value);
+    localStorage.setItem('synthesizeRecode', res);
+    store.commit('mSearchWindowModule/setSearchSortArr', res);
+  }
   searchDataResult(props.navBarIndex, emits, store);
 };
 // listen search value to search page
@@ -120,7 +137,7 @@ const initAll = () => {
     : '';
   store.state.mSearchWindowModule.judgeListLen &&
     store.commit('mSearchWindowModule/setShowSerchSort');
-  emits('emitCpnsData', [], []);
+  emits('emitCpnsData', [], [], true);
 };
 
 // click typeicon listen to vuex
@@ -131,7 +148,9 @@ const getSearchIcon = computed(
 watch(getSearchIcon, (newData) => {
   if (newData !== '') {
     searchModel.value = newData;
-    searchDataResult(props.navBarIndex, emits, store);
+    store.commit('mSearchWindowModule/setSearchIptModel', newData);
+    // searchDataResult(props.navBarIndex, emits, store);
+    resourceSearch();
     if (!isShowCancelIcon.value)
       isShowCancelIcon.value = !isShowCancelIcon.value;
   }

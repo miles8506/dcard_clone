@@ -188,7 +188,7 @@
 <script setup lang="ts">
 import { ref, defineProps, withDefaults } from 'vue';
 import { useStore } from '@/store';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 // base-ui
 import SelectSlide from '@/base-ui/selectSlide/index';
@@ -202,6 +202,7 @@ import { headerServiceConfig } from '../config/headerServiceConfig';
 import { localStorage } from '@/hook/localStorageClass';
 
 const store = useStore();
+const route = useRoute();
 const router = useRouter();
 const userStatus = localStorage.getLocalItem('clone_dcard_user_info')
   ? false
@@ -255,7 +256,6 @@ const goLoginPage = () => {
   firebase.auth().onAuthStateChanged(function (user: any) {
     !user?.email ? router.push('/login') : '';
   });
-
   router.push('/login');
 };
 
@@ -266,7 +266,11 @@ const showMSearchWindow = () => {
 
 // return home page
 const goHome = () => {
-  router.push('/main');
+  if (route.path !== '/main') {
+    router.push('/main');
+  } else {
+    location.reload();
+  }
 };
 
 // isshow maside
@@ -298,11 +302,6 @@ const searchDataClick = () => {
 const goPublicPage = () => {
   router.push('/publicArtical');
 };
-
-// // go login page
-// const goLoginPage = () => {
-//   router.push('login');
-// };
 </script>
 
 <style lang="less" scoped>

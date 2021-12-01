@@ -53,3 +53,8 @@ export function setQueryApi(colName: string, docName: any, data: any) {
       });
   });
 }
+
+// all
+export function setAllQueryApi(col1Name: string, col2Name: string) {
+  return Promise.allSettled([requestColApi(col1Name), requestColApi(col2Name)]);
+}

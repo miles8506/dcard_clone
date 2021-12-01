@@ -5,7 +5,7 @@
         v-for="item in $store.state.asideModule.asideItem"
         :key="item.sortName"
       >
-        <li class="sort_item">
+        <li class="sort_item" @click="clickSort(item.sortName)">
           <span class="svn_box">
             <svg
               viewBox="0 0 24 24"
@@ -28,7 +28,25 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { defineEmits } from 'vue';
+import { useStore } from '@/store';
+import { useRouter } from 'vue-router';
+
+// utils
+import { localStorage } from '@/utils';
+
+const store = useStore();
+const router = useRouter();
+const emits = defineEmits(['emitCloseMaside']);
+const clickSort = (sortName: string) => {
+  if (sortName !== '所有看板') return;
+  localStorage.setItem('artical_type', '所有看板');
+  store.commit('setArticalType', sortName);
+  emits('emitCloseMaside');
+  router.push('/main');
+};
+</script>
 
 <style lang="less" scoped>
 @import '../less/sortArea.less';

@@ -7,7 +7,8 @@
         recodeRes !== null &&
         recodeRes.length > 0 &&
         $store.state.mSearchWindowModule.isShowSearchSort &&
-        dataList.length === 0
+        dataList.length === 0 &&
+        boardList.length === 0
       "
     >
       <div class="recode_hd">
@@ -25,7 +26,9 @@
     <div class="board_body" v-if="boardList.length > 0">
       <h5 class="board_title">看板</h5>
       <div class="board_body_wrap">
-        <board-item :boardListConfig="boardList" />
+        <div class="banner_wrap">
+          <board-item :boardListConfig="boardList" />
+        </div>
       </div>
     </div>
     <div class="artical_body">

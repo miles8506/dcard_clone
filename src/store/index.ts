@@ -44,7 +44,7 @@ export const store = createStore<IrootState>({
     setShowMAside(state) {
       state.isShowMAside = !state.isShowMAside;
     },
-    setArticalSortStatus(state) {
+    setArticalBasisStatus(state) {
       state.articalBasisStatus = !state.articalBasisStatus;
     },
     setArticalType(state, payload) {
@@ -127,7 +127,10 @@ export function setupFns() {
   localStorage.setItem('artical_basis', '熱門');
 
   // artical type
-  localStorage.setItem('artical_type', '全部');
+  localStorage.setItem('artical_type', '所有看板');
+
+  // artical sort
+  // localStorage.setItem('artical_sort', '所有看板');
 }
 
 export { IrootState };

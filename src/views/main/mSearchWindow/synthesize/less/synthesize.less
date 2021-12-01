@@ -42,9 +42,19 @@
     }
 
     .board_body_wrap {
-      display: flex;
+      position: relative;
+      height: 110px;
       padding: 8px 0 16px;
       border-bottom: 1px solid #e9e9e9;
+      overflow: hidden;
+
+      .banner_wrap {
+        position: absolute;
+        top: 8px;
+        left: 0;
+        bottom: 0;
+        display: flex;
+      }
     }
   }
 

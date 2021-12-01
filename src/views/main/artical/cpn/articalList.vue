@@ -31,7 +31,7 @@ async function getArticalFn() {
   });
 
   // artical type
-  if (articalType !== '全部') {
+  if (articalType !== '所有看板') {
     articalListConfig.value = articalListConfig.value.filter(
       (item: any) => item.sort === articalType
     );
@@ -60,11 +60,11 @@ watch(getterIsShowStatus, () => {
   getArticalFn();
 });
 
-// callback change artical sort
-const articalSortStatus = computed(
+// callback change artical Basis
+const articalBasisStatus = computed(
   () => store.getters['getArticalBasisStatus']
 );
-watch(articalSortStatus, () => {
+watch(articalBasisStatus, () => {
   articalListConfig.value = [];
   getArticalFn();
 });
@@ -72,6 +72,13 @@ watch(articalSortStatus, () => {
 // callback choose immediately item
 const articalTypeStatus = computed(() => store.getters['getArticalType']);
 watch(articalTypeStatus, () => {
+  articalListConfig.value = [];
+  getArticalFn();
+});
+
+// callback click artical type
+const articalSortStatus = computed(() => store.getters['getArticalSortStatus']);
+watch(articalSortStatus, () => {
   articalListConfig.value = [];
   getArticalFn();
 });

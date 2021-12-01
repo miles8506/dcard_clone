@@ -12,6 +12,7 @@ const mSearchWindowModule: Module<IMsearchWindow, IrootState> = {
       searchSortArr: [],
       isShowSearchSort: true,
       searchIconModel: '',
+      searchIptModel: '',
       judgeListLen: false,
       isShowSearchArea: false,
       searchValue: ''
@@ -24,7 +25,7 @@ const mSearchWindowModule: Module<IMsearchWindow, IrootState> = {
     setSearchSortArr(state, searchRecode: string[]) {
       state.searchSortArr = searchRecode;
     },
-    setShowSerchSort(state) {
+    setShowSerchSort(state, flag: boolean) {
       state.isShowSearchSort = !state.isShowSearchSort;
     },
     setSearchIconModel(state, content) {
@@ -38,6 +39,9 @@ const mSearchWindowModule: Module<IMsearchWindow, IrootState> = {
     },
     setSearchValue(state, payload) {
       state.searchValue = payload;
+    },
+    setSearchIptModel(state, searchText) {
+      state.searchIptModel = searchText;
     }
     // setPcSearchValue(state, payload) {
     //   state.pcSearchValue = payload;

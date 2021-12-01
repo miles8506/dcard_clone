@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, defineEmits } from 'vue';
 import { useStore } from '@/store';
 // component
 import BoardItem from '@/base-ui/boardItem';
@@ -36,9 +36,12 @@ import { localStorage } from '@/utils';
 const store = useStore();
 const boardList = computed(() => store.state.asideModule.immediatelyItem);
 
+const emits = defineEmits(['emitCloseMaside']);
+
 const emitBoardName = (boardName: string) => {
   localStorage.setItem('artical_type', boardName);
   store.commit('setArticalType', boardName);
+  emits('emitCloseMaside');
 };
 </script>
 
