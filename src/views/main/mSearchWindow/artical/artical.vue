@@ -49,9 +49,6 @@ import { useStore } from '@/store';
 // component
 import ArticalItem from '@/components/articalItem';
 
-// api
-import { requestColApi } from '@/service';
-
 // utils
 import { dayRange } from '@/utils';
 
@@ -68,6 +65,19 @@ const props = withDefaults(
   {}
 );
 
+const emits = defineEmits(['emitNewIssue', 'emitTimer', 'emitSelectIndex']);
+
+// init select item index
+store.commit('commentArticalModule/setCurrentName', {
+  item: '最新發佈',
+  selectName: 'newIssue'
+});
+store.commit('commentArticalModule/setCurrentName', {
+  item: '不限時間',
+  selectName: 'timer'
+});
+emits('emitSelectIndex');
+
 // artical filter datalist
 const articalDataList = ref<any[]>([]);
 if (props.dataList) {
@@ -76,8 +86,6 @@ if (props.dataList) {
   }
   articalDataList.value.sort((a, b) => b.timerStamp - a.timerStamp);
 }
-
-const emits = defineEmits(['emitNewIssue', 'emitTimer']);
 
 // control checkbox
 const isChecked = ref(true);
@@ -108,75 +116,79 @@ const getIssueName = computed(
   () => store.getters['commentArticalModule/getIssueCurrentName']
 );
 watch(getIssueName, async (newName) => {
-  // const articalArr: any[] = [];
-  // const requestList: any = await requestColApi('artical');
-  // requestList.forEach((item) => {
-  //   articalArr.push(item.data());
-  // });
-  // if (newName === '最新發佈') {
-  //   articalArr.sort((a, b) => b.timerStamp - a.timerStamp);
-  //   if (store.state.commentArticalModule.itmerCurrentName === '1天內') {
-  //     const res = dayRange(articalArr, 86400000);
-  //     articalDataList.value = res;
-  //   } else if (store.state.commentArticalModule.itmerCurrentName === '7天內') {
-  //     const res = dayRange(articalArr, 604800000);
-  //     articalDataList.value = res;
-  //   } else if (store.state.commentArticalModule.itmerCurrentName === '20天內') {
-  //     const res = dayRange(articalArr, 1728000000);
-  //     articalDataList.value = res;
-  //   }
-  // } else {
-  //   articalArr.sort((a, b) => b.tagTotal - a.tagTotal);
-  //   if (store.state.commentArticalModule.itmerCurrentName === '1天內') {
-  //     const res = dayRange(articalArr, 86400000);
-  //     articalDataList.value = res;
-  //   } else if (store.state.commentArticalModule.itmerCurrentName === '7天內') {
-  //     const res = dayRange(articalArr, 604800000);
-  //     articalDataList.value = res;
-  //   } else if (store.state.commentArticalModule.itmerCurrentName === '20天內') {
-  //     const res = dayRange(articalArr, 1728000000);
-  //     articalDataList.value = res;
-  //   }
-  // }
+  const articalArr: any[] = [];
+  props.dataList.forEach((item: any) => {
+    articalArr.push(item);
+  });
+
+  if (newName === '最新發佈') {
+    articalArr.sort((a, b) => b.timerStamp - a.timerStamp);
+    if (store.state.commentArticalModule.itmerCurrentName === '1天內') {
+      const res = dayRange(articalArr, 86400000);
+      articalDataList.value = res;
+    } else if (store.state.commentArticalModule.itmerCurrentName === '7天內') {
+      const res = dayRange(articalArr, 604800000);
+      articalDataList.value = res;
+    } else if (store.state.commentArticalModule.itmerCurrentName === '20天內') {
+      const res = dayRange(articalArr, 1728000000);
+      articalDataList.value = res;
+    } else {
+      articalDataList.value = articalArr;
+    }
+  } else {
+    articalArr.sort((a, b) => b.tagTotal - a.tagTotal);
+    if (store.state.commentArticalModule.itmerCurrentName === '1天內') {
+      const res = dayRange(articalArr, 86400000);
+      articalDataList.value = res;
+    } else if (store.state.commentArticalModule.itmerCurrentName === '7天內') {
+      const res = dayRange(articalArr, 604800000);
+      articalDataList.value = res;
+    } else if (store.state.commentArticalModule.itmerCurrentName === '20天內') {
+      const res = dayRange(articalArr, 1728000000);
+      articalDataList.value = res;
+    } else {
+      articalDataList.value = articalArr;
+    }
+  }
 });
 const getTimerName = computed(
   () => store.getters['commentArticalModule/getTimerCurrentName']
 );
 watch(getTimerName, async (newName) => {
-  // const articalArr: any[] = [];
-  // const requestList: any = await requestColApi('artical');
-  // requestList.forEach((item) => {
-  //   articalArr.push(item.data());
-  // });
-  // if (newName === '最新發佈') {
-  //   articalArr.sort((a, b) => b.timerStamp - a.timerStamp);
-  //   if (store.state.commentArticalModule.itmerCurrentName === '1天內') {
-  //     const res = dayRange(articalArr, 86400000);
-  //     articalDataList.value = res;
-  //   } else if (store.state.commentArticalModule.itmerCurrentName === '7天內') {
-  //     const res = dayRange(articalArr, 604800000);
-  //     articalDataList.value = res;
-  //   } else if (store.state.commentArticalModule.itmerCurrentName === '20天內') {
-  //     const res = dayRange(articalArr, 1728000000);
-  //     articalDataList.value = res;
-  //   } else {
-  //     articalDataList.value = articalArr;
-  //   }
-  // } else {
-  //   articalArr.sort((a, b) => b.tagTotal - a.tagTotal);
-  //   if (store.state.commentArticalModule.itmerCurrentName === '1天內') {
-  //     const res = dayRange(articalArr, 86400000);
-  //     articalDataList.value = res;
-  //   } else if (store.state.commentArticalModule.itmerCurrentName === '7天內') {
-  //     const res = dayRange(articalArr, 604800000);
-  //     articalDataList.value = res;
-  //   } else if (store.state.commentArticalModule.itmerCurrentName === '20天內') {
-  //     const res = dayRange(articalArr, 1728000000);
-  //     articalDataList.value = res;
-  //   } else {
-  //     articalDataList.value = articalArr;
-  //   }
-  // }
+  const articalArr: any[] = [];
+  props.dataList.forEach((item: any) => {
+    articalArr.push(item);
+  });
+
+  if (store.state.commentArticalModule.issueCurrentName === '最新發佈') {
+    articalArr.sort((a, b) => b.timerStamp - a.timerStamp);
+    if (newName === '1天內') {
+      const res = dayRange(articalArr, 86400000);
+      articalDataList.value = res;
+    } else if (newName === '7天內') {
+      const res = dayRange(articalArr, 604800000);
+      articalDataList.value = res;
+    } else if (newName === '20天內') {
+      const res = dayRange(articalArr, 1728000000);
+      articalDataList.value = res;
+    } else {
+      articalDataList.value = articalArr;
+    }
+  } else {
+    articalArr.sort((a, b) => b.tagTotal - a.tagTotal);
+    if (newName === '1天內') {
+      const res = dayRange(articalArr, 86400000);
+      articalDataList.value = res;
+    } else if (newName === '7天內') {
+      const res = dayRange(articalArr, 604800000);
+      articalDataList.value = res;
+    } else if (newName === '20天內') {
+      const res = dayRange(articalArr, 1728000000);
+      articalDataList.value = res;
+    } else {
+      articalDataList.value = articalArr;
+    }
+  }
 });
 </script>
 

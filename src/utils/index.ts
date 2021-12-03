@@ -4,7 +4,8 @@ import {
   timeStampFn,
   computedTimeGapFn,
   timeAgoFn,
-  dayRange
+  dayRange,
+  currentDayStamp
 } from './dayFormat';
 
 export {
@@ -13,5 +14,6 @@ export {
   timeStampFn,
   computedTimeGapFn,
   timeAgoFn,
-  dayRange
+  dayRange,
+  currentDayStamp
 };

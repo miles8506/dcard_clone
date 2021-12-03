@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useStore } from '@/store';
 // component
 import ArticalHeader from './cpns/articalHeader.vue';

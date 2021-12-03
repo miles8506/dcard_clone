@@ -20,6 +20,7 @@
           type="text"
           class="search_ipt"
           placeholder="搜尋"
+          ref="searchIptRef"
           v-model.trim="searchModel"
           @input="changeContentIpt"
           @keydown.enter="resourceSearch"
@@ -53,7 +54,8 @@ import {
   defineProps,
   withDefaults,
   watch,
-  computed
+  computed,
+  onMounted
 } from 'vue';
 import { useStore } from '@/store';
 
@@ -62,6 +64,12 @@ import { localStorage } from '@/utils';
 
 // hook
 import { searchDataResult } from '@/hook/searchDataResult';
+
+// focus on input
+const searchIptRef = ref<HTMLInputElement>();
+onMounted(() => {
+  searchIptRef.value?.focus();
+});
 
 const store = useStore();
 const emits = defineEmits(['emitCpnsData']);
@@ -162,6 +170,14 @@ const getShowStatus = computed(
 );
 watch(getShowStatus, (status) => {
   if (status) return;
+  searchDataResult(props.navBarIndex, emits, store);
+});
+
+// callback choose immediately item
+const articalTypeStatus = computed(() => store.getters['getArticalType']);
+watch(articalTypeStatus, () => {
+  const articalType = localStorage.getItem('artical_type');
+  store.commit('mSearchWindowModule/setSearchIptModel', articalType);
   searchDataResult(props.navBarIndex, emits, store);
 });
 </script>

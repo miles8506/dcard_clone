@@ -231,7 +231,7 @@ const submitContent = async () => {
       () => {
         // get img server path after put img for server and save in articalContentObj
         const fileRef = st.ref(`artical/${imgPath.value}`);
-        fileRef.getDownloadURL().then((res) => {
+        fileRef.getDownloadURL().then(async (res) => {
           articalContent.value.imgPath = res;
           setQueryApi('artical', timeStampFn(nowTime), articalContent.value);
           router.push('/main');

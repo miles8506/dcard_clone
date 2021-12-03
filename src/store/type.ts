@@ -9,6 +9,7 @@ interface IrootState {
   isShowLargeQrcode: boolean;
   isShowScroll: boolean;
   isShowMAside: boolean;
+  isShowUserMIcon: boolean;
   articalBasisStatus: boolean;
   articalType: string;
   scrollTop: number;

@@ -5,6 +5,7 @@
     <div class="mask" v-show="$store.state.isShowMask">
       <comment-artical v-if="$store.state.commentArticalModule.isShowStatus" />
       <scroll-y-bar ref="scrollYBarRef" />
+      <qrcode-window v-show="$store.state.isShowLargeQrcode" />
     </div>
   </transition>
   <div class="m_search_main">
@@ -30,6 +31,7 @@
           :boardList="boardList"
           @emitNewIssue="emitNewIssue"
           @emitTimer="emitTimer"
+          @emitSelectIndex="emitSelectIndex"
         ></component>
       </div>
     </div>
@@ -57,7 +59,6 @@ import {
   onMounted
 } from 'vue';
 import { useStore } from '@/store';
-// import { useRoute } from 'vue-router';
 
 // component
 import dHeader from '@/components/dHeader';
@@ -69,6 +70,7 @@ import mSelectBox from '@/components/mSelectBox';
 import MAside from '@/views/main/mAside/mAside.vue';
 import dAside from '@/components/dAside';
 import dAdv from '@/components/dAdv';
+import QrcodeWindow from '@/components/qrocdeWindow';
 
 // config
 import { itemNameArr } from './config/navBarConfig';
@@ -93,11 +95,15 @@ window.addEventListener('resize', () => {
 onMounted(() => {
   const hdWrap: any = document.querySelector('.hd_wrap');
   window.addEventListener('scroll', function () {
-    this.pageYOffset > 48
+    this.pageYOffset > 48 && window.innerWidth < 767
       ? (hdWrap.style.position = 'fixed')
       : (hdWrap.style.position = 'initial');
   });
 });
+
+// init
+store.commit('mSearchWindowModule/setSearchIptModel', '');
+store.commit('mSearchWindowModule/setShowSerchSort', true);
 
 // change current component
 const navBarIndex = ref<number>(0);
@@ -132,7 +138,8 @@ const emitCpnsData = (dataListRes: any, boardListRes?: any, init? = false) => {
   const filterArticalRes = dataListRes.filter(
     (item: any) =>
       item.data().title.includes(searchTarget) ||
-      item.data().content.includes(searchTarget)
+      item.data().content.includes(searchTarget) ||
+      item.data().sort.includes(searchTarget)
   );
   filterArticalRes.forEach((item) => {
     dataList.value.push(item.data());
@@ -177,6 +184,10 @@ const emitCurrentIndex = ({ index, selectName }) => {
   selectName === 'newIssue'
     ? (issueCurrentIndex.value = index)
     : (timerCurrentIndex.value = index);
+};
+const emitSelectIndex = () => {
+  issueCurrentIndex.value = 0;
+  timerCurrentIndex.value = 0;
 };
 </script>
 

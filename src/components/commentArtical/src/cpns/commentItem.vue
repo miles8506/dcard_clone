@@ -17,7 +17,7 @@
         <span class="hour_ago"> {{ timeAgoFn(item.timeStamp) }}</span>
       </div>
     </div>
-    <div class="like_total_wrap">
+    <!-- <div class="like_total_wrap">
       <div class="like_svg">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +33,7 @@
         </svg>
       </div>
       <div class="like_total">{{ item.likeTotal }}</div>
-    </div>
+    </div> -->
   </div>
 </template>
 

@@ -1,12 +1,12 @@
 <template>
   <transition name="qrcode_window">
-    <div class="mask" v-show="$store.state.isShowMask">
+    <div class="mask" v-show="$store.state.isShowMask" ref="maskRef">
       <qrcode-window v-show="$store.state.isShowLargeQrcode" />
       <comment-artical v-if="$store.state.commentArticalModule.isShowStatus" />
       <scroll-y-bar ref="scrollYBarRef" />
     </div>
   </transition>
-  <d-header key="mainHeader"></d-header>
+  <d-header key="mainHeader" ref="dHeaderRef"></d-header>
   <m-aside v-show="$store.state.isShowMAside" />
   <!-- <m-aside /> -->
   <div class="main">
@@ -17,8 +17,9 @@
 </template>
 
 <script setup lang="ts">
-// import { ref, watch, shallowRef, defineComponent, computed } from 'vue';
-// import { useStore } from '@/store';
+import { ref } from 'vue';
+import { useStore } from '@/store';
+
 // components
 import dHeader from '@/components/dHeader';
 import dAside from '@/components/dAside';
@@ -28,6 +29,35 @@ import ArticalArea from '@/views/main/artical/articalArea.vue';
 import CommentArtical from '@/components/commentArtical';
 import ScrollYBar from '@/components/commentArtical/src/cpns/scrollYBar.vue';
 import MAside from '@/views/main/mAside/mAside.vue';
+
+// utils
+import { localStorage } from '@/utils';
+
+const store = useStore();
+const userInfo = localStorage.getItem('clone_dcard_user_info');
+const dHeaderRef = ref<any>();
+
+// debounce 控制user_m icon 是否show的狀態(for window resizing)
+let resizeFlag: any = null;
+window.addEventListener('resize', () => {
+  if (resizeFlag) clearTimeout(resizeFlag);
+  resizeFlag = setTimeout(() => {
+    if (window.innerWidth > 767 && userInfo == '') {
+      store.commit('setShowUserMIcon', false);
+    } else {
+      store.commit('setShowUserMIcon', true);
+    }
+  }, 500);
+  // console.log(dHeaderRef.value.userIconStatus);
+});
+
+// const maskRef = ref<any>();
+// onMounted(() => {
+//   const mask = document.querySelector('.mask');
+//   mask.style.height = `${window.innerHeight}px`;
+//   console.log('ok');
+
+// });
 
 // 上傳圖片
 // const test = (e: any) => {
@@ -166,6 +196,7 @@ import MAside from '@/views/main/mAside/mAside.vue';
   height: 100vh;
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.5);
+  overflow-y: scroll;
 }
 
 .qrcode_window-enter-active,

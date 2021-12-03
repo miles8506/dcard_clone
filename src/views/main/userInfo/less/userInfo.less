@@ -1,0 +1,179 @@
+.user_info {
+  display: flex;
+  height: calc(100vh - 68px);
+  padding: 0 20px 20px;
+
+  .userInfo_aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 210px;
+    padding: 20px 0;
+    .photo_img {
+      display: flex;
+      flex-direction: column;
+      padding: 20px 0;
+
+      .user_img {
+        display: flex;
+        justify-content: center;
+
+        .wrap_guest {
+          border-radius: 50px;
+          overflow: hidden;
+        }
+      }
+
+      .account {
+        font-weight: 500;
+        font-size: 16px;
+        color: #fff;
+        line-height: 33px;
+        margin: 16px 0 10px;
+        text-align: center;
+        white-space: nowrap;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .regist_text {
+        // display: flex;
+        & > p {
+          font-size: 14px;
+          color: #fff;
+          text-align: center;
+          margin: 0;
+        }
+
+        .btn_wrap {
+          display: flex;
+          justify-content: center;
+          margin-top: 20px;
+          .register_btn {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: none;
+            background-color: #3397cf;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+              background-color: #5ab0db;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .userInfo_m {
+    display: none;
+  }
+
+  .user_info_main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    margin: 20px 0 0;
+    border-radius: 12px;
+
+    background-color: #fff;
+
+    & > p {
+      color: #999;
+    }
+  }
+  .logout {
+    display: none;
+    margin-top: 20px;
+    background-color: #fff;
+    height: 44px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(234, 92, 92);
+    line-height: 44px;
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  }
+}
+
+// media 767
+@media screen and (max-width: 767px) {
+  .user_info {
+    flex-direction: column;
+    padding: 0;
+    background-color: #fff;
+    .userInfo_aside {
+      display: none;
+    }
+    .userInfo_m {
+      display: flex;
+      justify-content: space-between;
+      width: calc((100% - 32px));
+      padding: 16px;
+
+      // 已登入
+      .account {
+        display: flex;
+        align-items: center;
+        & > span {
+          font-size: 18px;
+          font-weight: 500;
+        }
+      }
+      .user_img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      // 未登入
+      .non_login {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .non_login_text {
+          p {
+            margin: 0;
+          }
+          .guest_text {
+            margin-bottom: 5px;
+            font-size: 24px;
+          }
+          .text {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.75);
+            line-height: 20px;
+          }
+        }
+        .non_login_btn_wrap {
+          .non_login_btn {
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: none;
+            background-color: #3397cf;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+              background-color: #5ab0db;
+            }
+          }
+        }
+      }
+    }
+    .user_info_main {
+      display: none;
+    }
+    .logout {
+      display: block;
+    }
+  }
+}

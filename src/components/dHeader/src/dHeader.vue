@@ -129,7 +129,11 @@
             </button>
           </div> -->
         </div>
-        <div class="user_m" @click="goLoginPage" v-show="!userStatus">
+        <div
+          class="user_m"
+          @click="goLoginPageM"
+          v-show="$store.state.isShowUserMIcon"
+        >
           <svg
             viewBox="0 0 24 24"
             focusable="false"
@@ -186,7 +190,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, withDefaults } from 'vue';
+import {
+  ref,
+  defineProps,
+  withDefaults,
+  defineExpose,
+  watch,
+  computed
+} from 'vue';
 import { useStore } from '@/store';
 import { useRouter, useRoute } from 'vue-router';
 
@@ -204,9 +215,15 @@ import { localStorage } from '@/hook/localStorageClass';
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
-const userStatus = localStorage.getLocalItem('clone_dcard_user_info')
-  ? false
-  : true;
+const userInfo = localStorage.getLocalItem('clone_dcard_user_info');
+const userStatus = userInfo ? false : true;
+
+// 計算當前user_m icon 是否show的狀態
+if (window.innerWidth > 767 && userInfo == '') {
+  store.commit('setShowUserMIcon', false);
+} else {
+  store.commit('setShowUserMIcon', true);
+}
 
 // v-model
 const searchIptModel = ref('');
@@ -252,11 +269,20 @@ const showLargeQrcode = () => {
   store.commit('setShowMask');
 };
 
+// pc login
 const goLoginPage = () => {
   firebase.auth().onAuthStateChanged(function (user: any) {
-    !user?.email ? router.push('/login') : '';
+    if (!user?.email) {
+      router.push('/login');
+    } else {
+      location.reload();
+    }
   });
-  router.push('/login');
+};
+
+// mobile login
+const goLoginPageM = () => {
+  router.push('/userInfo');
 };
 
 // isshow searchwindow(mobile)

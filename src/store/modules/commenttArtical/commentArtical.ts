@@ -29,6 +29,7 @@ const commentArticalModule: Module<IcommentAtical, IrootState> = {
       state.isShowSelectWindow = !state.isShowSelectWindow;
     },
     setCurrentName(state, { item, selectName }) {
+      // selectName 1.newIssue 2.timer
       if (selectName === 'newIssue') {
         state.issueCurrentName = item;
       } else {

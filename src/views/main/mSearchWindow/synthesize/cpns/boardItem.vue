@@ -12,7 +12,7 @@
     <div class="board_bd">
       <div class="board_info">
         <h6 class="board_title">{{ item.boardName }}</h6>
-        <p class="artical_count">每天有 {{ item.articalTotal }} 則貼文</p>
+        <!-- <p class="artical_count">每天有 {{ item.total ?? '' }} 則貼文</p> -->
       </div>
     </div>
   </div>

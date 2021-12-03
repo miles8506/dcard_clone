@@ -8,6 +8,9 @@
     <div class="artical_main">
       {{ articalInfo.content }}
     </div>
+    <div class="img_wrap" v-if="articalInfo.imgPath !== ''">
+      <img :src="articalInfo.imgPath" alt="" />
+    </div>
     <!-- 文章圖片 -->
     <!-- <div class="artical_img_wrap">
       <img v-if="updateRes !== ''" src="" ref="imgRef" class="artical_img" />

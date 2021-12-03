@@ -24,6 +24,7 @@ export const store = createStore<IrootState>({
     isShowScroll: false,
     isShowMAside: false,
     articalBasisStatus: true,
+    isShowUserMIcon: true,
     articalType: '',
     scrollTop: 0
   },
@@ -52,6 +53,9 @@ export const store = createStore<IrootState>({
     },
     setScrollTop(state, positionTop) {
       state.scrollTop = positionTop;
+    },
+    setShowUserMIcon(state, status) {
+      state.isShowUserMIcon = status;
     }
   },
   actions: {},

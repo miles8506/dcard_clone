@@ -1,9 +1,11 @@
 <template>
   <div class="comment_area">
-    <div class="user_img">
-      <user-man v-bind="userLayoutComment" />
+    <div class="comment_area_wrap">
+      <div class="user_img">
+        <user-man v-bind="userLayoutComment" />
+      </div>
+      <div class="comment_bar" @click="changeCommenShow">留言......</div>
     </div>
-    <div class="comment_bar" @click="changeCommenShow">留言......</div>
     <!-- <button class="like_icon">
       <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -11,7 +11,7 @@
     <div class="habit_artical_area">
       <h6 class="habit_artical_title">你可能感興趣的文章</h6>
       <div class="habit_artical_wrap">
-        <habit-item :habitArticalList="habitArticalList" />
+        <habit-item />
       </div>
     </div>
     <!-- all comment -->
@@ -56,14 +56,36 @@ const commentList = computed(
 
 // hot comment
 const hotList = computed(() => {
-  let otherList: any[] = [...store.state.commentArticalModule.elseUserComment];
-  const hotRes = otherList.sort((a, b) => b.likeTotal - a.likeTotal);
-  return hotRes.slice(0, 3);
+  // let otherList: any[] = [...store.state.commentArticalModule.elseUserComment];
+  // const hotRes = otherList.sort((a, b) => b.likeTotal - a.likeTotal);
+  // return hotRes.slice(0, 3);
+  let otherList: any[] = JSON.parse(
+    JSON.stringify(store.state.commentArticalModule.elseUserComment)
+  );
+  const hotRes = [];
+
+  if (otherList.length > 0) {
+    if (otherList.length < 3) {
+      for (let i = 0; i < otherList.length; i++) {
+        hotRes.push(otherList[i]);
+      }
+    } else {
+      for (let i = 0; i < 3; i++) {
+        const randomNum = Number(
+          (Math.random() * (otherList.length - 1)).toFixed(0)
+        );
+        hotRes.push(otherList[randomNum]);
+        otherList.splice(randomNum, 1);
+      }
+    }
+  }
+  return hotRes;
 });
 
 const commentLength = computed(
   () => store.state.commentArticalModule.elseUserComment.length
 );
+
 // 總共幾筆commentItem
 // const commentLength = commentItem.length;
 

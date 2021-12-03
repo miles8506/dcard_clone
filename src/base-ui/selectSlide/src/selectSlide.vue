@@ -43,7 +43,7 @@
         </li>
       </template>
       <li class="select_item" v-if="loginStatus && showLogin" @click="logout">
-        <div class="context" @click="logoutClick">
+        <div class="context">
           <span> 登出 </span>
         </div>
       </li>
@@ -101,15 +101,6 @@ localStorage.getItem('clone_dcard_user_info') !== ''
 
 // logout
 const logout = async () => {
-  // firebase
-  //   .auth()
-  //   .signOut()
-  //   .then(() => {
-  //     location.reload();
-  //   })
-  //   .catch((error) => {
-  //     throw new Error(error);
-  //   });
   try {
     const userAccount = localStorage.getItem('clone_dcard_user_info');
     await firebase.auth().signOut();
