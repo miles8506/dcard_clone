@@ -33,8 +33,8 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/main/publicArtical/publicArtical.vue')
   },
   {
-    path: '/userInfo',
-    name: 'userInfo',
+    path: '/my',
+    name: 'my',
     component: () => import('@/views/main/userInfo/userInfo.vue')
   }
 ];

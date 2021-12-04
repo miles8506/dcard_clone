@@ -282,7 +282,7 @@ const goLoginPage = () => {
 
 // mobile login
 const goLoginPageM = () => {
-  router.push('/userInfo');
+  router.push('/my');
 };
 
 // isshow searchwindow(mobile)
