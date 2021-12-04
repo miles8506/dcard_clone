@@ -28,9 +28,27 @@
     </div>
     <div class="sort_item_wrap">
       <ul>
-        <template v-for="item in boardList" :key="item">
-          <li class="sort_item" @click="chooseItem(item.boardName)">
+        <template v-for="(item, index) in boardList" :key="item">
+          <li class="sort_item" @click="chooseItem(item.boardName, index)">
             {{ item.boardName }}
+            <span
+              class="sort_sign"
+              v-show="index === selectIndex && item.boardName === currentItem"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                focusable="false"
+                width="24"
+                height="24"
+                role="img"
+                aria-hidden="true"
+                style="fill: rgb(51, 151, 207)"
+              >
+                <path
+                  d="M9 16.17L5.53 12.7a1 1 0 00-1.4 0h-.01a1 1 0 000 1.41L8.3 18.3a1 1 0 001.4 0L20.3 7.7a1 1 0 000-1.41 1 1 0 00-1.41 0z"
+                ></path>
+              </svg>
+            </span>
           </li>
         </template>
       </ul>
@@ -39,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue';
+import { ref, defineProps, withDefaults, defineEmits } from 'vue';
 import { useStore } from '@/store';
 
 // api
@@ -47,6 +65,13 @@ import { requestApi } from '@/service';
 
 const emits = defineEmits(['clickMaskBg', 'emitCurrentItem']);
 const store = useStore();
+withDefaults(
+  defineProps<{
+    selectIndex: number;
+    currentItem: string;
+  }>(),
+  {}
+);
 
 // model
 const searchModel = ref<string>('');
@@ -74,8 +99,8 @@ const searchKeyWord = () => {
 };
 
 // choose current item
-const chooseItem = (itemName: string) => {
-  emits('emitCurrentItem', itemName);
+const chooseItem = (itemName: string, index: number) => {
+  emits('emitCurrentItem', itemName, index);
   emits('clickMaskBg');
 };
 

@@ -3,7 +3,8 @@
     <div class="title">即時熱門看板</div>
     <ul class="im_list">
       <board-item :boardList="boardList" @emitBoardName="emitBoardName" />
-      <li class="im_item more_item">
+      <!-- 更多btn start -->
+      <!-- <li class="im_item more_item">
         更多<span class="right_icon" v-show="$store.state.isShowMAside">
           <svg
             viewBox="0 0 24 24"
@@ -19,7 +20,8 @@
             ></path>
           </svg>
         </span>
-      </li>
+      </li> -->
+      <!-- 更多btn end -->
     </ul>
   </div>
 </template>

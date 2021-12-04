@@ -60,6 +60,9 @@
     overflow-y: scroll;
     ul {
       .sort_item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         height: 44px;
         padding: 0 14px;
         line-height: 44px;
@@ -67,6 +70,13 @@
         font-weight: 300;
         color: rgba(0, 0, 0, 0.75);
         cursor: pointer;
+
+        .sort_sign {
+          display: flex;
+          align-items: center;
+          width: 24px;
+          height: 24px;
+        }
 
         &:hover {
           background-color: rgb(242, 243, 244);

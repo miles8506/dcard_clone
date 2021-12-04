@@ -6,8 +6,10 @@
       <scroll-y-bar ref="scrollYBarRef" />
     </div>
   </transition>
+  <!-- <comment-artical v-if="$store.state.commentArticalModule.isShowStatus" /> -->
+
   <d-header key="mainHeader"></d-header>
-  <m-aside v-show="$store.state.isShowMAside" />
+  <m-aside v-if="$store.state.isShowMAside" />
   <!-- <m-aside /> -->
   <div class="main">
     <d-aside></d-aside>
@@ -61,122 +63,13 @@ const getArticalTimeStamp = computed(
 watch(getArticalTimeStamp, () => {
   maskRef.value?.scroll(0, 0);
 });
-
-// const maskRef = ref<any>();
-// onMounted(() => {
-//   const mask = document.querySelector('.mask');
-//   mask.style.height = `${window.innerHeight}px`;
-//   console.log('ok');
-
-// });
-
-// 上傳圖片
-// const test = (e: any) => {
-//   const file = e.target.files[0]; // 獲取到上傳圖片file的整個對象
-//   const path = file.name; // 將file的名稱當成路徑
-//   const res = st.ref(`img/${path}`); // 這裡的ref是你要存放的路徑
-//   res.put(file); //最後將存放的路徑夾帶著file對象put到storage中
-// };
-
-// // 下載圖片
-// const imgFoo = ref(); // 1.獲取img的ref
-// const clickbtn = () => {
-//   const fileRef = st.ref( // 2.獲取到圖片路徑
-//     `img/17834017_1701223456556270_2154160913691048631_o.jpg`
-//   );
-//   fileRef.getDownloadURL().then((res) => { //3. 獲取到圖片路徑後去storage中找出該路徑的url，並將res賦予到img.src上
-//     imgFoo.value.src = res;
-//   });
-// };
-
-// 刪除圖片
-// const clickbtn = () => {
-//   const filePath = st.ref('img/截圖 2021-03-09 上午9.22.02.png'); // 1.獲取圖片路徑
-//   filePath
-//     .delete() // 獲取圖片路徑後調用刪除function，並回傳promise
-//     .then((res) => {
-//       console.log(res);
-//       console.log('刪除成功');
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       console.log('刪除失敗');
-//     });
-// };
-
-// change current component
-// const navBarIndex = ref<number>(0);
-// const navBarCpnName: any = [];
-// itemNameArr.forEach((item: InavBarType) => {
-//   navBarCpnName.push(item.cpnName);
-// });
-// const currentShowCpn = shallowRef<defineComponent>(navBarCpnName[0]);
-// const navbarIndex = (index: number) => {
-//   currentShowCpn.value = navBarCpnName[index];
-//   navBarIndex.value = index;
-// };
-
-// // search recode
-// const recodeRes = computed(() => store.state.mSearchWindowModule.searchSortArr);
-
-// // receive data emit & props data
-// const dataList = ref([]);
-// const boardList = ref([]);
-// const emitCpnsData = (dataListRes: any, boardListRes?: any) => {
-//   dataList.value = dataListRes;
-//   boardList.value = boardListRes;
-// };
-// watch(
-//   () => dataList.value,
-//   () => {
-//     if (dataList.value.length === 0) {
-//       store.commit('mSearchWindowModule/setJudgeListLen', false);
-//     } else {
-//       store.commit('mSearchWindowModule/setJudgeListLen', true);
-//     }
-//   }
-// );
-
-// emit select item
-// const selectItems = ref<any>({});
-// const issueCurrentIndex = ref(0);
-// const timerCurrentIndex = ref(0);
-// const emitNewIssue = ({ items, itemsName }) => {
-//   // selectItems.value = [...items];
-//   selectItems.value.selectItems = items;
-//   selectItems.value.itemsName = itemsName;
-// };
-// const emitTimer = ({ items, itemsName }) => {
-//   selectItems.value.selectItems = items;
-//   selectItems.value.itemsName = itemsName;
-// };
-// const emitCurrentIndex = ({ index, selectName }) => {
-//   selectName === 'newIssue'
-//     ? (issueCurrentIndex.value = index)
-//     : (timerCurrentIndex.value = index);
-// };
-
-// 獲取一個collection
-// const ref = db.collection('artical');
-// ref
-//   .get()
-//   .then((doc: any) => {
-//     doc.docs.forEach((item: any) => {
-//       console.log(item.data());
-//     });
-//     // console.log(doc.docs);
-//   })
-//   .catch((err: any) => {
-//     console.log(err);
-//   });
-// const res = await requestColApi('artical');
 </script>
 
 <style lang="less" scoped>
 .main {
   display: flex;
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 48px auto 0;
 
   .d_aside {
     width: 208px;
@@ -203,11 +96,14 @@ watch(getArticalTimeStamp, () => {
 // mask
 .mask {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
+  // height: 100%;
   height: 100vh;
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.5);
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
 .qrcode_window-enter-active,

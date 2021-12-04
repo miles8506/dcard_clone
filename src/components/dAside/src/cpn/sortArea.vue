@@ -5,7 +5,11 @@
         v-for="item in $store.state.asideModule.asideItem"
         :key="item.sortName"
       >
-        <li class="sort_item" @click="clickSort(item.sortName)">
+        <li
+          class="sort_item"
+          :class="{ allowPointer: item.sortName === '所有看板' }"
+          @click="clickSort(item.sortName)"
+        >
           <span class="svn_box">
             <svg
               viewBox="0 0 24 24"

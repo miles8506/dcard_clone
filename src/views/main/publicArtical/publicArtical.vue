@@ -7,6 +7,8 @@
       <transition name="show_sort_select">
         <choose-sort-select
           v-if="isShowSortStatus"
+          :selectIndex="selectIndex"
+          :currentItem="currentItem"
           @clickMaskBg="clickMaskBg"
           @emitCurrentItem="emitCurrentItem"
         />
@@ -261,8 +263,11 @@ watch(computedCurrentItem, (itemName: string) => {
 });
 
 // emit current item for change currentitem
-const emitCurrentItem = (itemName: string) => {
+// choose select index
+const selectIndex = ref<number>(0);
+const emitCurrentItem = (itemName: string, number: number) => {
   currentItem.value = itemName;
+  selectIndex.value = number;
 };
 </script>
 
