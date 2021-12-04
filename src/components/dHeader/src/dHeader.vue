@@ -292,11 +292,13 @@ const showMSearchWindow = () => {
 
 // return home page
 const goHome = () => {
-  if (route.path !== '/main') {
-    router.push('/main');
-  } else {
-    location.reload();
-  }
+  router.push('/');
+  // if (route.path !== '/main') {
+  //   router.push('/main');
+  //   // location.reload();
+  // } else {
+  //   location.reload();
+  // }
 };
 
 // isshow maside

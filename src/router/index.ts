@@ -70,4 +70,10 @@ router.beforeEach((to) => {
   }
 });
 
+// router.afterEach((to) => {
+//   // console.log(to.path);
+//   // console.log(from.path);
+//   if (to.path === '/') location.reload();
+// });
+
 export default router;

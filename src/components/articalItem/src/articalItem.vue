@@ -1,5 +1,8 @@
 <template>
-  <template v-for="item in articalListConfig" :key="item.timer">
+  <template
+    v-for="(item, index) in articalListConfig"
+    :key="item.timer + index"
+  >
     <div class="artical_item" @click="showArtical(item)">
       <div class="header_item">
         <span class="user_img">

@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted, computed, watch, onUnmounted } from 'vue';
 import { useStore } from '@/store';
 // component
 import ArticalHeader from './cpns/articalHeader.vue';
@@ -95,6 +95,12 @@ watch(getComment, (newData) => {
     (item) => item.timeStamp === commentTimeStamp
   )[0];
   computeStatus === 'add' ? commentRes.likeTotal++ : commentRes.likeTotal--;
+});
+
+// 前往其他router前先關閉artical window
+onUnmounted(() => {
+  if (store.state.commentArticalModule.isShowStatus)
+    store.commit('commentArticalModule/setIsshowState', false);
 });
 </script>
 

@@ -70,6 +70,9 @@ const commentArticalModule: Module<IcommentAtical, IrootState> = {
     },
     getLikeComment(state) {
       return state.likeComment;
+    },
+    getArticalTimeStamp(state) {
+      return state.articalTimeStamp;
     }
   }
 };

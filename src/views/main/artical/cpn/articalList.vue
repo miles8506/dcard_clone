@@ -21,8 +21,12 @@ import { localStorage } from '@/utils';
 const store = useStore();
 
 // get artical data
-const articalListConfig = ref([]);
+let articalListConfig = ref([]);
 async function getArticalFn() {
+  // init
+  articalListConfig.value = [];
+
+  // get data
   const articalBasis = localStorage.getItem('artical_basis');
   const articalType = localStorage.getItem('artical_type');
   const articalListResult: any = await requestColApi('artical');
@@ -43,7 +47,6 @@ async function getArticalFn() {
       (a: any, b: any) => b.commentTotal - a.commentTotal
     );
   } else if (articalBasis === '最新') {
-    console.log('new');
     articalListConfig.value = articalListConfig.value.sort(
       (a: any, b: any) => b.timerStamp - a.timerStamp
     );
@@ -55,9 +58,16 @@ getArticalFn();
 const getterIsShowStatus = computed(
   () => store.getters['commentArticalModule/getIsShowStatus']
 );
-watch(getterIsShowStatus, () => {
-  articalListConfig.value = [];
-  getArticalFn();
+watch(getterIsShowStatus, (flag) => {
+  // close artical window to init datalist
+  if (!flag) {
+    articalListConfig.value = [];
+    getArticalFn();
+  }
+
+  //
+  // articalListConfig.value = [];
+  // getArticalFn();
 });
 
 // callback change artical Basis

@@ -6,7 +6,7 @@
       <scroll-y-bar ref="scrollYBarRef" />
     </div>
   </transition>
-  <d-header key="mainHeader" ref="dHeaderRef"></d-header>
+  <d-header key="mainHeader"></d-header>
   <m-aside v-show="$store.state.isShowMAside" />
   <!-- <m-aside /> -->
   <div class="main">
@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useStore } from '@/store';
 
 // components
@@ -35,7 +35,11 @@ import { localStorage } from '@/utils';
 
 const store = useStore();
 const userInfo = localStorage.getItem('clone_dcard_user_info');
-const dHeaderRef = ref<any>();
+const maskRef = ref<HTMLLIElement>();
+
+// init scroll
+const body = document.body;
+body.style.overflowY = 'scroll';
 
 // debounce 控制user_m icon 是否show的狀態(for window resizing)
 let resizeFlag: any = null;
@@ -48,7 +52,14 @@ window.addEventListener('resize', () => {
       store.commit('setShowUserMIcon', true);
     }
   }, 500);
-  // console.log(dHeaderRef.value.userIconStatus);
+});
+
+// 每次點擊文章後確認 y = 0
+const getArticalTimeStamp = computed(
+  () => store.getters['commentArticalModule/getArticalTimeStamp']
+);
+watch(getArticalTimeStamp, () => {
+  maskRef.value?.scroll(0, 0);
 });
 
 // const maskRef = ref<any>();

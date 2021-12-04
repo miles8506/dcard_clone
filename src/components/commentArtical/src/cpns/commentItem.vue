@@ -65,6 +65,7 @@ import { localStorage } from '@/utils';
 // import type { IcommentItem } from '../type/type';
 const store = useStore();
 const router = useRouter();
+const userInfo = localStorage.getItem('clone_dcard_user_info');
 withDefaults(
   defineProps<{
     commentItem: any;
@@ -119,8 +120,9 @@ const clickLikeComment = (timeStamp: number) => {
 };
 
 const haveLikeComment = computed(() => {
+  const userInfo = localStorage.getItem('clone_dcard_user_info');
   return function (timeStamp: number) {
-    const userInfo = localStorage.getItem('clone_dcard_user_info');
+    if (userInfo === '' || userInfo === null) return 'rgba(0, 0, 0, 0.2)';
     const status = userInfo.likeComment.some((item) => item === timeStamp);
     if (status) {
       return 'rgb(234, 92, 92)';
