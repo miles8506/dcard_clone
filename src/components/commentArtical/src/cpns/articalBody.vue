@@ -57,6 +57,7 @@
 <script setup lang="ts">
 import { defineProps, withDefaults, defineEmits, computed } from 'vue';
 import { useStore } from '@/store';
+import { useRouter } from 'vue-router';
 
 // utils
 import { timeAgoFn, localStorage } from '@/utils';
@@ -64,10 +65,12 @@ import { timeAgoFn, localStorage } from '@/utils';
 // api
 import { requestApi, setQueryApi } from '@/service';
 
+// firebase
+import { firebase } from '@/service';
+
 const store = useStore();
-
+const router = useRouter();
 const emits = defineEmits(['emitTagTotal']);
-
 // props
 withDefaults(
   defineProps<{
@@ -87,34 +90,36 @@ const timeAgo = computed(() => {
 
 // click like artical icon
 let controlStatus = true;
-const clickLikeArtical = async () => {
+const clickLikeArtical = () => {
   if (!controlStatus) return;
-  controlStatus = !controlStatus;
+  firebase.auth().onAuthStateChanged(async (user: any) => {
+    if (!user?.email) return router.push('/login');
+    controlStatus = !controlStatus;
+    const articalTimeStamp = store.state.commentArticalModule.articalTimeStamp;
+    const findArticalIndex: number = userInfo.likeArtical.findIndex(
+      (item: any) => item === articalTimeStamp
+    );
 
-  const articalTimeStamp = store.state.commentArticalModule.articalTimeStamp;
-  const findArticalIndex: number = userInfo.likeArtical.findIndex(
-    (item: any) => item === articalTimeStamp
-  );
-
-  const articalRes: any = await requestApi('artical', articalTimeStamp + '');
-  const userRes: any = await requestApi('user', userInfo.account);
-  if (findArticalIndex === -1) {
-    articalRes.tagTotal++;
-    userRes.likeArtical.push(articalTimeStamp);
-    emits('emitTagTotal', true);
-    userInfo.likeArtical.push(articalTimeStamp);
-    store.commit('userInfoModule/addLikeArtical', articalTimeStamp);
-  } else {
-    articalRes.tagTotal--;
-    userRes.likeArtical.splice(findArticalIndex, 1);
-    emits('emitTagTotal', false);
-    userInfo.likeArtical.splice(findArticalIndex, 1);
-    store.commit('userInfoModule/subLikeArtical', findArticalIndex);
-  }
-  localStorage.setItem('clone_dcard_user_info', userInfo);
-  setQueryApi('user', userInfo.account, userRes);
-  setQueryApi('artical', articalTimeStamp + '', articalRes);
-  controlStatus = !controlStatus;
+    const articalRes: any = await requestApi('artical', articalTimeStamp + '');
+    const userRes: any = await requestApi('user', userInfo.account);
+    if (findArticalIndex === -1) {
+      articalRes.tagTotal++;
+      userRes.likeArtical.push(articalTimeStamp);
+      emits('emitTagTotal', true);
+      userInfo.likeArtical.push(articalTimeStamp);
+      store.commit('userInfoModule/addLikeArtical', articalTimeStamp);
+    } else {
+      articalRes.tagTotal--;
+      userRes.likeArtical.splice(findArticalIndex, 1);
+      emits('emitTagTotal', false);
+      userInfo.likeArtical.splice(findArticalIndex, 1);
+      store.commit('userInfoModule/subLikeArtical', findArticalIndex);
+    }
+    localStorage.setItem('clone_dcard_user_info', userInfo);
+    setQueryApi('user', userInfo.account, userRes);
+    setQueryApi('artical', articalTimeStamp + '', articalRes);
+    controlStatus = !controlStatus;
+  });
 };
 
 const articalIconStatus = computed(() => {

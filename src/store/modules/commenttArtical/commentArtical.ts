@@ -11,7 +11,12 @@ const commentArticalModule: Module<IcommentAtical, IrootState> = {
       issueCurrentName: '最新發佈',
       itmerCurrentName: '不限時間',
       articalTimeStamp: 0,
-      elseUserComment: []
+      elseUserComment: [],
+      likeComment: {
+        status: false,
+        timeStamp: 0,
+        compute: ''
+      }
     };
   },
   mutations: {
@@ -43,6 +48,14 @@ const commentArticalModule: Module<IcommentAtical, IrootState> = {
     // add comment push to elseUserComment array
     pushOtherComment(state, commentItem) {
       state.elseUserComment.push(commentItem);
+    },
+    setLikeComment(state, payload) {
+      const flag = !state.likeComment.status;
+      state.likeComment = {
+        status: flag,
+        timeStamp: payload.timeStamp,
+        compute: payload.computeStatus
+      };
     }
   },
   getters: {
@@ -54,8 +67,13 @@ const commentArticalModule: Module<IcommentAtical, IrootState> = {
     },
     getTimerCurrentName(state) {
       return state.itmerCurrentName;
+    },
+    getLikeComment(state) {
+      return state.likeComment;
     }
   }
 };
 
 export { commentArticalModule };
+
+// rgb(234, 92, 92)

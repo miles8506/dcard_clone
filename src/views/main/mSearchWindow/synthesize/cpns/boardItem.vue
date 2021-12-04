@@ -3,6 +3,7 @@
     class="board_item"
     v-for="(item, index) in boardListConfig"
     :key="`${item.boardName}${index}`"
+    @click="changeIndex"
   >
     <div class="board_hd" :style="{ backgroundImage: `url(${item.bgcSrc})` }">
       <div class="board_img_wrap">
@@ -19,17 +20,22 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults, defineProps } from 'vue';
+import { withDefaults, defineProps, defineEmits } from 'vue';
 
 // type
 import type { IboardItemType } from '../type/type';
 
+const emits = defineEmits(['changeIndexCpn']);
 withDefaults(
   defineProps<{
     boardListConfig: IboardItemType[];
   }>(),
   {}
 );
+
+const changeIndex = () => {
+  emits('changeIndexCpn');
+};
 </script>
 
 <style lang="less" scoped>

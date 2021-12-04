@@ -27,7 +27,10 @@
       <h5 class="board_title">看板</h5>
       <div class="board_body_wrap">
         <div class="banner_wrap">
-          <board-item :boardListConfig="boardList" />
+          <board-item
+            :boardListConfig="boardList"
+            @changeIndexCpn="changeIndexCpn"
+          />
         </div>
       </div>
     </div>
@@ -38,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults, defineProps } from 'vue';
+import { withDefaults, defineProps, defineEmits } from 'vue';
 import { useStore } from '@/store';
 
 // component
@@ -61,8 +64,7 @@ withDefaults(
     boardList: () => []
   }
 );
-
-// store
+const emits = defineEmits(['changeIndexCpn']);
 const store = useStore();
 
 // control search recode show
@@ -76,6 +78,10 @@ if (
 const clearSearchRecode = () => {
   localStorage.setItem('synthesizeRecode', []);
   store.commit('mSearchWindowModule/resetSearchSort', []);
+};
+
+const changeIndexCpn = () => {
+  emits('changeIndexCpn');
 };
 </script>
 

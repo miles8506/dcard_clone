@@ -85,7 +85,6 @@ export function useStore(): Store<margeVuexState> {
 
 export function setupFns() {
   // 刷新頁面時驗證使用者登入的狀態
-
   firebase.auth().onAuthStateChanged(function (user: any) {
     // 判斷user為login status，但並無將userinfo保存至local時執行
     if (user?.email) {

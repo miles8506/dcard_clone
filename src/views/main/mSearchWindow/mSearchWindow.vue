@@ -32,6 +32,7 @@
           @emitNewIssue="emitNewIssue"
           @emitTimer="emitTimer"
           @emitSelectIndex="emitSelectIndex"
+          @changeIndexCpn="changeIndexCpn"
         ></component>
       </div>
     </div>
@@ -115,6 +116,13 @@ const currentShowCpn = shallowRef<defineComponent>(navBarCpnName[0]);
 const navbarIndex = (index: number) => {
   currentShowCpn.value = navBarCpnName[index];
   navBarIndex.value = index;
+};
+
+// emit change current component
+const changeIndexCpn = () => {
+  currentShowCpn.value = navBarCpnName[2];
+  navBarIndex.value = 2;
+  navBarRef.value.currentIndex = 2;
 };
 
 // search recode

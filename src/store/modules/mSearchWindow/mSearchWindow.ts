@@ -49,12 +49,12 @@ const mSearchWindowModule: Module<IMsearchWindow, IrootState> = {
     // setScreenWidthStatus(state, flag) {
     //   state.screenWidthStatus = flag;
     // }
-  },
-  getters: {
-    getSearchIconModel(state) {
-      return state.searchIconModel;
-    }
   }
+  // getters: {
+  //   getSearchIconModel(state) {
+  //     return state.searchIconModel;
+  //   }
+  // }
 };
 
 export { mSearchWindowModule };

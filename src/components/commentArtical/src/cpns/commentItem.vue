@@ -17,8 +17,12 @@
         <span class="hour_ago"> {{ timeAgoFn(item.timeStamp) }}</span>
       </div>
     </div>
-    <!-- <div class="like_total_wrap">
-      <div class="like_svg">
+    <div class="like_total_wrap">
+      <div
+        class="like_svg"
+        @click="clickLikeComment(item.timeStamp, index)"
+        :style="{ fill: haveLikeComment(item.timeStamp) }"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -33,12 +37,14 @@
         </svg>
       </div>
       <div class="like_total">{{ item.likeTotal }}</div>
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
+import { defineProps, withDefaults, computed } from 'vue';
+import { useStore } from '@/store';
+import { useRouter } from 'vue-router';
 
 // component
 import { userMan, userWoman } from '@/components/userImg';
@@ -46,8 +52,19 @@ import { userMan, userWoman } from '@/components/userImg';
 // utils
 import { timeAgoFn } from '@/utils';
 
+// firebase
+import { firebase } from '@/service';
+
+// api
+import { requestApi, setQueryApi } from '@/service';
+
+// utils
+import { localStorage } from '@/utils';
+
 //type
 // import type { IcommentItem } from '../type/type';
+const store = useStore();
+const router = useRouter();
 withDefaults(
   defineProps<{
     commentItem: any;
@@ -58,6 +75,60 @@ withDefaults(
     commentItem: {}
   }
 );
+
+const clickLikeComment = (timeStamp: number) => {
+  const userInfo = localStorage.getItem('clone_dcard_user_info');
+  // verify user status
+  firebase.auth().onAuthStateChanged(async (user: any) => {
+    if (!user?.email) return router.push('/login');
+    // artical time stamp
+    const articalTimeStamp = store.state.commentArticalModule.articalTimeStamp;
+    const articalData: any = await requestApi('artical', articalTimeStamp + '');
+    const userRes: any = await requestApi('user', userInfo.account);
+    const currentOtherComment = articalData.elseUserComment.filter(
+      (item: any) => item.timeStamp === timeStamp
+    )[0];
+
+    const isLikeIndex = userInfo.likeComment.findIndex(
+      (item: any) => item === currentOtherComment.timeStamp
+    );
+
+    // 判斷user是否點擊like comment
+    if (isLikeIndex !== -1) {
+      currentOtherComment.likeTotal--;
+      userInfo.likeComment.splice(isLikeIndex, 1);
+      userRes.likeComment = userInfo.likeComment;
+      localStorage.setItem('clone_dcard_user_info', userInfo);
+      store.commit('commentArticalModule/setLikeComment', {
+        timeStamp,
+        computeStatus: 'sub'
+      });
+    } else {
+      currentOtherComment.likeTotal++;
+      userInfo.likeComment.push(timeStamp);
+      userRes.likeComment = userInfo.likeComment;
+      localStorage.setItem('clone_dcard_user_info', userInfo);
+      store.commit('commentArticalModule/setLikeComment', {
+        timeStamp,
+        computeStatus: 'add'
+      });
+    }
+    await setQueryApi('artical', articalTimeStamp, articalData);
+    await setQueryApi('user', userRes.account, userRes);
+  });
+};
+
+const haveLikeComment = computed(() => {
+  return function (timeStamp: number) {
+    const userInfo = localStorage.getItem('clone_dcard_user_info');
+    const status = userInfo.likeComment.some((item) => item === timeStamp);
+    if (status) {
+      return 'rgb(234, 92, 92)';
+    } else {
+      return 'rgba(0, 0, 0, 0.2)';
+    }
+  };
+});
 </script>
 
 <style lang="less" scoped>

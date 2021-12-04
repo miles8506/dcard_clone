@@ -101,12 +101,8 @@ const clearIptValue = () => {
 
 // search input keyword
 const resourceSearch = () => {
-  if (
-    searchModel.value === '' ||
-    store.state.mSearchWindowModule.searchIptModel === searchModel.value
-  ) {
-    return;
-  }
+  if (searchModel.value === '') return;
+
   const res = localStorage.getItem('synthesizeRecode');
   const resIndex = res.findIndex((item) => item === searchModel.value);
 
@@ -156,8 +152,6 @@ const getSearchIcon = computed(
 watch(getSearchIcon, (newData) => {
   if (newData !== '') {
     searchModel.value = newData;
-    // store.commit('mSearchWindowModule/setSearchIptModel', newData);
-    // searchDataResult(props.navBarIndex, emits, store);
     resourceSearch();
     if (!isShowCancelIcon.value)
       isShowCancelIcon.value = !isShowCancelIcon.value;

@@ -1,23 +1,27 @@
 <template>
-  <div class="habit_item" v-for="(item, index) in habitAticalList" :key="index">
-    <div class="left_info">
-      <div class="habit_title">{{ item.title }}</div>
-      <div class="habit_info">
-        <span class="habit_sort">心情 {{ item.sort }} ． </span>
-        <span class="habit_response">回應 {{ item.commentTotal }}</span>
+  <template v-for="(item, index) in habitAticalList" :key="index">
+    <div class="habit_item" @click="clickHabitItem(item.timerStamp)">
+      <div class="left_info">
+        <div class="habit_title">{{ item.title }}</div>
+        <div class="habit_info">
+          <span class="habit_sort">心情 {{ item.sort }} ． </span>
+          <span class="habit_response">回應 {{ item.commentTotal }}</span>
+        </div>
+      </div>
+      <div class="right_img">
+        <template v-if="item.imgPath !== ''">
+          <img :src="item.imgPath" />
+        </template>
       </div>
     </div>
-    <div class="right_img">
-      <template v-if="item.imgPath !== ''">
-        <img :src="item.imgPath" />
-      </template>
-    </div>
-  </div>
+  </template>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, defineEmits } from 'vue';
 import { requestColApi } from '@/service';
+
+const emits = defineEmits(['emitTimeStamp']);
 
 // suggest random artical item
 const habitAticalList = ref<any[]>([]);
@@ -45,6 +49,10 @@ async function getArticalList() {
   });
 }
 getArticalList();
+
+const clickHabitItem = (timeStamp: number) => {
+  emits('emitTimeStamp', timeStamp);
+};
 </script>
 
 <style lang="less" scoped>

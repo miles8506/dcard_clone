@@ -11,7 +11,7 @@
     <div class="habit_artical_area">
       <h6 class="habit_artical_title">你可能感興趣的文章</h6>
       <div class="habit_artical_wrap">
-        <habit-item />
+        <habit-item @emitTimeStamp="emitTimeStamp" />
       </div>
     </div>
     <!-- all comment -->
@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, defineEmits } from 'vue';
 import { useStore } from '@/store';
 
 // component
@@ -39,15 +39,7 @@ import { userLayout } from '../../config/userIconType';
 import { articalListConfig } from '@/views/main/artical/config/listTestConfig';
 
 const store = useStore();
-
-// withDefaults(
-//   defineProps<{
-//     articalInfo: any;
-//   }>(),
-//   {
-//     articalInfo: {}
-//   }
-// );
+const emits = defineEmits(['emitTimeStamp']);
 
 // normal comment
 const commentList = computed(
@@ -56,29 +48,14 @@ const commentList = computed(
 
 // hot comment
 const hotList = computed(() => {
-  // let otherList: any[] = [...store.state.commentArticalModule.elseUserComment];
-  // const hotRes = otherList.sort((a, b) => b.likeTotal - a.likeTotal);
-  // return hotRes.slice(0, 3);
+  // deep copy
   let otherList: any[] = JSON.parse(
     JSON.stringify(store.state.commentArticalModule.elseUserComment)
   );
-  const hotRes = [];
-
-  if (otherList.length > 0) {
-    if (otherList.length < 3) {
-      for (let i = 0; i < otherList.length; i++) {
-        hotRes.push(otherList[i]);
-      }
-    } else {
-      for (let i = 0; i < 3; i++) {
-        const randomNum = Number(
-          (Math.random() * (otherList.length - 1)).toFixed(0)
-        );
-        hotRes.push(otherList[randomNum]);
-        otherList.splice(randomNum, 1);
-      }
-    }
-  }
+  let hotRes = [];
+  if (otherList.length > 0)
+    // sort
+    hotRes = otherList.sort((a, b) => b.likeTotal - a.likeTotal);
   return hotRes;
 });
 
@@ -86,16 +63,10 @@ const commentLength = computed(
   () => store.state.commentArticalModule.elseUserComment.length
 );
 
-// 總共幾筆commentItem
-// const commentLength = commentItem.length;
-
-// filter hot comment (top3)
-// const filterHotComment = commentItem
-//   .sort((a: any, b: any) => b.likeTol - a.likeTol)
-//   .slice(0, 3);
-
-// habit artical
-const habitArticalList = articalListConfig.slice(0, 8);
+// emit habit artical timestamp (from habitItem cpn)
+const emitTimeStamp = (timeStamp: number) => {
+  emits('emitTimeStamp', timeStamp);
+};
 </script>
 
 <style lang="less" scoped>

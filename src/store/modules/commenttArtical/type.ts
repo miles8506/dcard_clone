@@ -12,6 +12,12 @@ interface ImainArtical {
   elseUserComment: any[];
 }
 
+interface IlikeComment {
+  status: boolean;
+  timeStamp: number;
+  compute: string;
+}
+
 interface IcommentAtical {
   isShowStatus: boolean;
   // mainArtical: ImainArtical;
@@ -20,6 +26,7 @@ interface IcommentAtical {
   itmerCurrentName: string;
   articalTimeStamp: number;
   elseUserComment: any[];
+  likeComment: IlikeComment;
 }
 
 export { IcommentAtical };

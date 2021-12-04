@@ -2,14 +2,14 @@
   <div class="comment_artical" ref="commentArticalRef">
     <artical-header :articalInfo="filterArtical" />
     <artical-body :articalInfo="filterArtical" @emitTagTotal="emitTagTotal" />
-    <artical-comment />
+    <artical-comment @emitTimeStamp="emitTimeStamp" />
     <comment-area @emitCommentShow="emitCommentShow" v-if="isShowComment" />
     <comment-text v-else @emitCommentShow="emitCommentShow" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import { useStore } from '@/store';
 // component
 import ArticalHeader from './cpns/articalHeader.vue';
@@ -57,9 +57,9 @@ onMounted(() => {
 });
 
 // get current artical data
-const currentArticalStamp = store.state.commentArticalModule.articalTimeStamp;
 const filterArtical = ref();
 async function getArticalFn() {
+  const currentArticalStamp = store.state.commentArticalModule.articalTimeStamp;
   const res: any = await requestColApi('artical');
   const resFilter = res.filter(
     (item: any) => item.data().timerStamp === currentArticalStamp
@@ -70,12 +70,32 @@ async function getArticalFn() {
     filterArtical.value.elseUserComment
   );
 }
+getArticalFn();
 
 // emit for commentBody
 const emitTagTotal = (flag: boolean) => {
   flag ? filterArtical.value.tagTotal++ : filterArtical.value.tagTotal--;
 };
-getArticalFn();
+
+// emit habit artical timestamp (from articalcomment cpn)
+const emitTimeStamp = (timeStamp: number) => {
+  store.commit('commentArticalModule/setTimeStamp', timeStamp);
+  filterArtical.value = '';
+  getArticalFn();
+};
+
+// listen click like comment callback
+const getComment = computed(
+  () => store.getters['commentArticalModule/getLikeComment']
+);
+watch(getComment, (newData) => {
+  const commentTimeStamp: number = newData.timeStamp;
+  const computeStatus: string = newData.compute;
+  const commentRes = filterArtical.value.elseUserComment.filter(
+    (item) => item.timeStamp === commentTimeStamp
+  )[0];
+  computeStatus === 'add' ? commentRes.likeTotal++ : commentRes.likeTotal--;
+});
 </script>
 
 <style lang="less" scoped>
