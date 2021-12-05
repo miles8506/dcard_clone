@@ -2,8 +2,6 @@
 
 [作品連結](https://miles8506.github.io/dcard_clone/#/main).
 
-___
-
 ## Base Languages
 * HTML
 * CSS(less)
@@ -15,16 +13,23 @@ ___
 * Vue-CLI
 * Vue-Router
 * Vuex
-* dayjs
-* animate.css
+* Dayjs
+* Animate.css
 
 ## Dev Tool
 * ESLint
-* prettier
-* npm
+* Prettier
+* Npm
 
 ## BackEnd & Service
-* firebase
+* Firebase
+
+
+## Intro
+* 使用者登入
+  * google
+  * facebook
+  * normal
 
 
 
