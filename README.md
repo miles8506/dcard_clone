@@ -26,13 +26,31 @@
 
 
 ## Intro
-* 登入
+* login
   * google
   * facebook
   * normal
 ![image](https://github.com/miles8506/dcard_clone/blob/master/src/assets/readme/readme_login.png)
 
+* artical
+  * click like
+  * comment
+![image](https://github.com/miles8506/dcard_clone/blob/master/src/assets/readme/artical.png)
 
+* post
+  * context
+  * image
+![image](https://github.com/miles8506/dcard_clone/blob/master/src/assets/readme/public_artical.png)
+
+* search 
+  * synthesize
+  * artical
+  * board
+![image](https://github.com/miles8506/dcard_clone/blob/master/src/assets/readme/search_artical.png)
+
+* myInfo
+  * logout(mobile)
+![image](https://github.com/miles8506/dcard_clone/blob/master/src/assets/readme/myinfo.png)
 
 
 <!-- ## Project setup
