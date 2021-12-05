@@ -51,7 +51,7 @@
           <span class="or_box">或</span>
           <hr />
         </div>
-        <form>
+        <form class="form_wrpa">
           <div class="email_wrap">
             <div class="email_hd">
               <label for="email_ipt" class="email_text">常用信箱</label>
@@ -106,7 +106,9 @@
               </div>
             </div>
           </div>
-          <button class="submit_btn" @click="registerClick">註冊 / 登入</button>
+          <button class="submit_btn" @click="registerClick" type="button">
+            註冊 / 登入
+          </button>
         </form>
         <div class="alert_text">
           註冊/登入即代表您同意遵守
@@ -200,15 +202,18 @@ const registerClick = async (e: any) => {
             );
 
           // 將新註冊的user添加info
-          setQueryApi('user', registerRes?.user?.email, {
-            account: registerRes?.user?.email,
+          await setQueryApi('user', registerRes.user!.email, {
+            account: registerRes.user!.email,
             artical: [],
             comment: [],
             likeArtical: [],
             likeComment: []
           });
+          console.log('123');
 
           const updateUserList: any = await requestColApi('user');
+          console.log(updateUserList);
+
           const filterResult = updateUserList.filter(
             (item: any) => item.data().account === registerRes?.user?.email
           );

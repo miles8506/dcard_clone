@@ -48,7 +48,6 @@ const uploadFileClick = () => {
   uploadIptRef.value?.click();
 };
 const imgChange = (e: any) => {
-  console.log(e.target.files[0]);
   const file = e.target.files[0];
   if (!file) return;
   const path = file.name;

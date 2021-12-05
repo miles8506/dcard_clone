@@ -34,7 +34,15 @@ async function getArticalList() {
 
   const set = new Set();
   let timer = 0;
-  while (timer < 6) {
+  // let loopCount = 0;
+  // if (articalArr.length < 6) {
+  //   loopCount = articalArr.length;
+  // } else {
+  //   loopCount = 6;
+  // }
+  // console.log(loopCount);
+
+  while (timer < 4) {
     const randomNum = Number(
       (Math.random() * (articalArr.length - 1)).toFixed(0)
     );
