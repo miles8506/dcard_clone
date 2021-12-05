@@ -23,7 +23,7 @@ const router = useRouter();
 
 // 防呆
 firebase.auth().onAuthStateChanged(function (user) {
-  if (user?.email) return router.push('/main');
+  if (user?.email) return router.replace('/main');
 });
 </script>
 

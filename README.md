@@ -1,6 +1,35 @@
 # clone_dcard
 
-## Project setup
+[作品連結](https://miles8506.github.io/dcard_clone/#/main).
+
+___
+
+## Base Languages
+* HTML
+* CSS(less)
+* JavaScript
+* TypeScript
+
+## Front-End Framework & Libraries
+* Vue3 (SFC)
+* Vue-CLI
+* Vue-Router
+* Vuex
+* dayjs
+* animate.css
+
+## Dev Tool
+* ESLint
+* prettier
+* npm
+
+## BackEnd & Service
+* firebase
+
+
+
+
+<!-- ## Project setup
 
 ```
 npm install
@@ -26,4 +55,4 @@ npm run lint
 
 ### Customize configuration
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See [Configuration Reference](https://cli.vuejs.org/config/). -->

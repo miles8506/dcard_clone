@@ -143,7 +143,7 @@ if (
   localStorage.getItem('clone_dcard_user_info') === null ||
   localStorage.getItem('clone_dcard_user_info') === ''
 )
-  router.push('/login');
+  router.replace('/login');
 
 const isShowSortStatus = ref<boolean>(false);
 const isShowMaskStatus = ref<boolean>(false);
@@ -210,7 +210,7 @@ const emitImgPath = async ({ file, path }) => {
 };
 
 const emitCommentShow = () => {
-  router.push('/main');
+  router.replace('/main');
 };
 
 const submitContent = async () => {
@@ -236,13 +236,13 @@ const submitContent = async () => {
         fileRef.getDownloadURL().then(async (res) => {
           articalContent.value.imgPath = res;
           setQueryApi('artical', timeStampFn(nowTime), articalContent.value);
-          router.push('/main');
+          router.replace('/main');
         });
       }
     );
   } else {
     setQueryApi('artical', timeStampFn(nowTime), articalContent.value);
-    router.push('/main');
+    router.replace('/main');
   }
 };
 

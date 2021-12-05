@@ -89,7 +89,7 @@ let controlStatus = true;
 const clickLikeArtical = () => {
   if (!controlStatus) return;
   firebase.auth().onAuthStateChanged(async (user: any) => {
-    if (!user?.email) return router.push('/login');
+    if (!user?.email) return router.replace('/login');
     controlStatus = !controlStatus;
     const articalTimeStamp = store.state.commentArticalModule.articalTimeStamp;
     const findArticalIndex: number = userInfo.likeArtical.findIndex(

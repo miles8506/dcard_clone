@@ -38,7 +38,7 @@ const emits = defineEmits(['emitCommentShow']);
 const router = useRouter();
 const changeCommenShow = () => {
   const userInfo = localStorage.getItem('clone_dcard_user_info');
-  if (userInfo === '' || userInfo === null) return router.push('/login');
+  if (userInfo === '' || userInfo === null) return router.replace('/login');
   emits('emitCommentShow');
 };
 </script>

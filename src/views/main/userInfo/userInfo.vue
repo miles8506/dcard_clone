@@ -88,14 +88,14 @@ const logoutClick = async () => {
     await firebase.auth().signOut();
     await setQueryApi('user', userAccount.account, userAccount);
     localStorage.setItem('clone_dcard_user_info', '');
-    router.push('/main');
+    router.replace('/main');
   } catch (err: any) {
     throw new Error(err);
   }
 };
 
 const loginClick = () => {
-  router.push('/login');
+  router.replace('/login');
 };
 </script>
 

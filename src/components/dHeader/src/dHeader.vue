@@ -273,7 +273,7 @@ const showLargeQrcode = () => {
 const goLoginPage = () => {
   firebase.auth().onAuthStateChanged(function (user: any) {
     if (!user?.email) {
-      router.push('/login');
+      router.replace('/login');
     } else {
       location.reload();
     }
@@ -282,17 +282,17 @@ const goLoginPage = () => {
 
 // mobile login
 const goLoginPageM = () => {
-  router.push('/my');
+  router.replace('/my');
 };
 
 // isshow searchwindow(mobile)
 const showMSearchWindow = () => {
-  router.push('/search');
+  router.replace('/search');
 };
 
 // return home page
 const goHome = () => {
-  router.push('/');
+  router.replace('/main');
   // if (route.path !== '/main') {
   //   router.push('/main');
   //   // location.reload();
@@ -324,11 +324,11 @@ const isShowCancelBtn = () => {
 const searchDataClick = () => {
   if (searchIptModel.value === '') return;
   store.commit('mSearchWindowModule/setSearchValue', searchIptModel.value);
-  router.push('/search');
+  router.replace('/search');
 };
 
 const goPublicPage = () => {
-  router.push('/publicArtical');
+  router.replace('/publicArtical');
 };
 </script>
 

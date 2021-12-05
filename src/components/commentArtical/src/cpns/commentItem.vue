@@ -81,7 +81,7 @@ const clickLikeComment = (timeStamp: number) => {
   const userInfo = localStorage.getItem('clone_dcard_user_info');
   // verify user status
   firebase.auth().onAuthStateChanged(async (user: any) => {
-    if (!user?.email) return router.push('/login');
+    if (!user?.email) return router.replace('/login');
     // artical time stamp
     const articalTimeStamp = store.state.commentArticalModule.articalTimeStamp;
     const articalData: any = await requestApi('artical', articalTimeStamp + '');

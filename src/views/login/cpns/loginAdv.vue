@@ -24,7 +24,7 @@
 import { useRouter } from 'vue-router';
 const router = useRouter();
 const goMainPage = () => {
-  router.push('/');
+  router.replace('/');
 };
 </script>
 

@@ -57,7 +57,7 @@
               </div>
               <div class="total">{{ item.elseUserComment.length }}</div>
             </div>
-            <div class="collect">
+            <!-- <div class="collect">
               <div class="collect_img">
                 <svg
                   viewBox="0 0 24 24"
@@ -71,7 +71,7 @@
                 </svg>
               </div>
               <div class="text">收藏</div>
-            </div>
+            </div> -->
           </footer>
         </div>
         <div class="artical_img" v-if="item.imgPath !== ''">

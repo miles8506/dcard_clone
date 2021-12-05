@@ -48,7 +48,7 @@ const clickSort = (sortName: string) => {
   localStorage.setItem('artical_type', '所有看板');
   store.commit('setArticalType', sortName);
   emits('emitCloseMaside');
-  router.push('/main');
+  router.replace('/main');
 };
 </script>
 
