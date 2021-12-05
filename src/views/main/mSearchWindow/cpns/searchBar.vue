@@ -141,6 +141,8 @@ const initAll = () => {
     : '';
   // store.state.mSearchWindowModule.judgeListLen &&
   store.commit('mSearchWindowModule/setShowSerchSort', true);
+  store.commit('mSearchWindowModule/setSearchIconModel', '');
+  store.commit('mSearchWindowModule/setSearchIptModel', '');
   emits('emitCpnsData', [], [], true);
 };
 

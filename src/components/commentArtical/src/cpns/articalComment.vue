@@ -55,7 +55,7 @@ const hotList = computed(() => {
   let hotRes = [];
   if (otherList.length > 0)
     // sort
-    hotRes = otherList.sort((a, b) => b.likeTotal - a.likeTotal);
+    hotRes = otherList.sort((a, b) => b.likeTotal - a.likeTotal).slice(0, 3);
   return hotRes;
 });
 

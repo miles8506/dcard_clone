@@ -1,5 +1,5 @@
 <template>
-  <div class="artical_nav">
+  <nav class="artical_nav">
     <div class="nav_row">
       <div class="nav_item_wrap">
         <template v-for="(navItem, index) in articalNav" :key="navItem">
@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script setup lang="ts">

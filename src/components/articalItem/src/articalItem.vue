@@ -3,8 +3,8 @@
     v-for="(item, index) in articalListConfig"
     :key="item.timer + index"
   >
-    <div class="artical_item" @click="showArtical(item)">
-      <div class="header_item">
+    <article class="artical_item" @click="showArtical(item)">
+      <header class="header_item">
         <span class="user_img">
           <template v-if="item.gender === 0">
             <user-man v-bind="userLayout" />
@@ -15,14 +15,14 @@
         </span>
         <span class="artical_sort">{{ item.sort }}</span> ．
         <span class="artical_ago">{{ timeAgo(item.timerStamp) }}</span>
-      </div>
+      </header>
       <div class="artical_main">
         <div class="artical_wrap">
           <div class="body_item">
-            <h2 class="artical_title">{{ item.title }}</h2>
-            <div class="artical_content">{{ item.content }}</div>
+            <h5 class="artical_title">{{ item.title }}</h5>
+            <p class="artical_content">{{ item.content }}</p>
           </div>
-          <div class="footer_item">
+          <footer class="footer_item">
             <div class="aritcal_tag">
               <span class="tag_img">
                 <span class="wrap">
@@ -72,13 +72,13 @@
               </div>
               <div class="text">收藏</div>
             </div>
-          </div>
+          </footer>
         </div>
         <div class="artical_img" v-if="item.imgPath !== ''">
           <img :src="item.imgPath" />
         </div>
       </div>
-    </div>
+    </article>
   </template>
 </template>
 
@@ -96,7 +96,7 @@ import type { IarticalItemType } from '../type/type';
 import { timeAgoFn } from '@/utils';
 
 import { firebase } from '@/service';
-const st = firebase.storage();
+// const st = firebase.storage();
 
 // props
 withDefaults(

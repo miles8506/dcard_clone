@@ -1,6 +1,6 @@
 <template>
-  <div class="artical_body">
-    <h1 class="title">{{ articalInfo.title }}</h1>
+  <article class="artical_body">
+    <h5 class="title">{{ articalInfo.title }}</h5>
     <div class="artical_info">
       <span class="sort">{{ articalInfo.sort }}</span> ．{{ timeAgo }}
       <span class="date">{{ articalInfo.articalDate }}</span>
@@ -11,10 +11,6 @@
     <div class="img_wrap" v-if="articalInfo.imgPath !== ''">
       <img :src="articalInfo.imgPath" alt="" />
     </div>
-    <!-- 文章圖片 -->
-    <!-- <div class="artical_img_wrap">
-      <img v-if="updateRes !== ''" src="" ref="imgRef" class="artical_img" />
-    </div> -->
     <div class="aritcal_tag">
       <span class="tag_img">
         <span class="wrap">
@@ -51,7 +47,7 @@
         </svg>
       </button>
     </div>
-  </div>
+  </article>
 </template>
 
 <script setup lang="ts">
@@ -133,35 +129,6 @@ const articalIconStatus = computed(() => {
     return false;
   }
 });
-// const info = computed(() => ({
-//   title: store.state.commentArticalModule.mainArtical.title,
-//   sort: store.state.commentArticalModule.mainArtical.sort,
-//   articalDate: store.state.commentArticalModule.mainArtical.timer,
-//   content: store.state.commentArticalModule.mainArtical.content,
-//   tagTotal: store.state.commentArticalModule.mainArtical.tagTotal
-// }));
-
-// 上傳照片
-// let imgPath = '';
-// let imgFile: any = null;
-// const testclick = (e: any) => {
-//   imgPath = e.target.files[0].name;
-//   imgFile = e.target.files[0];
-// };
-// const clickbtn = () => {
-//   const res = firebase.storage().ref(`artical/${imgPath}`);
-//   res.put(imgFile);
-// };
-
-// download 照片
-// const imgRef = ref<HTMLImageElement>();
-// onMounted(async () => {
-//   const fileRef = firebase
-//     .storage()
-//     .ref('artical/17834017_1701223456556270_2154160913691048631_o.jpg');
-//   const downLoadRes = await fileRef.getDownloadURL();
-//   imgRef.value!.src = downLoadRes;
-// });
 </script>
 
 <style lang="less" scoped>

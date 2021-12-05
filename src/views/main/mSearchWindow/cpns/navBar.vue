@@ -1,17 +1,17 @@
 <template>
-  <div class="nav_bar">
-    <ul>
+  <nav class="nav_bar">
+    <div class="nav_wrap">
       <template v-for="(item, index) in itemNameArr" :key="index">
-        <li
+        <div
           class="nav_item"
           :class="{ current_border: currentIndex === index }"
           @click="clickItem(index)"
         >
           {{ item.name }}
-        </li>
+        </div>
       </template>
-    </ul>
-  </div>
+    </div>
+  </nav>
 </template>
 
 <script setup lang="ts">

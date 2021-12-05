@@ -1,8 +1,8 @@
 <template>
-  <div class="d_aside">
+  <aside class="d_aside">
     <sort-area />
     <immediately-area />
-  </div>
+  </aside>
 </template>
 
 <script setup lang="ts">

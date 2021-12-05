@@ -1,7 +1,7 @@
 <template>
   <div class="immediately_area">
     <div class="title">即時熱門看板</div>
-    <ul class="im_list">
+    <div class="im_list">
       <board-item :boardList="boardList" @emitBoardName="emitBoardName" />
       <!-- 更多btn start -->
       <!-- <li class="im_item more_item">
@@ -22,7 +22,7 @@
         </span>
       </li> -->
       <!-- 更多btn end -->
-    </ul>
+    </div>
   </div>
 </template>
 

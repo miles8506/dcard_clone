@@ -1,8 +1,8 @@
 <template>
   <div class="artical_list">
-    <div class="adv_wrap">
+    <article class="adv_wrap">
       <img src="@/assets/img/adv_img.png" alt="" />
-    </div>
+    </article>
     <artical-item :articalListConfig="articalListConfig" />
   </div>
 </template>

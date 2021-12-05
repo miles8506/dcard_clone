@@ -1,14 +1,14 @@
 <template>
-  <li
-    v-for="item in boardList"
+  <div
+    v-for="(item, index) in boardList"
     class="bd_item"
     @click="chooseItem(item.boardName)"
-    :key="item.itemName"
+    :key="index"
     :style="{ padding: conrolLayout }"
   >
     <img :src="item.imgSrc" /> {{ item.boardName }}
     <slot name="track_icon" :itemName="item.boardName"></slot>
-  </li>
+  </div>
 </template>
 
 <script setup lang="ts">
