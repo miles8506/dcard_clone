@@ -26,10 +26,11 @@
 
 
 ## Intro
-* 使用者登入
+* 登入
   * google
   * facebook
   * normal
+![image](https://github.com/miles8506/dcard_clone/blob/master/src/assets/readme/readme_login.png)
 
 
 
