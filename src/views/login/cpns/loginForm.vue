@@ -18,7 +18,11 @@
           </span>
           <span class="text">Facebook 註冊 / 登入</span>
         </button>
-        <button class="else_login_btn gg_btn" @click="googleLogin">
+        <button
+          class="else_login_btn gg_btn"
+          @click="googleLogin"
+          type="button"
+        >
           <span class="else_login_bgc gg_bgc">
             <svg
               viewBox="0 0 24 24"
@@ -246,12 +250,14 @@ const registerClick = async (e: any) => {
 };
 
 // google login
-const googleLogin = () => {
-  otherLoginFn('google');
+const googleLogin = async (e) => {
+  e.preventDefault();
+  await otherLoginFn('google');
 };
 
 // facebook login
-const loginFB = () => {
+const loginFB = (e) => {
+  e.preventDefault();
   otherLoginFn('facebook');
 };
 </script>

@@ -15,7 +15,7 @@ import { firebase } from '@/service';
 import { localStorage } from '@/utils';
 
 // api
-import { requestColApi } from '@/service';
+import { requestColApi, setQueryApi } from '@/service';
 
 export const store = createStore<IrootState>({
   state: {
@@ -89,31 +89,45 @@ export function setupFns() {
     // 判斷user為login status，但並無將userinfo保存至local時執行
     if (user?.email) {
       const userInfo = localStorage.getItem('clone_dcard_user_info');
-      if (userInfo === '' || userInfo === null) {
-        requestColApi('user').then((res: any) => {
-          const filterUser = res.filter(
-            (item: any) => item.data().account === user.email
-          );
-          localStorage.setItem('clone_dcard_user_info', filterUser[0].data());
-          location.reload();
-        });
-      } else {
-        // 將user likeArtical and likeComment save for vuex
-        requestColApi('user').then((res: any) => {
-          const filterUser = res.filter(
-            (item: any) => item.data().account === user.email
-          );
-          localStorage.setItem('clone_dcard_user_info', filterUser[0].data());
-          store.commit(
-            'userInfoModule/setLikeArtical',
-            filterUser[0].data().likeArtical
-          );
-          store.commit(
-            'userInfoModule/setLikeComment',
-            filterUser[0].data().likeComment
-          );
-        });
-      }
+      requestColApi('user').then((userList: any) => {
+        const userStatus: any = userList.some(
+          (item: any) => item.data().account === user?.email
+        );
+        if (!userStatus) {
+          setQueryApi('user', user?.email, {
+            account: user?.email,
+            artical: [],
+            comment: [],
+            likeArtical: [],
+            likeComment: []
+          });
+        }
+        if (userInfo === '' || userInfo === null) {
+          requestColApi('user').then((res: any) => {
+            const filterUser = res.filter(
+              (item: any) => item.data().account === user.email
+            );
+            localStorage.setItem('clone_dcard_user_info', filterUser[0].data());
+            location.reload();
+          });
+        } else {
+          // 將user likeArtical and likeComment save for vuex
+          requestColApi('user').then((res: any) => {
+            const filterUser = res.filter(
+              (item: any) => item.data().account === user.email
+            );
+            localStorage.setItem('clone_dcard_user_info', filterUser[0].data());
+            store.commit(
+              'userInfoModule/setLikeArtical',
+              filterUser[0].data().likeArtical
+            );
+            store.commit(
+              'userInfoModule/setLikeComment',
+              filterUser[0].data().likeComment
+            );
+          });
+        }
+      });
     }
   });
 
